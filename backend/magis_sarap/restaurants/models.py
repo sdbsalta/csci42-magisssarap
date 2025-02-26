@@ -21,6 +21,7 @@ class Restaurant(models.Model):
         blank=False,
         null=False
     )
+    
     # Added a resto owner field
     resto_owners = models.ManyToManyField(
         User,
@@ -37,6 +38,9 @@ class Restaurant(models.Model):
         null=False
     )
     cuisine_type = models.ManyToManyField(CuisineType)
+
+    def __str__(self):
+        return self.resto_name
 
     def operating_hours(self):
         return f"{self.opening_time.strftime('%I:%M %p')} - {self.closing_time.strftime('%I:%M %p')}" 
