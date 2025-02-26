@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import User
 
 # Create your models here.
 class CuisineType(models.Model):
@@ -20,6 +21,12 @@ class Restaurant(models.Model):
         blank=False,
         null=False
     )
+    # Added a resto owner field
+    resto_owners = models.ManyToManyField(
+        User,
+        limit_choices_to={"user_type": "Restaurant Owner"}
+    )
+
     # Changed Opening Hours to getting operating hours by asking for an opening time and closing time
     opening_time = models.TimeField(
         blank=False,
@@ -33,3 +40,14 @@ class Restaurant(models.Model):
 
     def operating_hours(self):
         return f"{self.opening_time.strftime('%I:%M %p')} - {self.closing_time.strftime('%I:%M %p')}" 
+
+class RestaurantOwner(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE
+    )
+    restaurant = models.ForeignKey(
+        Restaurant,
+        on_delete=models.CASCADE,
+        related_name="owners"
+    )
