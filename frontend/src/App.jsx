@@ -7,7 +7,7 @@ import './index.css'
 function App() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200">
-      <h1 className="text-4xl font-bold text-blue-500">is tailwind working huhu</h1>
+      <h1 className="text-4xl font-bold text-primary">is tailwind working huhu</h1>
     </div>
   );
 }

@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        red: {
+        primary: {
           10: "#f6d1d1",
           20: "#f0b2b3",
           30: "#e98c8d",
@@ -20,7 +20,7 @@ export default {
           90: "#460809",
           100: "#2a0505"
         },
-        yellow: {
+        secondary: {
           10: "#fff3ce",
           20: "#ffeaad",
           30: "#ffe084",
@@ -33,7 +33,7 @@ export default {
           90: "#554003",
           100: "#332702"
         },
-        cream: {
+        accent: {
           10: "#fffcf9",
           20: "#fffbf4",
           30: "#fff9ef",
