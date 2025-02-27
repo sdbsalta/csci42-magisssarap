@@ -62,7 +62,8 @@ export default {
         },
       },
       fontFamily: {
-        splineSansMono: ['"Spline Sans Mono"', 'serif']
+        poppins: ['Poppins', 'sans-serif'],
+        inter: ['Inter', 'sans-serif']
       },
       screens: {
         'xs': '320px',
