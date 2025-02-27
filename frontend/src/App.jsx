@@ -6,9 +6,13 @@ import './index.css'
 
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-200">
-      <h1 className="text-4xl font-bold text-primary">is tailwind working huhu</h1>
-    </div>
+     <Router>
+     <div className="font-poppins">
+       <Routes>
+         <Route path="/login" element={<Login />} />
+       </Routes>
+     </div>
+   </Router>
   );
 }
 
