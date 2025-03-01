@@ -71,5 +71,19 @@ export default {
     },
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: "#d2181b",
+          secondary:"#fec108",
+          accent: "#fff2df",
+          white: "#FEFEFE",
+          black: "#25273c",
+        },
+      },
+    ]
+  },
 }
+
 
