@@ -10,7 +10,7 @@ export const SearchResto = () => {
     return (
         <div className="flex justify-center items-center min-h-screen rounded-md bg-accent">
             <div className="flex flex-col justify-center items-center h-full w-2/3 gap-4 rounded-lg p-4">
-                {/* Top section with links and button */}
+                {/* Top section */}
                 <div className="flex justify-between w-full p-3 rounded-md">
                     <Link to="/restaurantlist">
                         <div className="flex items-center">
@@ -47,16 +47,11 @@ export const SearchResto = () => {
 
                 {/* Resto Details */}
                 <div className="w-full flex flex-col p-4 gap-2">
-                    {/* Resto Name */}
                     <h1 className="text-3xl font-bold text-gray-800">Restaurant Name</h1>
-
-                    {/* Location Row */}
                     <div className="flex items-center">
                         <img src={MapPinIcon} alt="Map Pin Icon" className="w-5 h-5 mr-2 text-gray-500" />
                         <span className="text-lg text-gray-700">Location</span>
                     </div>
-
-                    {/* Overview Paragraph */}
                     <p className="text-gray-600 text-justify">
                         This is a brief description of the restaurant, its specialties, and what makes it unique. Enjoy a variety of delicious meals prepared with the finest ingredients.
                     </p>
@@ -65,20 +60,15 @@ export const SearchResto = () => {
                 {/* Resto Reviews */}
                 <div className="w-full flex flex-col gap-4 p-2">
                     <div className="bg-white border border-black rounded-lg p-4">
-                        {/* First Row: Star Rating + Name + Time */}
                         <div className="flex justify-between items-center">
-                            {/* Star Rating */}
                             <div className="flex text-yellow-500">
                                 ⭐⭐⭐⭐⭐
                             </div>
-
-                            {/* Name (dot) Time */}
                             <div className="text-gray-800 font-semibold">
                                 Name <span className="text-gray-500">• 5 mins ago</span>
                             </div>
                         </div>
 
-                        {/* Second Row: Review Message */}
                         <p className="text-gray-700 mt-2">
                             The food here is absolutely amazing! The flavors are rich, and the staff is friendly. Highly recommend!
                         </p>
