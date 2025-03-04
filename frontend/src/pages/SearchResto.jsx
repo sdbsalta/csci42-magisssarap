@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import BackIcon from "../icons/back.svg";
 import SearchIcon from "../icons/search.svg";
 import MapPinIcon from "../icons/MapPin.svg";
-import Bacsilog from "../icons/bacsilog.png";
+import Bacsilog from "../img/bacsilog.png";
 
 export const SearchResto = () => {
     return (
