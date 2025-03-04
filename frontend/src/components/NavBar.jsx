@@ -39,7 +39,7 @@ const NavBar = () => {
             <img src={ShoppingBagIcon} alt="Shopping Bag" className="w-5 h-5" />
             <span>My Orders</span>
         </Link>
-        <Link to="/cart" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
+        <Link to="/cart-view" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
             <img src={CartIcon} alt="Cart" className="w-5 h-5" />
             <span>Cart</span>
         </Link>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login";
 import ContactFAQs from "./pages/ContactFAQs";
 import SearchResto from "./pages/SearchResto";
+import CartView from "./pages/CartView";
 import CampusMap from "./pages/CampusMap";
 import MyOrdersActive from "./pages/MyOrdersActive";
 import NavBar from "./components/NavBar";
@@ -21,12 +22,12 @@ function App() {
             <Route path="/restaurants" element={<SearchResto />} />
             <Route path="/campusmap" element={<CampusMap />} />
             <Route path="/myordersactive" element={<MyOrdersActive />} />
+            <Route path="/cart-view" element={<CartView />} />
           </Routes>
         </div>
       </div>
     </Router>
   );
 }
-
 
 export default App;
