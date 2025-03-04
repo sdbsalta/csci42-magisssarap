@@ -1,3 +1,4 @@
+{/* /frontend/pages/ContactFAQs.jsx */}
 import React from 'react'
 import FAQs from '../components/FAQs';
 

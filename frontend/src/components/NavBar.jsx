@@ -66,10 +66,10 @@ const NavBar = () => {
             <button className="btn bg-[#ffeaad] text-black border-0 flex-1 justify-start w-full text-left
               hover:bg-secondary hover:text-white">My Account</button>
             </Link>
-            <Link>
+            <Link to="/logout">
             <button className="btn bg-[#fffcf9] text-black flex-1 justify-start w-full text-left
               hover:bg-secondary hover:text-white">Log Out</button>
-             </Link>
+            </Link>
         </div>
       </nav>
     </div>
