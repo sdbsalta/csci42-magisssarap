@@ -56,7 +56,7 @@ const NavBar = () => {
             <button className="btn bg-[#ffe084] text-black border-0 flex-1 justify-start w-full text-left
               hover:bg-secondary hover:text-white">Login</button>
             </Link>
-            <Link to="/signup">
+            <Link to="/sign-up">
             <button className="btn bg-[#fffcf9] text-black flex-1 justify-start w-full text-left
               hover:bg-secondary hover:text-white">Sign Up</button>
             </Link>

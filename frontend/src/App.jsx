@@ -6,6 +6,7 @@ import SearchResto from "./pages/SearchResto";
 import CartView from "./pages/CartView";
 import CampusMap from "./pages/CampusMap";
 import MyOrdersActive from "./pages/MyOrdersActive";
+import Signup from "./pages/Signup";
 import NavBar from "./components/NavBar";
 import './App.css';
 import './index.css';
@@ -23,6 +24,7 @@ function App() {
             <Route path="/campusmap" element={<CampusMap />} />
             <Route path="/myordersactive" element={<MyOrdersActive />} />
             <Route path="/cart-view" element={<CartView />} />
+            <Route path ="sign-up" element={<Signup />} />
           </Routes>
         </div>
       </div>
