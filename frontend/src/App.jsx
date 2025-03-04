@@ -5,6 +5,7 @@ import ContactFAQs from "./pages/ContactFAQs";
 import SearchResto from "./pages/SearchResto";
 import CampusMap from "./pages/CampusMap";
 import MyOrdersActive from "./pages/MyOrdersActive";
+import MyOrdersPast from "./pages/MyOrdersPast";
 import NavBar from "./components/NavBar";
 import './App.css';
 import './index.css';
@@ -21,6 +22,7 @@ function App() {
             <Route path="/restaurants" element={<SearchResto />} />
             <Route path="/campusmap" element={<CampusMap />} />
             <Route path="/myordersactive" element={<MyOrdersActive />} />
+            <Route path="/myorderspast" element={<MyOrdersPast />} />
           </Routes>
         </div>
       </div>

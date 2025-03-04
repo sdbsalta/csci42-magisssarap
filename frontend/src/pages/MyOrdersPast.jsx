@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-export const MyOrdersActive = () => {
+export const MyOrdersPast = () => {
   return (
     <div className="flex flex-col items-center min-h-screen bg-accent-20 p-8 w-full">
         <div className="bg-accent p-8 px-6 rounded-md flex flex-col items-center w-full">
@@ -9,15 +9,15 @@ export const MyOrdersActive = () => {
             
             {/* Buttons Section */}
             <div className="flex flex-row gap-4 mt-6 w-full">
-                <Link to="/myorderspast" className="w-1/2">
-                    <button className="w-full bg-accent text-black border border-black px-6 py-3 rounded-md font-semibold hover:bg-primary hover:text-white">
-                        Past Order
-                    </button>
-                </Link>
-                
                 <button className="w-1/2 bg-primary text-white px-6 py-3 rounded-md font-semibold cursor-not-allowed" disabled>
+                    Past Order
+                </button>
+
+                <Link to="/myordersactive" className="w-1/2">
+                <button className="w-full bg-accent text-black border border-black px-6 py-3 rounded-md font-semibold hover:bg-primary hover:text-white">
                     Active Order
                 </button>
+                </Link>
             </div>
         </div>
 
@@ -66,4 +66,4 @@ export const MyOrdersActive = () => {
   )
 }
 
-export default MyOrdersActive;
+export default MyOrdersPast;
