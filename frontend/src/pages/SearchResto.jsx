@@ -11,7 +11,7 @@ export const SearchResto = () => {
         <div className="flex justify-center items-center min-h-screen rounded-md bg-accent-20">
             <div className="flex flex-col justify-center items-center h-full w-2/3 gap-4 rounded-lg p-4">
                 {/* Top section */}
-                <div className="flex justify-between w-full p-3 rounded-md">
+                <div className="flex justify-between w-full rounded-md">
                     <Link to="/restaurantlist">
                         <div className="flex items-center">
                             <img src={BackIcon} alt="Back Icon" className="w-14 h-14" />
