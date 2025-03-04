@@ -1,27 +1,31 @@
 from django.contrib import admin
-from .models import Order, OrderItem, Payment, Delivery, Review
+from .models import Order, Payment, Review
 
-@admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('order_id', 'customer', 'restaurant', 'status', 'created_at', 'updated_at')
-    list_filter = ('status', 'created_at')
-    search_fields = ('customer__name', 'restaurant__resto_name')
+    list_display = ['id', 'customer', 'status', 'total_price', 'date_created', 'time_completed']
+    list_filter = ['status', 'date_created']
+    
+    @admin.display(description='Created At')
+    def date_created(self, obj):
+        return obj.date_created
 
-@admin.register(OrderItem)
-class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ('order', 'food_item', 'quantity', 'price')
+    @admin.display(description='Updated At')
+    def updated_at(self, obj):
+        return obj.updated_at
 
-@admin.register(Payment)
+admin.site.register(Order, OrderAdmin)
+
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ('order', 'amount', 'payment_method', 'is_paid', 'created_at')
-    list_filter = ('is_paid', 'payment_method')
+    list_display = ['id', 'order', 'amount', 'payment_status', 'date_paid']
+    list_filter = ['payment_status']
 
-@admin.register(Delivery)
-class DeliveryAdmin(admin.ModelAdmin):
-    list_display = ('order', 'delivery_person', 'status', 'estimated_time', 'delivered_at')
-    list_filter = ('status',)
+    @admin.display(description='Is Paid')
+    def is_paid(self, obj):
+        return obj.is_paid
 
-@admin.register(Review)
+admin.site.register(Payment, PaymentAdmin)
+
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('order', 'customer', 'rating', 'created_at')
-    list_filter = ('rating',)
+   list_display = ['customer', 'restaurant', 'rating', 'comment', 'date_created']
+
+admin.site.register(Review, ReviewAdmin)

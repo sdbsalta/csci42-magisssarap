@@ -3,7 +3,7 @@ from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 import uuid
 
-User = get_user_model()
+User = get_user_model()  
 
 class Order(models.Model):
     ORDER_STATUS_CHOICES = [
@@ -68,7 +68,7 @@ class OrderItem(models.Model):
         related_name='order_items'
     )
     food_item = models.ForeignKey(
-        'restaurants.MenuItem',
+        'menu.FoodItem',
         on_delete=models.CASCADE
     )
     quantity = models.PositiveIntegerField()
@@ -146,3 +146,26 @@ class Review(models.Model):
     def __str__(self):
         return f"Review {self.review_id} - {self.customer}"
 
+class Delivery(models.Model):
+    order = models.OneToOneField(
+        Order, on_delete=models.CASCADE, 
+        related_name='delivery'
+    )
+    delivery_person = models.ForeignKey(
+        User, on_delete=models.SET_NULL, 
+        null=True, blank=True, 
+        related_name='deliveries'
+    )
+    status = models.CharField(
+        max_length=50, 
+        choices=[
+        ('Pending', 'Pending'),
+        ('Out for Delivery', 'Out for Delivery'),
+        ('Delivered', 'Delivered'),
+        ]
+    )
+    estimated_time = models.DateTimeField(null=True, blank=True)
+    delivered_at = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"Delivery for {self.order} - {self.status}"
