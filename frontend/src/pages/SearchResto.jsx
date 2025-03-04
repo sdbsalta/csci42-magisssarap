@@ -8,7 +8,7 @@ import Bacsilog from "../img/bacsilog.png";
 
 export const SearchResto = () => {
     return (
-        <div className="flex justify-center items-center min-h-screen rounded-md bg-accent">
+        <div className="flex justify-center items-center min-h-screen rounded-md bg-accent-20">
             <div className="flex flex-col justify-center items-center h-full w-2/3 gap-4 rounded-lg p-4">
                 {/* Top section */}
                 <div className="flex justify-between w-full p-3 rounded-md">
@@ -35,7 +35,7 @@ export const SearchResto = () => {
                     <input 
                         type="text" 
                         placeholder="Search..." 
-                        className="input input-bordered bg-accent text-black w-full border-black pl-10"
+                        className="input input-bordered bg-accent-20 text-black w-full border-black pl-10"
                     />
                 </div>
 

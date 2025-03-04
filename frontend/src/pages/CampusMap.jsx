@@ -1,11 +1,12 @@
+{/* /frontend/pages/CampusMap.jsx */}
 import React from 'react'
 import { Link } from "react-router-dom";
 import BackIcon from "../icons/back.svg";
 import CampusMapPic from "../img/campusmap.png";
 
-export default function CampusMap() {
+export const CampusMap = () => {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-accent p-4">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-accent-20 p-4">
         <h1 className="text-3xl font-bold text-black">Ateneo Map</h1>
         <div className="w-full flex justify-center p-4">
             <img src={CampusMapPic} alt="Campus Map" className="w-full h-auto rounded-lg" />
@@ -18,3 +19,5 @@ export default function CampusMap() {
     </div>
   )
 }
+
+export default CampusMap

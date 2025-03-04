@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import ContactFAQs from "./pages/ContactFAQs";
 import SearchResto from "./pages/SearchResto";
 import CampusMap from "./pages/CampusMap";
+import MyOrdersActive from "./pages/MyOrdersActive";
 import NavBar from "./components/NavBar";
 import './App.css';
 import './index.css';
@@ -19,6 +20,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/restaurants" element={<SearchResto />} />
             <Route path="/campusmap" element={<CampusMap />} />
+            <Route path="/myordersactive" element={<MyOrdersActive />} />
           </Routes>
         </div>
       </div>
