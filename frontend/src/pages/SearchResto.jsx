@@ -1,11 +1,12 @@
 {/* /frontend/pages/SearchResto.jsx */}
 import React from 'react'
 import { Link } from "react-router-dom";
+import Cart from "../components/Cart";
+import FoodItem from "../components/FoodItem";
 import BackIcon from "../icons/back.svg";
 import SearchIcon from "../icons/search.svg";
 import MapPinIcon from "../icons/MapPin.svg";
 import Bacsilog from "../img/bacsilog.png";
-import Cart from "../components/Cart";
 
 export const SearchResto = () => {
     return (
@@ -77,19 +78,31 @@ export const SearchResto = () => {
                 </div>
 
                 {/* Menu */}
-                <div className="w-full grid grid-cols-2 gap-4 p-2">
-                    <div className="bg-secondary text-white p-4 rounded-lg flex justify-center items-center">
-                        <span className="text-lg font-semibold">Menu</span>
-                    </div>
-                    <div className="bg-secondary text-white p-4 rounded-lg flex justify-center items-center">
-                        <span className="text-lg font-semibold">Menu</span>
-                    </div>
-                    <div className="bg-secondary text-white p-4 rounded-lg flex justify-center items-center">
-                        <span className="text-lg font-semibold">Menu</span>
-                    </div>
-                    <div className="bg-secondary text-white p-4 rounded-lg flex justify-center items-center">
-                        <span className="text-lg font-semibold">Menu</span>
-                    </div>
+                <div className="grid grid-cols-2 gap-3 w-self">
+                    <FoodItem 
+                        FoodName="Bacsilog"
+                        Price="₱99"
+                        Location="Gonzaga Cafeteria"
+                        Rating="4.5"
+                    />
+                    <FoodItem 
+                        FoodName="Bacsilog"
+                        Price="₱99"
+                        Location="Gonzaga Cafeteria"
+                        Rating="4.5"
+                    />
+                    <FoodItem 
+                        FoodName="Bacsilog"
+                        Price="₱99"
+                        Location="Gonzaga Cafeteria"
+                        Rating="4.5"
+                    />
+                    <FoodItem 
+                        FoodName="Bacsilog"
+                        Price="₱99"
+                        Location="Gonzaga Cafeteria"
+                        Rating="4.5"
+                    />    
                 </div>
 
                 {/* Reviews */}
