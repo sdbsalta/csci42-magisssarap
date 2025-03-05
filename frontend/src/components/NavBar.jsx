@@ -35,11 +35,11 @@ const NavBar = () => {
         </Link>
 
         {/* user */}
-        <Link to="/cart" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
+        <Link to="/myordersactive" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
             <img src={ShoppingBagIcon} alt="Shopping Bag" className="w-5 h-5" />
             <span>My Orders</span>
         </Link>
-        <Link to="/cart" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
+        <Link to="/cart-view" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
             <img src={CartIcon} alt="Cart" className="w-5 h-5" />
             <span>Cart</span>
         </Link>
@@ -56,7 +56,7 @@ const NavBar = () => {
             <button className="btn bg-[#ffe084] text-black border-0 flex-1 justify-start w-full text-left
               hover:bg-secondary hover:text-white">Login</button>
             </Link>
-            <Link to="/signup">
+            <Link to="/sign-up">
             <button className="btn bg-[#fffcf9] text-black flex-1 justify-start w-full text-left
               hover:bg-secondary hover:text-white">Sign Up</button>
             </Link>

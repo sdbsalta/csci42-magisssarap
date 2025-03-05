@@ -4,7 +4,7 @@ import React from 'react';
 
 export const Login = () => {
   return (
-    <div className="flex justify-center items-center h-screen rounded-md bg-accent">
+    <div className="flex justify-center items-center h-screen rounded-md bg-accent-20">
       <div className="bg-secondary p-8 rounded-md shadow-lg flex flex-col items-center w-fit">
             <h1 className="text-white">Login</h1>  
             <div className="w-96">
