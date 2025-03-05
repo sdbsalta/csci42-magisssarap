@@ -5,6 +5,7 @@ import BackIcon from "../icons/back.svg";
 import SearchIcon from "../icons/search.svg";
 import MapPinIcon from "../icons/MapPin.svg";
 import Bacsilog from "../img/bacsilog.png";
+import Cart from "../components/Cart";
 
 export const SearchResto = () => {
     return (
@@ -102,6 +103,7 @@ export const SearchResto = () => {
           
             {/* Cart Component */}
             <div className="flex flex-col justify-center items-center h-full w-1/3 rounded-lg p-4">
+                <Cart />
             </div>    
       </div>
     )
