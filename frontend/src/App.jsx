@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login";
+import Home from "./pages/Home"
 import SignUp from "./pages/SignUp";
 import Logout from "./pages/Logout";
 import Cart from "./pages/Cart";
@@ -20,6 +21,7 @@ function App() {
         <NavBar />
         <div className="ml-64 p-4 flex-grow">
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/contact" element={<ContactFAQs />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/cart" element={<Cart />} />
