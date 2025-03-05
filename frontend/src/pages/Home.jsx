@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import HeroBanner from "../img/homepage-herobanner.png";
 import FoodItem from "../components/FoodItem";
 import FAQs from "../components/FAQs";
+import ContactUs from "../components/ContactUs";
 
 export const Home = () => {
   return (
@@ -104,8 +105,9 @@ export const Home = () => {
 
 
         {/* faqs + contacts */}
-        <div className="flex flex-row"> 
+        <div className="flex flex-row gap-8"> 
             <FAQs />
+            <ContactUs />
         </div>
     </div>
   )
