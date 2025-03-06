@@ -2,3 +2,6 @@
 venv/
 /env
 db.sqlite3
+myenv
+/myenv
+myenv/
