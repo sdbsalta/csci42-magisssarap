@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -9,10 +10,8 @@ from .forms import CreateCustomerForm, CreateRestaurantOwnerForm
 from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 import json
 from .models import User
-
 from django.contrib.auth.hashers import check_password
 
 @csrf_exempt
@@ -36,6 +35,73 @@ def login_user(request):
             return JsonResponse({"message": "Invalid JSON data"}, status=400)
     
     return JsonResponse({"message": "Method not allowed"}, status=405)
+
+
+@csrf_exempt
+def register_customer(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+
+            # Extracting fields
+            user_id = data.get("user_id")
+            name = data.get("name")
+            contact_no = data.get("contact_no")
+            email_address = data.get("email_address")
+            password = data.get("password")
+            
+            # Hash the password
+            hashed_password = make_password(password)
+
+            # Create new user
+            user = User.objects.create(
+                user_id=user_id,
+                name=name,
+                contact_no=contact_no,
+                email_address=email_address,
+                password=hashed_password,
+                user_type="Customer"
+            )
+
+            return JsonResponse({"message": "Customer registered successfully"}, status=201)
+
+        except Exception as e:
+            return JsonResponse({"message": str(e)}, status=400)
+
+    return JsonResponse({"message": "Method not allowed"}, status=405)
+
+@csrf_exempt
+def register_restaurant_owner(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+
+            user_id = data.get("user_id")
+            name = data.get("name")
+            contact_no = data.get("contact_no")
+            email_address = data.get("email_address")
+            password = data.get("password")
+            resto_name = data.get("resto_name")
+
+            hashed_password = make_password(password)
+
+            owner = RestaurantOwner.objects.create(
+                user_id=user_id,
+                name=name,
+                contact_no=contact_no,
+                email_address=email_address,
+                password=hashed_password,
+                user_type="Restaurant Owner",
+                resto_name=resto_name
+            )
+
+            return JsonResponse({"message": "Restaurant Owner registered successfully"}, status=201)
+
+        except Exception as e:
+            return JsonResponse({"message": str(e)}, status=400)
+
+    return JsonResponse({"message": "Method not allowed"}, status=405)
+
 
 class CreateCustomerView(CreateView):
     model = User
