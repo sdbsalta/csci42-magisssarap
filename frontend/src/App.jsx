@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Logout from "./pages/Logout";
+import MyAccount from "./pages/MyAccount";
+import MyAccountVouchers from "./pages/MyAccountVouchers";
 import Cart from "./pages/Cart";
 import ContactFAQs from "./pages/ContactFAQs";
 import Restaurants from "./pages/Restaurants";
@@ -44,6 +46,8 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/account" element={<MyAccount />} />
+            <Route path="/account/vouchers" element={<MyAccountVouchers />} />
             <Route path="/restaurants" element={<Restaurants />} />
             <Route path="/restaurants/view" element={<RestoView />} />
             <Route path="/campusmap" element={<CampusMap />} />
