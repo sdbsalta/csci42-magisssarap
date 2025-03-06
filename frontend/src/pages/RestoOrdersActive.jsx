@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import HeroBanner from "../img/homepage-herobanner.png";
+import RestoLogo from "../img/baclogo.png";
 import FoodItem from "../components/FoodItem";
 
 export const RestoOrdersActive = () => {
@@ -10,7 +10,7 @@ export const RestoOrdersActive = () => {
         <div className="flex flex-col md:flex-row rounded-xl items-center gap-6 space-x-4 w-full">
             <div className="flex-shrink-0">
                 <img 
-                    src={HeroBanner} 
+                    src={RestoLogo} 
                     alt="Logo" 
                     className="w-124 h-124 md:w-85 md:h-85 rounded-xl object-cover"
                 />

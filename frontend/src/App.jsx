@@ -14,8 +14,9 @@ import MyOrdersActive from "./pages/MyOrdersActive";
 import MyOrdersPast from "./pages/MyOrdersPast";
 import RestoOrdersActive from "./pages/RestoOrdersActive";
 import RestoOrdersPast from "./pages/RestoOrdersPast";
-import NavBar from "./components/NavBar";
+import EditMenu from "./pages/EditMenu";
 import ProductEdit from "./pages/ProductEdit";
+import NavBar from "./components/NavBar";
 import "./App.css";
 import "./index.css";
 
@@ -46,11 +47,12 @@ function App() {
             <Route path="/restaurants" element={<Restaurants />} />
             <Route path="/restaurants/view" element={<RestoView />} />
             <Route path="/campusmap" element={<CampusMap />} />
-            <Route path="/productedit" element={<ProductEdit />} />
             <Route path="/orders/active" element={<MyOrdersActive />} />
             <Route path="/orders/past" element={<MyOrdersPast />} />
             <Route path="/order/active" element={<RestoOrdersActive />} />
             <Route path="/order/past" element={<RestoOrdersPast />} />
+            <Route path="/menu/edit" element={<EditMenu />} />
+            <Route path="/productedit" element={<ProductEdit />} />
           </Routes>
         </div>
       </div>

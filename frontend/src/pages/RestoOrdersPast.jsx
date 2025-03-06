@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import HeroBanner from "../img/homepage-herobanner.png";
+import RestoLogo from "../img/baclogo.png";
 import FoodItem from "../components/FoodItem";
 
 export const RestoOrdersPast = () => {
@@ -10,7 +10,7 @@ export const RestoOrdersPast = () => {
         <div className="flex flex-col md:flex-row rounded-xl items-center gap-6 space-x-4 w-full">
             <div className="flex-shrink-0">
                 <img 
-                    src={HeroBanner} 
+                    src={RestoLogo} 
                     alt="Logo" 
                     className="w-124 h-124 md:w-85 md:h-85 rounded-xl object-cover"
                 />
@@ -25,7 +25,6 @@ export const RestoOrdersPast = () => {
                     <button className="bg-primary text-white px-4 py-2 rounded-md font-semibold text-sm cursor-not-allowed" disabled>
                         View Orders
                     </button>
-
                     <Link to="/menu/edit">
                         <button className="bg-white text-black border border-black px-4 py-2 rounded-md font-semibold text-sm hover:bg-primary hover:text-white">
                             Edit Menu
