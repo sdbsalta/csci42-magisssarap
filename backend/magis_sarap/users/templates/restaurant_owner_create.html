@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Restaurant Owner Registration
+{% endblock %}
+
+{% block content %}
+<h2>Restaurant Owner Registration</h2>
+<form class="pt-3" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+{% endblock %}

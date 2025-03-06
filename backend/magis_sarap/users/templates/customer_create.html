@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Customer Registration
+{% endblock %}
+
+{% block content %}
+<h2>Customer Registration</h2>
+<form class="pt-3" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+{% endblock %}
