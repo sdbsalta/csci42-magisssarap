@@ -7,7 +7,8 @@ import SignUp from "./pages/SignUp";
 import Logout from "./pages/Logout";
 import Cart from "./pages/Cart";
 import ContactFAQs from "./pages/ContactFAQs";
-import SearchResto from "./pages/SearchResto";
+import Restaurants from "./pages/Restaurants";
+import RestoView from "./pages/RestoView";
 import CampusMap from "./pages/CampusMap";
 import MyOrdersActive from "./pages/MyOrdersActive";
 import MyOrdersPast from "./pages/MyOrdersPast";
@@ -42,7 +43,8 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/restaurants" element={<SearchResto />} />
+            <Route path="/restaurants" element={<Restaurants />} />
+            <Route path="/restaurants/view" element={<RestoView />} />
             <Route path="/campusmap" element={<CampusMap />} />
             <Route path="/productedit" element={<ProductEdit />} />
             <Route path="/orders/active" element={<MyOrdersActive />} />

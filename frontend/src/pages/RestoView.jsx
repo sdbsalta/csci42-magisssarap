@@ -8,13 +8,13 @@ import SearchIcon from "../icons/search.svg";
 import MapPinIcon from "../icons/MapPin.svg";
 import Bacsilog from "../img/bacsilog.png";
 
-export const SearchResto = () => {
+export const RestoView = () => {
     return (
         <div className="flex justify-center items-center min-h-screen rounded-md bg-accent-20">
             <div className="flex flex-col justify-center items-center h-full w-2/3 gap-4 rounded-lg p-4">
                 {/* Top section */}
                 <div className="flex justify-between w-full rounded-md">
-                    <Link to="/restaurantlist">
+                    <Link to="/restaurants">
                         <div className="flex items-center">
                             <img src={BackIcon} alt="Back Icon" className="w-14 h-14" />
                         </div>
@@ -77,7 +77,7 @@ export const SearchResto = () => {
                     </div>
                 </div>
                 {/* Menu */}
-                <div className="grid gap-3 w-full gap-x-2 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
+                <div className="grid gap-3 gap-x-2 gap-y-2 w-full grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
                     <FoodItem 
                         FoodName="Bacsilog"
                         Price="₱99"
@@ -121,4 +121,4 @@ export const SearchResto = () => {
     )
 }
 
-export default SearchResto
+export default RestoView
