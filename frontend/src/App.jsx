@@ -12,6 +12,7 @@ import CampusMap from "./pages/CampusMap";
 import MyOrdersActive from "./pages/MyOrdersActive";
 import MyOrdersPast from "./pages/MyOrdersPast";
 import NavBar from "./components/NavBar";
+import ProductEdit from "./pages/ProductEdit";
 import "./App.css";
 import "./index.css";
 
@@ -43,6 +44,8 @@ function App() {
             <Route path="/campusmap" element={<CampusMap />} />
             <Route path="/myordersactive" element={<MyOrdersActive />} />
             <Route path="/myorderspast" element={<MyOrdersPast />} />
+            <Route path="/productedit" element={<ProductEdit />} />
+
           </Routes>
         </div>
       </div>
