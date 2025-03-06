@@ -1,9 +1,10 @@
 from django.urls import path
-from . import views
+from .views import register_customer, register_restaurant_owner, login_user
 
 urlpatterns = [
-    path('customer-register/', views.CreateCustomerView.as_view(), name='customer-register'),
-     path('restaurant-owner-register/', views.CreateRestaurantOwnerView.as_view(), name='restaurant-owner-register'),
+    path("signup/", register_customer, name="register_customer"),
+    path("api/register_restaurant_owner/", register_restaurant_owner, name="register_restaurant_owner"),
+    path('login/', login_user, name='login'),
 ]
 
 app_name = "users"

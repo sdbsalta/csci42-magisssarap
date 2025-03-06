@@ -6,3 +6,5 @@ myenv
 /myenv
 myenv/
 .env
+__pycache__/
+*.pyc

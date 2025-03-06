@@ -14,6 +14,7 @@ import MyOrdersPast from "./pages/MyOrdersPast";
 import RestoOrdersActive from "./pages/RestoOrdersActive";
 import RestoOrdersPast from "./pages/RestoOrdersPast";
 import NavBar from "./components/NavBar";
+import ProductEdit from "./pages/ProductEdit";
 import "./App.css";
 import "./index.css";
 
@@ -43,6 +44,7 @@ function App() {
             <Route path="/logout" element={<Logout />} />
             <Route path="/restaurants" element={<SearchResto />} />
             <Route path="/campusmap" element={<CampusMap />} />
+            <Route path="/productedit" element={<ProductEdit />} />
             <Route path="/orders/active" element={<MyOrdersActive />} />
             <Route path="/orders/past" element={<MyOrdersPast />} />
             <Route path="/order/active" element={<RestoOrdersActive />} />
