@@ -1,7 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Logout from "./pages/Logout";
 import Cart from "./pages/Cart";
@@ -11,10 +12,21 @@ import CampusMap from "./pages/CampusMap";
 import MyOrdersActive from "./pages/MyOrdersActive";
 import MyOrdersPast from "./pages/MyOrdersPast";
 import NavBar from "./components/NavBar";
-import './App.css';
-import './index.css';
+import "./App.css";
+import "./index.css";
 
 function App() {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/") 
+      .then((response) => {
+        setMessage(response.data.message);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   return (
     <Router>
       <div className="font-poppins flex">
@@ -37,6 +49,5 @@ function App() {
     </Router>
   );
 }
-
 
 export default App;

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import HeroBanner from "../img/homepage-herobanner.png";
 import FoodItem from "../components/FoodItem";
+import FoodList from "../components/FoodList"
 import FAQs from "../components/FAQs";
 import ContactUs from "../components/ContactUs";
 
@@ -39,12 +40,7 @@ export const Home = () => {
                 <Link to="/jsec" className="hover:text-primary">JSEC</Link>
             </div>
             <div className="flex flex-row py-2 gap-3">
-            <FoodItem 
-                FoodName="Bacsilog"
-                Price="₱99"
-                Location="Gonzaga Cafeteria"
-                Rating="4.5"
-                />
+            <FoodList />
             <FoodItem 
                 FoodName="Bacsilog"
                 Price="₱99"
