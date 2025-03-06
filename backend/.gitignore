@@ -5,3 +5,6 @@ db.sqlite3
 myenv
 /myenv
 myenv/
+
+__pycache__/
+*.pyc
