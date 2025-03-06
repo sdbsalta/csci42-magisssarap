@@ -1,10 +1,12 @@
 import React from "react";
+import NavBar from "../components/NavBar";
 
 const ProductEdit = () => {
   return (
-    <div className="flex min-h-screen bg-base-200">
+    <div className="flex justify-center items-center min-h-screen bg-base-200">
       {/* Main Content */}
-      <div className="flex-1 p-8">
+      <div className="w-full max-w-3xl p-8 text-center">
+        {/* Centered Heading */}
         <h2 className="text-3xl font-bold bg-yellow-200 inline-block px-4 py-2 rounded-lg">
           French Fries
         </h2>
@@ -27,19 +29,13 @@ const ProductEdit = () => {
           <button className="btn btn-error btn-sm mt-2">Edit</button>
         </div>
 
-        <button className="btn btn-outline mt-4 block mx-auto">
-          Upload Display Image
-        </button>
+        <button className="btn btn-outline mt-4">Upload Display Image</button>
 
         {/* Form */}
         <div className="mt-6 max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
           <label className="form-control w-full">
             <span className="label-text font-bold">Name:</span>
-            <input
-              type="text"
-              className="input input-bordered w-full"
-              defaultValue="French Fries"
-            />
+            <input type="text" className="input input-bordered w-full" defaultValue="French Fries" />
           </label>
 
           <label className="form-control w-full mt-3">
@@ -51,11 +47,7 @@ const ProductEdit = () => {
 
           <label className="form-control w-full mt-3">
             <span className="label-text font-bold">Price:</span>
-            <input
-              type="text"
-              className="input input-bordered w-full"
-              defaultValue="P100"
-            />
+            <input type="text" className="input input-bordered w-full" defaultValue="P100" />
           </label>
 
           <label className="form-control w-full mt-3">
