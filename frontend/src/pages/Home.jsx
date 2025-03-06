@@ -8,7 +8,7 @@ import ContactUs from "../components/ContactUs";
 
 export const Home = () => {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 rounded-md p-8 bg-accent-20">
         {/* hero banner */}
         <div className="flex flex-col md:flex-row bg-primary p-5 rounded-2xl items-center gap-3">
         <div className="text-white flex-1 text-center md:text-left">

@@ -35,7 +35,7 @@ const NavBar = () => {
         </Link>
 
         {/* user */}
-        <Link to="/myordersactive" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
+        <Link to="/orders/active" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
             <img src={ShoppingBagIcon} alt="Shopping Bag" className="w-5 h-5" />
             <span>My Orders</span>
         </Link>
@@ -45,7 +45,7 @@ const NavBar = () => {
         </Link>
 
          {/* owner */}
-         <Link to="/dashboard" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
+         <Link to="/order/active" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
             <img src={ClipboardIcon} alt="Clipboard Icon" className="w-5 h-5" />
             <span>Dashboard</span>
         </Link>

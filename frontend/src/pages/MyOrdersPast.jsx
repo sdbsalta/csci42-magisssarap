@@ -11,13 +11,13 @@ export const MyOrdersPast = () => {
             {/* Buttons Section */}
             <div className="flex flex-row gap-4 mt-6 w-full">
                 <button className="w-1/2 bg-primary text-white px-6 py-3 rounded-md font-semibold cursor-not-allowed" disabled>
-                    Past Order
+                    Past Orders
                 </button>
 
-                <Link to="/myordersactive" className="w-1/2">
-                <button className="w-full bg-accent text-black border border-black px-6 py-3 rounded-md font-semibold hover:bg-primary hover:text-white">
-                    Active Order
-                </button>
+                <Link to="/orders/active" className="w-1/2">
+                    <button className="w-full bg-accent text-black border border-black px-6 py-3 rounded-md font-semibold hover:bg-primary hover:text-white">
+                        Active Orders
+                    </button>
                 </Link>
             </div>
         </div>

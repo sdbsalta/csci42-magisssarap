@@ -76,9 +76,8 @@ export const SearchResto = () => {
                         </p>
                     </div>
                 </div>
-
                 {/* Menu */}
-                <div className="grid grid-cols-2 gap-3 w-self">
+                <div className="grid gap-3 w-full gap-x-2 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
                     <FoodItem 
                         FoodName="Bacsilog"
                         Price="₱99"

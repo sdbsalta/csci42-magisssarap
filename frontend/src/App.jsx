@@ -11,6 +11,8 @@ import SearchResto from "./pages/SearchResto";
 import CampusMap from "./pages/CampusMap";
 import MyOrdersActive from "./pages/MyOrdersActive";
 import MyOrdersPast from "./pages/MyOrdersPast";
+import RestoOrdersActive from "./pages/RestoOrdersActive";
+import RestoOrdersPast from "./pages/RestoOrdersPast";
 import NavBar from "./components/NavBar";
 import "./App.css";
 import "./index.css";
@@ -41,8 +43,10 @@ function App() {
             <Route path="/logout" element={<Logout />} />
             <Route path="/restaurants" element={<SearchResto />} />
             <Route path="/campusmap" element={<CampusMap />} />
-            <Route path="/myordersactive" element={<MyOrdersActive />} />
-            <Route path="/myorderspast" element={<MyOrdersPast />} />
+            <Route path="/orders/active" element={<MyOrdersActive />} />
+            <Route path="/orders/past" element={<MyOrdersPast />} />
+            <Route path="/order/active" element={<RestoOrdersActive />} />
+            <Route path="/order/past" element={<RestoOrdersPast />} />
           </Routes>
         </div>
       </div>
