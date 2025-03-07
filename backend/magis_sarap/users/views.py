@@ -8,6 +8,7 @@ from .models import User, RestaurantOwner
 from .forms import CreateCustomerForm, CreateRestaurantOwnerForm
 
 from django.contrib.auth import authenticate
+from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -36,7 +37,19 @@ def login_user(request):
     
     return JsonResponse({"message": "Method not allowed"}, status=405)
 
+@csrf_exempt
+def logout_user(request):
+    if request.method == "POST":
+        logout(request)
+        response = JsonResponse({"message": "Logout successful"}, status=200)
 
+        response.delete_cookie("sessionid")
+        response.delete_cookie("csrftoken")
+
+        return response
+
+    return JsonResponse({"message": "Method not allowed"}, status=405)
+        
 @csrf_exempt
 def register_customer(request):
     if request.method == "POST":
