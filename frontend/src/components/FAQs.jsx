@@ -11,10 +11,11 @@ export const FAQs = () => {
                     <div className="collapse collapse-arrow w-full">
                         <input type="checkbox" />
                         <div className="collapse-title text-lg font-medium w-full">
-                            Click to expand
+                            How do I place an order on MagissSarap?
                         </div>
                         <div className="collapse-content">
-                            <p>Accordion content goes here.</p>
+                            <p>Simply browse the available restaurants, select your preferred meals, and proceed to checkout. 
+                                You'll receive updates on your order status once confirmed.</p>
                         </div>
                     </div>
 
@@ -22,10 +23,12 @@ export const FAQs = () => {
                     <div className="collapse collapse-arrow">
                         <input type="checkbox" />
                         <div className="collapse-title text-lg font-medium w-full">
-                            help me help me help me help me help me help me help me help me help me
+                            Can I use MagissSarap! if I'm not a student or staff member?
                         </div>
                         <div className="collapse-content">
-                            <p>Accordion content goes here.</p>
+                            <p>
+                                Currently, MagissSarap! is designed for Ateneo students and staff to facilitate campus food deliveries.
+                            </p>
                         </div>
                     </div>
 
@@ -33,10 +36,21 @@ export const FAQs = () => {
                     <div className="collapse collapse-arrow">
                         <input type="checkbox" />
                         <div className="collapse-title text-lg font-medium w-full">
-                            Click to expand
+                            What restaurants are available on MagissSarap?
                         </div>
                         <div className="collapse-content">
-                            <p>Accordion content goes here.</p>
+                            <p>MagissSarap! features a database of all dining establishments within the Ateneo campus, including cafeterias, food stalls, and partner vendors.</p>
+                        </div>
+                    </div>
+
+                    {/* item 4 */}
+                    <div className="collapse collapse-arrow">
+                        <input type="checkbox" />
+                        <div className="collapse-title text-lg font-medium w-full">
+                            Is MagissSarap! available as a mobile app??
+                        </div>
+                        <div className="collapse-content">
+                            <p>Currently, MagissSarap! is a web-based platform, but we are working on making it more mobile-friendly for better accessibility.</p>
                         </div>
                     </div>
                 </div>
