@@ -8,17 +8,17 @@ const Logout = () => {
     try {
       const response = await fetch("http://127.0.0.1:8000/logout/", {
         method: "POST",
-        credentials: "include",  // Ensures session cookies are sent
+        credentials: "include",  // cookies
         headers: {
           "Content-Type": "application/json",
         },
       });
   
       if (response.ok) {
-        alert("You have successfully logged out!"); // ✅ Simple pop-up message
+        alert("You have successfully logged out!"); 
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        window.location.href = "/login";  // Redirect after logout
+        window.location.href = "/login"; 
       } else {
         console.error("Logout failed", await response.json());
       }
