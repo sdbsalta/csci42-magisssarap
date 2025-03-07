@@ -31,5 +31,6 @@ python manage.py makemigrations
 ```
 Run locally:
 ```
+cd magis_sarap
 python manage.py runserver
 ```
