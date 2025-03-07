@@ -80,39 +80,6 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.food_item.name} (x{self.quantity}) - {self.order}" 
 
-class Payment(models.Model):
-    payment_id = models.CharField(
-        max_length=15,
-        unique=True,
-        editable=False
-    )
-    order = models.OneToOneField(
-        Order,
-        on_delete=models.CASCADE,
-        related_name='payment'
-    )
-    payment_method = models.CharField(
-        max_length=50
-    )
-    payment_status = models.CharField(
-        max_length=50
-    )
-    amount = models.DecimalField(
-        max_digits=10,
-        decimal_places=2
-    )
-    date_paid = models.DateTimeField(
-        default=now
-    )
-
-    def save(self, *args, **kwargs):
-        if not self.payment_id:
-            self.payment_id = f"{now().strftime('%y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"Payment {self.payment_id} for {self.order}" 
-
 class Review(models.Model):
     review_id = models.CharField(
         max_length=10,
