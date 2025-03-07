@@ -1,8 +1,32 @@
-{/* /frontend/pages/Logout.jsx */}
 import React from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export const Logout = () => {
+const Logout = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/logout/", {
+        method: "POST",
+        credentials: "include",  // cookies
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.ok) {
+        alert("You have successfully logged out!"); 
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/login"; 
+      } else {
+        console.error("Logout failed", await response.json());
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center h-screen bg-accent-20">
       <div className="bg-primary-50 text-white w-[500px] rounded-2xl text-center shadow-lg">
@@ -11,16 +35,12 @@ export const Logout = () => {
         </div>
         <div className="border-t border-white w-full"></div>
         <div className="flex w-full">
-          <Link to="/" className="w-1/2 border-r border-white">
-            <button className="w-full py-4 text-white font-semibold">
-              No
-            </button>
-          </Link>
-          <Link to="/" className="w-1/2">
-            <button className="w-full py-4 text-white font-semibold">
-              Log Out
-            </button>
-          </Link>
+          <button className="w-1/2 py-4 text-white font-semibold border-r border-white" onClick={() => navigate("/")}>
+            No
+          </button>
+          <button className="w-1/2 py-4 text-white font-semibold" onClick={handleLogout}>
+            Log Out
+          </button>
         </div>
       </div>
     </div>

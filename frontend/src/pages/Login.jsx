@@ -1,10 +1,12 @@
 {/* /frontend/pages/Login.jsx */}
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -17,6 +19,9 @@ export const Login = () => {
       const data = await response.json();
       if (response.ok) {
         alert(`Login successful! Welcome, ${data.user_type}`);
+        localStorage.setItem("accessToken", data.accessToken);
+        window.dispatchEvent(new Event("authChange"));
+        navigate("/");
       } else {
         setError(data.message);
       }
