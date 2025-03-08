@@ -80,7 +80,7 @@ const Cart = () => {
 
       {/* Buttons */}
       <div className="w-full flex justify-between items-center mt-4">
-        <Link to="/restaurants">
+        <Link to="/restaurants/view">
             <img 
             src={BackIcon} 
             alt="Back Icon" 
