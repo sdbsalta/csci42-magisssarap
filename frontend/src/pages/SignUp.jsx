@@ -48,7 +48,7 @@ export const SignUp = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-base-200 p-4">
       <div className="bg-secondary p-8 rounded-lg shadow-lg flex flex-col items-center w-full max-w-md">
-        <h1 className="text-white text-2xl font-bold mb-4">Sign Up</h1>
+        <h1 className="text-center text-white text-3xl md:text-3xl mb-4">Sign Up</h1>
         <form onSubmit={handleSubmit} className="w-full space-y-3">
           <input
             type="text"
@@ -111,7 +111,7 @@ export const SignUp = () => {
             />
           )}
 
-          <button type="submit" className="btn bg-[#ffe084] text-black border-0 mt-4 w-full">
+          <button type="submit" className="btn bg-[#ffe084] text-black border-0 mt-4 w-full hover:bg-[#fffcf9]">
             Continue
           </button>
 

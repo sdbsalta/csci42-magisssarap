@@ -33,7 +33,7 @@ export const Login = () => {
   return (
     <div className="flex justify-center items-center h-screen rounded-md bg-accent-20 ">
       <div className="bg-secondary p-8 rounded-md shadow-lg flex flex-col items-center w-fit">
-        <h1 className="text-white">Login</h1>
+        <h1 className="text-center text-white text-3xl md:text-3xl mb-4">Login</h1>
         <div className="w-96">
           {/* email */}
           <div className="form-control my-2">
@@ -61,10 +61,10 @@ export const Login = () => {
         {error && <p className="text-red-500">{error}</p>}
 
         <div className="flex gap-2 my-2 w-full">
-          <button onClick={handleLogin} className="btn bg-[#ffe084] text-black border-0 flex-1">
+          <button onClick={handleLogin} className="btn bg-[#ffe084] text-black border-0 flex-1 hover:bg-[#fffcf9]">
             Continue
           </button>
-          <button className="btn bg-[#fffcf9] text-black border-0 flex-1">Sign Up</button>
+          <button className="btn bg-[#fffcf9] text-black border-0 flex-1 hover:bg-[#ffe084]">Sign Up</button>
         </div>
       </div>
     </div>

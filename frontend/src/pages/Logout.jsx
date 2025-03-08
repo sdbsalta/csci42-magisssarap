@@ -36,13 +36,13 @@ const Logout = () => {
         <div className="border-t border-white w-full"></div>
         <div className="flex w-full">
           <button 
-            className="w-1/2 py-4 text-white font-semibold border-r border-white transition duration-200 hover:text-dark" 
+            className="w-1/2 py-4 text-white font-semibold border-r border-white transition duration-200 hover:text-black" 
             onClick={() => navigate("/")}
           >
             No
           </button>
           <button 
-            className="w-1/2 py-4 text-white font-semibold transition duration-200 hover:text-dark" 
+            className="w-1/2 py-4 text-white font-semibold transition duration-200 hover:text-black" 
             onClick={handleLogout}
           >
             Log Out
