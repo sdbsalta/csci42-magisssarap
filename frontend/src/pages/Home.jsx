@@ -37,7 +37,7 @@ export const Home = () => {
             <h1 className="text-dark text-3xl md:text-3xl">Food You’ll Love 👀</h1>
             <div className="flex flex-row gap-5 text-sm text-black-40 font-semibold">
                 <Link to="/recommended" className="hover:text-primary">Recommended</Link>
-                {/* iya: separate hyperlink pa ba o filter nalang? */}
+                {/* iya: separate hyperlink pa ba o filter nalang? mas maganda filter-jervie*/}
                 <Link to="/popular-restaurants" className="hover:text-primary">Popular Restaurants</Link>
                 <Link to="/gonzaga-cafeteria" className="hover:text-primary">Gonzaga Cafeteria</Link>
                 <Link to="/jsec" className="hover:text-primary">JSEC</Link>
@@ -63,7 +63,7 @@ export const Home = () => {
         <ExploreCategories />
         
         {/* how it works */}
-        <div className="flex flex-col rounded-2xl bg-secondary-20 p-8 gap-y-3 shadow-lg">
+        <div className="flex flex-col rounded-2xl bg-secondary-20 p-8 gap-y-3 shadow-lg mt-4">
             <h1 className="px-2 text-dark text-3xl md:text-3xl">How it Works 🤔</h1>
             {/* 1 */}
             <div className="flex items-center gap-2 rounded-2xl bg-secondary p-2">
