@@ -4,7 +4,7 @@ export const FAQs = () => {
   return (
     <div className="bg-primary-10 rounded-xl flex flex-col items-center mx-auto my-5 shadow-md">
         <div className="px-5 py-7">
-            <h1 className="text-center text-2xl">Frequently Asked Questions (FAQs)</h1>
+            <h1 className="text-center text-dark text-3xl md:text-3xl">Frequently Asked Questions (FAQs)</h1>
             <div className="flex justify-center">
                 <div className="rounded-xl bg-primary-40 m-5 text-white p-5">
                     {/* item 1 */}

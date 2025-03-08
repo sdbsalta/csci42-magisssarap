@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SearchIcon from "../icons/search.svg";
 import RestaurantCard from "../components/RestaurantCard";
+import ExploreCategories from "../components/ExploreCategories";
 
 export const Restaurants = () => {
   const restaurants = Array(4).fill({
@@ -24,6 +25,11 @@ export const Restaurants = () => {
           placeholder="Search..."
           className="input input-bordered bg-accent-20 text-black w-full border-black pl-10"
         />
+      </div>
+
+      {/* Explore Categories */}
+      <div className="w-full mb-8"> {/* Added max-width & margin-bottom */}
+        <ExploreCategories />
       </div>
 
       {/* Restaurant Cards Grid */}

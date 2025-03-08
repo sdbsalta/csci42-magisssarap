@@ -5,6 +5,7 @@ import FoodItem from "../components/FoodItem";
 import FoodList from "../components/FoodList"
 import FAQs from "../components/FAQs";
 import ContactUs from "../components/ContactUs";
+import ExploreCategories from "../components/ExploreCategories";
 
 export const Home = () => {
   return (
@@ -12,7 +13,9 @@ export const Home = () => {
         {/* hero banner */}
         <div className="flex flex-col md:flex-row bg-primary p-5 rounded-2xl items-center gap-3">
         <div className="text-white flex-1 text-center md:text-left">
-            <h1>Bringing Campus Dining to Your Fingertips</h1>
+            <h1 className="text-dark text-4xl md:text-3xl">
+                Bringing Campus Dining to Your Fingertips
+            </h1>
             <h2 className="py-1">Order. Track. Enjoy. Say goodbye to long queues and hello to convenience.</h2>
             <div className="flex w-full gap-3 justify-center md:justify-start">
                 <Link to="/restaurants">
@@ -31,7 +34,7 @@ export const Home = () => {
 
         {/* food you'll love */}
         <div className="">
-            <h1>Food You’ll Love 👀</h1>
+            <h1 className="text-dark text-3xl md:text-3xl">Food You’ll Love 👀</h1>
             <div className="flex flex-row gap-5 text-sm text-black-40 font-semibold">
                 <Link to="/recommended" className="hover:text-primary">Recommended</Link>
                 {/* iya: separate hyperlink pa ba o filter nalang? */}
@@ -56,8 +59,12 @@ export const Home = () => {
             </div>
         </div>
 
+        {/* Explore Categories */}
+        <ExploreCategories />
+        
         {/* how it works */}
-        <div className="flex flex-col rounded-2xl bg-secondary-20 p-4 gap-y-3">
+        <div className="flex flex-col rounded-2xl bg-secondary-20 p-8 gap-y-3">
+            <h1 className="px-2 text-dark text-3xl md:text-3xl">How it Works 🤔</h1>
             {/* 1 */}
             <div className="flex items-center gap-2 rounded-2xl bg-secondary p-2">
                 <div className="w-8 h-8 flex items-center justify-center rounded-full bg-secondary-10 text-white font-bold">

@@ -16,7 +16,7 @@ export const RestoOrdersActive = () => {
                 />
             </div>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <h1 className="text-black font-bold text-4xl md:text-5xl">
+                <h1 className="text-dark font-bold text-4xl md:text-5xl">
                     Welcome back, Name!
                 </h1>
 
