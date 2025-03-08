@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const MyOrdersActive = () => {
   return (
     <div className="flex flex-col items-center min-h-screen bg-accent-20 p-8 w-full">
-        <div className="bg-accent p-8 px-6 rounded-md flex flex-col items-center w-full">
+        <div className="bg-accent p-8 px-6 rounded-md flex flex-col items-center w-full shadow-lg">
             <h1 className="text-center text-dark text-3xl md:text-3xl">My Orders</h1>
             
             {/* Buttons Section */}
@@ -24,7 +24,7 @@ export const MyOrdersActive = () => {
 
         {/* Orders List */}
         <div className="flex flex-col gap-4 mt-6 w-full">
-            <div className="bg-white text-black py-4 rounded-lg border border-black w-full">
+            <div className="bg-white text-black py-4 rounded-lg border border-black w-full shadow-lg">
                 <div className="flex items-center gap-2 px-4">
                     <div className="badge badge-outline badge-neutral">Date</div>
                 </div>
@@ -43,7 +43,7 @@ export const MyOrdersActive = () => {
                 
                 <div className="text-sm mt-1 ml-14">Total:</div>
             </div>
-            <div className="bg-white text-black py-4 rounded-lg border border-black w-full">
+            <div className="bg-white text-black py-4 rounded-lg border border-black w-full shadow-lg">
                 <div className="flex items-center gap-2 px-4">
                     <div className="badge badge-outline badge-neutral">Date</div>
                 </div>

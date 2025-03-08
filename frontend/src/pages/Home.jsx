@@ -11,7 +11,7 @@ export const Home = () => {
   return (
     <div className="flex flex-col gap-3 rounded-md p-8 bg-accent-20">
         {/* hero banner */}
-        <div className="flex flex-col md:flex-row bg-primary p-5 rounded-2xl items-center gap-3">
+        <div className="flex flex-col md:flex-row bg-primary p-5 rounded-2xl items-center gap-3 shadow-lg">
         <div className="text-white flex-1 text-center md:text-left">
             <h1 className="text-dark text-semibold text-4xl md:text-3xl">
                 Bringing Campus Dining to Your Fingertips
@@ -63,7 +63,7 @@ export const Home = () => {
         <ExploreCategories />
         
         {/* how it works */}
-        <div className="flex flex-col rounded-2xl bg-secondary-20 p-8 gap-y-3">
+        <div className="flex flex-col rounded-2xl bg-secondary-20 p-8 gap-y-3 shadow-lg">
             <h1 className="px-2 text-dark text-3xl md:text-3xl">How it Works 🤔</h1>
             {/* 1 */}
             <div className="flex items-center gap-2 rounded-2xl bg-secondary p-2">

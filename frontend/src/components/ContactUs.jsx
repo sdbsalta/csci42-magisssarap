@@ -3,7 +3,7 @@ import PhoneIcon from "../icons/phone.svg";
 
 export const ContactUs = () => {
   return (
-    <div className="bg-accent rounded-xl flex flex-col items-start p-10 w-full mx-auto my-5 shadow-md">
+    <div className="bg-accent rounded-xl flex flex-col items-start p-10 w-full mx-auto my-5 shadow-lg">
       {/* Title with Phone Icon */}
       <h1 className="text-center flex items-center gap-2 text-dark text-3xl md:text-3xl">
         Contact Us <img src={PhoneIcon} alt="Phone Icon" className="w-7 h-7" />

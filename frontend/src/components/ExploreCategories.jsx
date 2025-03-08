@@ -18,7 +18,7 @@ const ExploreCategories = () => {
   ];
 
   return (
-    <div className="bg-primary-50 p-5 rounded-2xl flex flex-col items-center">
+    <div className="bg-primary-50 p-5 rounded-2xl flex flex-col items-center shadow-md">
       <h1 className="text-white text-3xl md:text-3xl mb-4">Explore Categories</h1>
       <div className="flex gap-6 flex-wrap justify-center">
         {categories.map((category, index) => (

@@ -36,7 +36,7 @@ export const RestoOrdersActive = () => {
         </div>
 
         {/* Order List */}
-        <div className="bg-accent p-8 px-6 rounded-md flex flex-col items-center shadow-md w-full">
+        <div className="bg-accent p-8 px-6 rounded-md flex flex-col items-center shadow-lg w-full">
             <h1 className="text-center text-dark text-3xl md:text-3xl">Orders</h1>
             
             {/* Buttons Section */}
@@ -55,7 +55,7 @@ export const RestoOrdersActive = () => {
             {/* Orders List */}
             <div className="flex flex-col gap-4 mt-6 w-full">
                 {[1, 2, 3].map((num) => (
-                    <div key={num} className="bg-white text-black py-4 rounded-lg border border-black w-full">
+                    <div key={num} className="bg-white text-black py-4 rounded-lg border border-black w-full shadow-lg">
                         <div className="flex items-center gap-2 px-4">
                             <div className="badge badge-outline badge-neutral">Date</div>
                         </div>
@@ -79,7 +79,7 @@ export const RestoOrdersActive = () => {
         </div>
 
         {/* Menu */}
-        <div className="bg-primary p-8 px-6 rounded-md flex flex-col items-center shadow-md">
+        <div className="bg-primary p-8 px-6 rounded-md flex flex-col items-center shadow-lg">
             <h1 className="text-center text-3xl md:text-3xl text-white mb-4">Menu</h1>
 
             {/* Food Items Grid */}

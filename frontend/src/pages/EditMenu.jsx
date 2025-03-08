@@ -34,7 +34,7 @@ export const EditMenu = () => {
             </div>
         </div>
         {/* Menu */}
-        <div className="bg-primary p-8 px-6 rounded-md flex flex-col items-center shadow-md">
+        <div className="bg-primary p-8 px-6 rounded-md flex flex-col items-center shadow-lg">
             <h1 className="text-center text-3xl md:text-3xl text-white mb-3">Menu</h1>
             <h2 className="text-l text-white mb-4">Click on a food item to edit its contents</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">

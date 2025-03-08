@@ -83,11 +83,11 @@ export const RestoView = () => {
                 </div>
 
                 {/* Reviews */}
-                <div className="w-full flex justify-between items-center bg-primary text-white px-4 py-3 rounded-md">
-                        <span className="text-lg font-semibold">Reviews</span>
+                <div className="w-full flex justify-between items-center bg-primary text-white px-4 py-3 rounded-md shadow-lg">
+                    <span className="text-lg font-semibold">Reviews</span>
                 </div>
                 {/* Resto Reviews */}
-                <div className="w-full flex flex-col gap-4">
+                <div className="w-full flex flex-col gap-4 shadow-lg">
                     <div className="bg-white border border-black rounded-lg p-4">
                         <div className="flex justify-between items-center">
                             <div className="flex">

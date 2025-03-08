@@ -7,7 +7,7 @@ import OrderItem from '../components/OrderItem'
 
 export const Cart = () => {
   return (
-    <div className="bg-[#fff6ea] w-full h-full rounded-xl p-6 shadow-md border border-black">
+    <div className="bg-[#fff6ea] w-full h-full rounded-xl p-6 shadow-md border border-black shadow-lg">
       {/* Cart Title */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-dark text-3xl md:text-3xl">Cart</h1>

@@ -2,7 +2,7 @@ import React from 'react'
 
 export const FAQs = () => {
   return (
-    <div className="bg-primary-10 rounded-xl flex flex-col items-center mx-auto my-5 shadow-md">
+    <div className="bg-primary-10 rounded-xl flex flex-col items-center mx-auto my-5 shadow-lg">
         <div className="px-5 py-7">
             <h1 className="text-center text-dark text-3xl md:text-3xl">Frequently Asked Questions (FAQs)</h1>
             <div className="flex justify-center">
