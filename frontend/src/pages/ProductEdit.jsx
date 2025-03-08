@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 
 const ProductEdit = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-base-200">
+    <div className="flex justify-center items-center min-h-screen bg-accent-20">
       {/* Main Content */}
       <div className="w-full max-w-3xl p-8 text-center">
         {/* Centered Heading */}
@@ -66,14 +66,6 @@ const ProductEdit = () => {
             </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <p className="text-center text-gray-500 mt-8">
-          © 2025 - MagissSarap! All rights reserved.
-        </p>
-        <p className="text-center text-sm text-gray-400">
-          Home | Explore Restaurants | About Us | FAQs & Contact Us | Sign Up as a Merchant
-        </p>
       </div>
     </div>
   );

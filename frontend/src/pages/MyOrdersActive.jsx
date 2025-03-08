@@ -6,7 +6,7 @@ export const MyOrdersActive = () => {
   return (
     <div className="flex flex-col items-center min-h-screen bg-accent-20 p-8 w-full">
         <div className="bg-accent p-8 px-6 rounded-md flex flex-col items-center w-full">
-            <h1 className="text-3xl font-bold text-black">My Orders</h1>
+            <h1 className="text-center text-dark text-3xl md:text-3xl">My Orders</h1>
             
             {/* Buttons Section */}
             <div className="flex flex-row gap-4 mt-6 w-full">

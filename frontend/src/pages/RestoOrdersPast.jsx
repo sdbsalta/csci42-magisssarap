@@ -16,7 +16,7 @@ export const RestoOrdersPast = () => {
                 />
             </div>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <h1 className="text-black font-bold text-4xl md:text-5xl">
+                <h1 className="text-black font-semibold text-4xl md:text-5xl">
                     Welcome back, Name!
                 </h1>
 
@@ -36,7 +36,7 @@ export const RestoOrdersPast = () => {
 
         {/* Order List */}
         <div className="bg-accent p-8 px-6 rounded-md flex flex-col items-center shadow-md w-full">
-            <h1 className="text-3xl font-bold text-black">Orders</h1>
+            <h1 className="text-center text-dark text-3xl md:text-3xl">Orders</h1>
             
             {/* Buttons Section */}
             <div className="flex flex-row gap-4 mt-6 w-full">
@@ -79,7 +79,7 @@ export const RestoOrdersPast = () => {
 
         {/* Menu */}
         <div className="bg-primary p-8 px-6 rounded-md flex flex-col items-center shadow-md">
-            <h1 className="text-3xl font-bold text-white mb-4">Menu</h1>
+            <h1 className="text-center text-white text-3xl md:text-3xl mb-4">Menu</h1>
 
             {/* Food Items Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">

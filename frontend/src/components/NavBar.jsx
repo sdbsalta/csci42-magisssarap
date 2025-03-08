@@ -54,7 +54,7 @@ const NavBar = () => {
 
   return (
     <div className="h-screen w-48 bg-white text-black flex flex-col py-2 fixed">
-      <img src={Logo} alt="Home" className="w-52" />
+      <img src={Logo} alt="Home" className="w-52 py-2" />
       <nav className="flex flex-col space-y-4">
         <Link to="/" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
           <img src={HomeIcon} alt="Home" className="w-5 h-5" />

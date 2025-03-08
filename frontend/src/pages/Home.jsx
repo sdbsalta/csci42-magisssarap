@@ -13,18 +13,18 @@ export const Home = () => {
         {/* hero banner */}
         <div className="flex flex-col md:flex-row bg-primary p-5 rounded-2xl items-center gap-3">
         <div className="text-white flex-1 text-center md:text-left">
-            <h1 className="text-dark text-4xl md:text-3xl">
+            <h1 className="text-dark text-semibold text-4xl md:text-3xl">
                 Bringing Campus Dining to Your Fingertips
             </h1>
-            <h2 className="py-1">Order. Track. Enjoy. Say goodbye to long queues and hello to convenience.</h2>
+            <h2 className="py-2">Order. Track. Enjoy. Say goodbye to long queues and hello to convenience.</h2>
             <div className="flex w-full gap-3 justify-center md:justify-start">
                 <Link to="/restaurants">
-                    <button className="btn bg-[#fffcf9] text-black border-0 flex-1 leading-hover:bg-[#fff2df] hover:underline">
+                    <button className="btn bg-white text-black rounded-md shadow py-1 px-4 flex-1 hover:bg-primary hover:text-white hover:border-white">
                         Explore Menus
                     </button>
                 </Link>
                 <Link to="/signup">
-                    <button className="btn text-white flex-1 leading-5">Sign Up Now</button>
+                    <button className="btn bg-primary text-white rounded-md shadow py-1 px-4 flex-1 hover:bg-white hover:text-black leading-5">Sign Up Now</button>
                 </Link>
             </div>
         </div>

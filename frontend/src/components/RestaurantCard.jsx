@@ -17,7 +17,7 @@ const RestaurantCard = ({ Name, Location, Rating }) => {
       <div className="p-4 relative">
         {/* Name & Location */}
         <div className="flex flex-col">
-          <h2 className="text-lg font-bold">{Name}</h2>
+          <h2 className="text-xl font-bold">{Name}</h2>
           <div className="flex items-center gap-1">
             <img src={MapPin} alt="Location" className="w-4 h-4" />
             <p>{Location}</p>
