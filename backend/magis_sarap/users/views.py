@@ -12,8 +12,12 @@ from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import User
 from django.contrib.auth.hashers import check_password
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+
 
 @csrf_exempt
 def login_user(request):
@@ -115,6 +119,15 @@ def register_restaurant_owner(request):
 
     return JsonResponse({"message": "Method not allowed"}, status=405)
 
+class UserTypeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            user = request.user
+            return Response({"user_type": user.user_type}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class CreateCustomerView(CreateView):
     model = User

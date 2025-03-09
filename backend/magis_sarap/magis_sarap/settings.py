@@ -135,6 +135,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://localhost:3000",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -143,3 +144,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+
+AUTH_USER_MODEL = "users.User" 
+
+CORS_ALLOW_ALL_ORIGINS = True  
