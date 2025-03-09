@@ -34,3 +34,10 @@ Run locally:
 cd magis_sarap
 python manage.py runserver
 ```
+
+# to import data
+Run the following commands:
+```
+python manage.py import_users
+python manage.py import_restaurants
+```
