@@ -1,0 +1,6 @@
+order_id,customer,restaurant,status,date_created,time_completed,voucher_code,total_price
+ORD-250309-A12,202301,1,Order Placed,2025-03-09 12:30:00,,DISCOUNT10,25.99
+ORD-250309-B34,202303,2,Preparing Order,2025-03-09 12:45:00,,WELCOME5,15.5
+ORD-250309-C56,202302,3,Completed,2025-03-09 11:00:00,2025-03-09 11:45:00,,32.75
+ORD-250309-D78,202303,4,Out for Delivery,2025-03-09 13:10:00,,,18.99
+ORD-250309-E90,202301,5,Order Cancelled,2025-03-09 14:00:00,,,12.5

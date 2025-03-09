@@ -1,0 +1,6 @@
+review_id,customer,restaurant,rating,comment,date_created,
+REV-AB12,1,1,5,Excellent food!,2025-03-09 15:00:00,
+REV-CD34,2,2,4,Great service but a bit slow.,2025-03-09 15:30:00,
+REV-EF56,3,3,3,Food was okay,nothing special.,2025-03-09 16:00:00
+REV-GH78,4,4,1,Waited too long for my order.,2025-03-09 16:30:00,
+REV-IJ90,5,5,5,Best meal ever!,2025-03-09 17:00:00,

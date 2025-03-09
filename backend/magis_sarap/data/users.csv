@@ -1,0 +1,6 @@
+user_id,name,contact_no,email_address,password,user_type,resto_name
+202301,Juan Dela Cruz,9171234567,juandelacruz@ateneo.edu,password123,Customer,
+202302,Maria Santos,9179876543,mariasantos@ateneo.edu,password123,Customer,
+202303,Carlos Reyes,9175678901,carlosreyes@ateneo.edu,password123,Customer,
+202304,Ana Lim,9172345678,analim@ateneo.edu,password123,Restaurant Owner,Ana's Kitchen
+202305,Pedro Gomez,9173456789,pedrogomez@ateneo.edu,password123,Restaurant Owner,Gomez Diner

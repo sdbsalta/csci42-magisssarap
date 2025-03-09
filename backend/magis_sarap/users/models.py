@@ -64,6 +64,8 @@ class User(models.Model):
         null=False
     )
     
+    is_active = models.BooleanField(default=True)
+    
     def save(self, *args, **kwargs):
         self.password = make_password(self.password)
         super().save(*args, **kwargs)
