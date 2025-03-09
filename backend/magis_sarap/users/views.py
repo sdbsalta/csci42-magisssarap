@@ -7,6 +7,9 @@ from django.urls import reverse, reverse_lazy
 from .models import User, RestaurantOwner
 from .forms import CreateCustomerForm, CreateRestaurantOwnerForm
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout
 from django.http import JsonResponse
@@ -14,6 +17,10 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import User
 from django.contrib.auth.hashers import check_password
+from .serializers import UserSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
 
 @csrf_exempt
 def login_user(request):
@@ -115,6 +122,28 @@ def register_restaurant_owner(request):
 
     return JsonResponse({"message": "Method not allowed"}, status=405)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_logged_in_user(request):
+    return Response({'user_id': request.user.id, 'username': request.user.username})
+
+@api_view(['GET', 'PUT'])
+def user_detail(request, user_id):
+    try:
+        user = User.objects.get(user_id=user_id)
+    except User.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CreateCustomerView(CreateView):
     model = User
