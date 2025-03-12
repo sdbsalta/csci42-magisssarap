@@ -38,13 +38,13 @@ export const Checkout = () => {
           {/* Estimated Delivery Time */}
           <div className="flex items-center gap-2">
             <img src={ClockIcon} alt="Clock" className="w-5 h-5" />
-            <p className="text-gray-800"><span className="font-semibold">Estimated delivery time:</span> 2:00 PM</p>
+            <p className="text-gray-800"><span className="font-semibold">Estimated delivery time: 2:00 PM</span> </p>
           </div>
 
           {/* Location */}
           <div className="flex items-center gap-2">
             <img src={MapPinIcon} alt="Map Pin" className="w-5 h-5" />
-            <p className="text-gray-800"><span className="font-semibold">Location:</span> CTC313</p>
+            <p className="text-gray-800"><span className="font-semibold">Location: CTC313</span> </p>
           </div>
         </div>
 
