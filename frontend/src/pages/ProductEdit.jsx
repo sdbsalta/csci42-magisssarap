@@ -43,11 +43,11 @@ const ProductEdit = () => {
       </div>
       <div className="flex gap-4 mt-6 mb-12">
         <Link to="/menu/edit">
-          <button className="border border-black px-6 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">
+          <button className="border border-black px-6 py-2 rounded-full font-semibold hover:bg-primary hover:text-white transition">
             Cancel
           </button>
         </Link>
-        <button className="bg-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:border hover:border-black hover:bg-green-600 transition">
+        <button className="bg-green-500 text-white px-6 py-2 rounded-full font-semibold hover:border hover:border-black hover:bg-green-600 transition">
           Save
         </button>
       </div>
