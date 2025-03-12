@@ -34,7 +34,7 @@ export const MyOrdersPast = () => {
                         <div className="w-8 h-8 flex items-center justify-center bg-secondary text-white font-bold rounded-md">1</div>
                         <span className="text-lg font-semibold">Resto Name</span>
                     </div>
-                    <Link to="/order#details">
+                    <Link to="/myorder/details">
                         <button className="bg-secondary text-white px-4 py-2 rounded-md font-semibold hover:bg-secondary-60">
                             View Order
                         </button>
@@ -53,7 +53,7 @@ export const MyOrdersPast = () => {
                         <div className="w-8 h-8 flex items-center justify-center bg-secondary text-white font-bold rounded-md">2</div>
                         <span className="text-lg font-semibold">Resto Name</span>
                     </div>
-                    <Link to="/order#details">
+                    <Link to="/myorder/details">
                         <button className="bg-secondary text-white px-4 py-2 rounded-md font-semibold hover:bg-secondary-60">
                             View Order
                         </button>
