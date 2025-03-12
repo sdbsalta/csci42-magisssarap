@@ -8,6 +8,7 @@ import Logout from "./pages/Logout";
 import MyAccount from "./pages/MyAccount";
 import MyAccountVouchers from "./pages/MyAccountVouchers";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout"
 import ContactFAQs from "./pages/ContactFAQs";
 import Restaurants from "./pages/Restaurants";
 import RestoView from "./pages/RestoView";
@@ -51,6 +52,7 @@ function App() {
             <Route path="/restaurants" element={<Restaurants />} />
             <Route path="/restaurants/view" element={<RestoView />} />
             <Route path="/campusmap" element={<CampusMap />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/orders/active" element={<MyOrdersActive />} />
             <Route path="/orders/past" element={<MyOrdersPast />} />
             <Route path="/order/active" element={<RestoOrdersActive />} />
