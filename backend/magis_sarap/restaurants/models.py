@@ -47,7 +47,7 @@ class Restaurant(models.Model):
     cuisine_type = models.ManyToManyField(CuisineType)
     
     # czy, i added bc it's shown in the dashboard section of customer (e.g. Gonzaga)
-    location = models.CharField(max_length=255, blank=False, null=False)
+    location = models.CharField(max_length=255, default="Unknown Location")
     
     # added this also bc its shown in the dashboard
     image = models.ImageField(upload_to="restaurant_images/", blank=True, null=True)
