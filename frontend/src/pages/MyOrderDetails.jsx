@@ -39,8 +39,12 @@ export const MyOrderDetails = () => {
         <h1 className="text-left font-semibold text-dark text-3xl md:text-3xl">
           Order <span className="text-primary font-bold">{order.order_id || "Unknown ID"}</span> 😋
         </h1>
-        <span className="bg-[#fee083] text-black text-sm font-semibold px-4 py-2 rounded-full">
-          Pending
+        <span
+          className={`text-black text-sm font-semibold px-4 py-2 rounded-full ${
+            order.status === "Completed" ? "bg-[#34A641]" : "bg-[#fee083]"
+          }`}
+        >
+          {order.status || "Unknown status"}
         </span>
       </div>
 
@@ -57,7 +61,18 @@ export const MyOrderDetails = () => {
           {/* Estimated Delivery Time */}
           <div className="flex items-center gap-2">
             <img src={ClockIcon} alt="Clock" className="w-5 h-5" />
-            <p className="text-gray-800"><span className="font-semibold">Estimated delivery time: 2:00 PM</span> </p>
+            <p className="text-gray-800">
+            <span className="font-semibold">
+              Estimated delivery time:{" "}
+              {order.date_created
+                ? new Date(order.date_created).toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true
+                  })
+                : "Unknown time"}
+            </span>
+          </p>
           </div>
 
           {/* Location */}
@@ -84,7 +99,7 @@ export const MyOrderDetails = () => {
       <div className="w-full mt-6 mb-6 border-t border-b border-black pt-3 pb-3">
         <div className="flex justify-between items-center">
           <p className="text-xl font-bold p-4">Total</p>
-          <p className="text-xl font-bold">₱300</p>
+          <p className="text-xl font-bold">₱{order.total_price || "Unknown price"}</p>
         </div>
       </div>
 
