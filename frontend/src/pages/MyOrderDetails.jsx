@@ -85,7 +85,7 @@ export const MyOrderDetails = () => {
         {/* Voucher Applied */}
         <div className="flex items-center gap-2">
           <img src={VoucherIcon} alt="Voucher" className="w-5 h-5" />
-          <p className="text-gray-800"><span className="font-semibold">No voucher applied</span></p>
+          <p className="text-gray-800"><span className="font-semibold">{order.voucher_code || "No voucher applied"}</span></p>
         </div>
 
         {/* Customer Note */}
