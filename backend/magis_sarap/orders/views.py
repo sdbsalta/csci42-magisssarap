@@ -10,6 +10,7 @@ class OrderListCreateView(generics.ListCreateAPIView):
         status = self.request.query_params.get("status")  
 
         if status:
+            status = status.capitalize()
             if status.lower() == "active":  # check if user is looking for active orders
                 queryset = queryset.exclude(status="Completed")  # dont include orders
             else:
