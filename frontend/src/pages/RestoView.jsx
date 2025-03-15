@@ -1,6 +1,8 @@
 {/* /frontend/pages/SearchResto.jsx */}
-import React from 'react'
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from "react-router-dom";
+import axios from 'axios';
+
 import Cart from "../components/Cart";
 import FoodItem from "../components/FoodItem";
 import BackIcon from "../icons/back.svg";
@@ -9,6 +11,32 @@ import MapPinIcon from "../icons/MapPin.svg";
 import Bacsilog from "../img/bacsilog.png";
 
 export const RestoView = () => {
+    const { resto_name } = useParams(); // Get resto_name from URL
+    const [restaurant, setRestaurant] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8000/restaurants/${resto_name}/`)
+            .then((response) => {
+                setRestaurant(response.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error("Error fetching data:", err);
+                setError("Restaurant not found.");
+                setLoading(false);
+            });
+    }, [resto_name]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
     return (
         <div className="flex justify-center items-center min-h-screen rounded-md bg-accent-20">
             <div className="flex flex-col justify-center items-center h-full w-2/3 gap-4 rounded-lg p-4">
@@ -50,13 +78,13 @@ export const RestoView = () => {
 
                 {/* Resto Details */}
                 <div className="w-full flex flex-col p-4 gap-2">
-                    <h1 className="text-dark text-3xl md:text-3xl">Restaurant Name</h1>
+                    <h1 className="text-dark text-3xl md:text-3xl">{restaurant.resto_name || "Unknown Resto"}</h1>
                     <div className="flex items-center">
                         <img src={MapPinIcon} alt="Map Pin Icon" className="w-6 h-6 mr-1 text-gray-500" />
-                        <span className="text-lg text-dark">Location</span>
+                        <span className="text-lg text-dark">{restaurant.location || "Unknown Location"}</span>
                     </div>
                     <p className="text-dark text-justify">
-                        This is a brief description of the restaurant, its specialties, and what makes it unique. Enjoy a variety of delicious meals prepared with the finest ingredients.
+                        {restaurant.description || "Unknown Description"}
                     </p>
                 </div>
 

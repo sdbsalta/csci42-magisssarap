@@ -34,7 +34,10 @@ class Restaurant(models.Model):
         blank=False, 
         null=False
     )
-
+    description = models.TextField(
+        blank=True, 
+        null=True,
+    )
     # Changed Opening Hours to getting operating hours by asking for an opening time and closing time
     opening_time = models.TimeField(
         blank=False,

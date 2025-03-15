@@ -52,7 +52,7 @@ function App() {
             <Route path="/account" element={<MyAccount />} />
             <Route path="/account/vouchers" element={<MyAccountVouchers />} />
             <Route path="/restaurants" element={<Restaurants />} />
-            <Route path="/restaurants/view" element={<RestoView />} />
+            <Route path="/restaurants/:resto_name" element={<RestoView />} />
             <Route path="/campusmap" element={<CampusMap />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/orders/active" element={<MyOrdersActive />} />
