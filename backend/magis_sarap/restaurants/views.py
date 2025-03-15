@@ -9,6 +9,20 @@ from .forms import CreateRestaurantForm
 from .serializers import RestaurantSerializer, CuisineTypeSerializer
 
 # Create your views here.
+class RestaurantDetailView(APIView):
+    def get(self, request, resto_name, *args, **kwargs):
+        # Replace hyphens with spaces to match the restaurant name
+        resto_name = resto_name.replace('-', ' ')
+
+        try:
+            # Use case-insensitive lookup for restaurant name
+            restaurant = Restaurant.objects.get(resto_name__iexact=resto_name)
+            # Serialize the restaurant data
+            restaurant_data = RestaurantSerializer(restaurant).data
+            return Response(restaurant_data, status=status.HTTP_200_OK)
+        except Restaurant.DoesNotExist:
+            return Response({"detail": "Restaurant not found."}, status=status.HTTP_404_NOT_FOUND)
+
 class CreateRestaurantView(CreateView):
     model = Restaurant
     template_name = 'create_restaurant.html'
