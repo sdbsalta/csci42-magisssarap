@@ -78,7 +78,7 @@ export const MyOrderDetails = () => {
           {/* Location */}
           <div className="flex items-center gap-2">
             <img src={MapPinIcon} alt="Map Pin" className="w-5 h-5" />
-            <p className="text-gray-800"><span className="font-semibold">Location: CTC313</span> </p>
+            <p className="text-gray-800"><span className="font-semibold">Location: {order?.delivery?.delivery_location || "Unknown location"}</span> </p>
           </div>
         </div>
 
@@ -91,7 +91,7 @@ export const MyOrderDetails = () => {
         {/* Customer Note */}
         <div className="flex items-center gap-2">
           <img src={NoteIcon} alt="Note" className="w-5 h-5" />
-          <p className="text-gray-800"><span className="font-semibold">Note from customer: make it fast po.</span></p>
+          <p className="text-gray-800"><span className="font-semibold">Note from customer: {order.notes || "None"}</span></p>
         </div>
       </div>
 

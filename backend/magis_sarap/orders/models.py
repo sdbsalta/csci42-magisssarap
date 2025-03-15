@@ -52,6 +52,12 @@ class Order(models.Model):
         max_digits=10,
         decimal_places=2
     )
+    notes = models.TextField(  # added new field for customer reqs - iya
+        blank=True,
+        null=True,
+        help_text="Special instructions or requests from the customer."
+    )
+
 
     def save(self, *args, **kwargs):
         if not self.order_id:
@@ -131,6 +137,13 @@ class Delivery(models.Model):
         ('Delivered', 'Delivered'),
         ]
     )
+    delivery_location = models.CharField(  # added field for delivery location - iya
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="Please follow proper naming conventions (e.g., CTC313, etc.) for the delivery address."
+    )
+
     estimated_time = models.DateTimeField(null=True, blank=True)
     delivered_at = models.DateTimeField(null=True, blank=True)
 

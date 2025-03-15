@@ -10,7 +10,7 @@ class OrderItemInline(admin.TabularInline):
 class DeliveryInline(admin.StackedInline):
     model = Delivery
     extra = 0  # Ensures only one delivery per order
-    fields = ('delivery_person', 'status', 'estimated_time', 'delivered_at')  # Editable fields
+    fields = ('delivery_person', 'status', 'estimated_time', 'delivered_at', 'delivery_location')  # Editable fields
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['order_id', 'customer', 'restaurant', 'status', 'total_price', 'date_created', 'time_completed']
