@@ -59,7 +59,7 @@ function App() {
             <Route path="/orders/past" element={<MyOrdersPast />} />
             <Route path="/order/active" element={<RestoOrdersActive />} />
             <Route path="/order/past" element={<RestoOrdersPast />} />
-            <Route path="/myorder/details" element={<MyOrderDetails />} />
+            <Route path="/myorder/details/:orderId" element={<MyOrderDetails />} />
             <Route path="/order/details" element={<RestoOrderDetails />} />
             <Route path="/menu/edit" element={<EditMenu />} />
             <Route path="/productedit" element={<ProductEdit />} />

@@ -1,5 +1,7 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useParams, Link } from "react-router-dom";
+import axios from 'axios'
+
 import MapPinIcon from "../icons/MapPin.svg";
 import BackIcon from "../icons/back.svg";
 import ClockIcon from "../icons/clock.svg";
@@ -10,12 +12,32 @@ import Salad from '../img/salad.png';
 import OrderItem from '../components/OrderItem';
 
 export const MyOrderDetails = () => {
+  const { orderId } = useParams(); // Get the order ID from the URL
+  const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/orders/${orderId}/`)
+      .then(response => {
+        console.log("Order data received:", response.data);
+        setOrder(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching order:", error);
+        setLoading(false);
+      });
+  }, [orderId]);
+
+  if (loading) return <p>Loading...</p>;
+  if (!order) return <p>Error: Order not found.</p>;
+
   return (
     <div className="flex flex-col items-center min-h-screen bg-[#fefaf5] p-8 w-full">
       {/* Order Header */}
       <div className="bg-[#fff3db] p-6 rounded-md flex flex-row justify-between items-center w-full">
         <h1 className="text-left font-semibold text-dark text-3xl md:text-3xl">
-          Order <span className="text-primary font-bold">ORD-250101-001</span> 😋
+          Order <span className="text-primary font-bold">{order.order_id || "Unknown ID"}</span> 😋
         </h1>
         <span className="bg-[#fee083] text-black text-sm font-semibold px-4 py-2 rounded-full">
           Pending

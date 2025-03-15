@@ -1,6 +1,7 @@
 from rest_framework import generics
 from .models import Order
 from .serializers import OrderSerializer
+from django.http import Http404
 
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
@@ -20,5 +21,15 @@ class OrderListCreateView(generics.ListCreateAPIView):
         return queryset
 
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    lookup_field = "order_id"  # Lookup using order_id
+
+    def get_queryset(self):
+        return Order.objects.all()
+
+    def get_object(self):
+        order_id = self.kwargs.get("order_id")
+        try:
+            return Order.objects.get(order_id=order_id)  # Fetch using order_id
+        except Order.DoesNotExist:
+            raise Http404("Order not found")
