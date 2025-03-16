@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import MapPinIcon from "../icons/MapPin.svg";
 import BackIcon from "../icons/back.svg";
@@ -10,16 +11,29 @@ import Salad from '../img/salad.png';
 import OrderItem from '../components/OrderItem';
 
 const Cart = () => {
+  const [order, setOrder] = useState(null);
+  const orderId = "ORD-250315-F3F";  // change to make dynamic
+
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/orders/${orderId}/`)
+      .then(response => {
+        setOrder(response.data);
+      })
+      .catch(error => console.error("Error fetching order:", error));
+  }, [orderId]);
+
+  if (!order) return <p>Loading order...</p>;
+
   return (
     <div className="flex flex-col items-center min-h-screen bg-[#fefaf5] p-8 w-full">
       
       {/* Order Header */}
       <div className="bg-[#fff3db] p-6 rounded-md flex flex-row justify-between items-center w-full">
         <h1 className="text-left font-semibold text-dark text-3xl md:text-3xl">
-          Order <span className="text-primary font-bold">ORD-250101-001</span> 😋
+          Order <span className="text-primary font-bold">{order.order_id}</span> 😋
         </h1>
         <span className="bg-[#fee083] text-black text-sm font-semibold px-4 py-2 rounded-full">
-          Pending
+          {order.status}
         </span>
       </div>
 
@@ -32,42 +46,56 @@ const Cart = () => {
       {/* Order Details */}
       <div className="mt-6 w-full bg-[#fefaf5] space-y-4 p-4">
         
-        {/* Delivery Time & Location (Same Row) */}
-        <div className="flex justify-between items-center">
-          {/* Estimated Delivery Time */}
-          <div className="flex items-center gap-2">
-            <img src={ClockIcon} alt="Clock" className="w-5 h-5" />
-            <p className="text-gray-800"><span className="font-semibold">Estimated delivery time: 2:00 PM</span> </p>
-          </div>
-
-          {/* Location with Edit Button */}
-          <div className="flex items-center gap-2">
-            <img src={MapPinIcon} alt="Map Pin" className="w-5 h-5" />
-            <p className="text-gray-800"><span className="font-semibold">Location:</span> CTC313</p>
-            <Link to="/editlocation">
-              <button className="bg-[#f2d5d5] text-gray-800 text-xs font-semibold px-4 py-3 rounded-full hover:bg-primary hover:text-white">
-                Edit
-              </button>
-            </Link>
-          </div>
+      {/* Delivery Time & Location (Same Row) */}
+      <div className="flex justify-between items-center w-full">
+        {/* Estimated Delivery Time */}
+        <div className="flex items-center gap-2">
+          <img src={ClockIcon} alt="Clock" className="w-5 h-5" />
+          <p className="text-gray-800">
+            <span className="font-semibold">Estimated delivery time:</span> 20 minutes
+          </p>
         </div>
 
-        {/* No Voucher Applied */}
+        {/* Location with Edit Button */}
         <div className="flex items-center gap-2">
-          <img src={VoucherIcon} alt="Voucher" className="w-5 h-5" />
-          <p className="text-gray-800"><span className="font-semibold">No voucher applied</span></p>
-        </div>
-
-        {/* Customer Note */}
-        <div className="flex items-center gap-2">
-          <img src={NoteIcon} alt="Note" className="w-5 h-5" />
-          <p className="text-gray-800"><span className="font-semibold">Note from customer:</span></p>
+          <img src={MapPinIcon} alt="Map Pin" className="w-5 h-5" />
+          <label className="text-gray-800 font-semibold" htmlFor="location">Location:</label>
           <input 
+            id="location"
             type="text" 
-            placeholder="Add Note..." 
-            className="w-4/5 p-3 input input-bordered bg-white text-black border-black"
+            defaultValue="CTC313" 
+            className="w-24 p-2 input input-bordered bg-white text-black border-black rounded-md text-sm"
           />
+          <Link to="/editlocation">
+            <button className="bg-[#f2d5d5] text-gray-800 text-xs font-semibold px-3 py-2 rounded-full hover:bg-primary hover:text-white">
+              Edit
+            </button>
+          </Link>
         </div>
+      </div>
+ 
+
+      {/* voucher input */}
+      <div className="flex items-center gap-2 w-full">
+        <img src={VoucherIcon} alt="Voucher" className="w-5 h-5" />
+        <p className="text-gray-800 w-40"><span className="font-semibold">Voucher code:</span></p>
+        <input 
+          type="text" 
+          placeholder="Enter code..." 
+          className="flex-grow p-3 input input-bordered bg-white text-black border-black"
+        />
+      </div>
+
+      {/* Customer Note */}
+      <div className="flex items-center gap-2 w-full">
+        <img src={NoteIcon} alt="Note" className="w-5 h-5" />
+        <p className="text-gray-800 w-40"><span className="font-semibold">Note from customer:</span></p>
+        <input 
+          type="text" 
+          placeholder="Add note..." 
+          className="flex-grow p-3 input input-bordered bg-white text-black border-black"
+        />
+      </div>
       </div>
 
       {/* Total & Actions */}
