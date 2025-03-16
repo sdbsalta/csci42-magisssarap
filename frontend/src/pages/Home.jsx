@@ -44,18 +44,6 @@ export const Home = () => {
             </div>
             <div className="flex flex-row py-2 gap-3">
             <FoodList />
-            <FoodItem 
-                FoodName="Bacsilog"
-                Price="₱99"
-                Location="Gonzaga Cafeteria"
-                Rating="4.5"
-                />
-            <FoodItem 
-                FoodName="Bacsilog"
-                Price="₱99"
-                Location="Gonzaga Cafeteria"
-                Rating="4.5"
-                />
             </div>
         </div>
 
