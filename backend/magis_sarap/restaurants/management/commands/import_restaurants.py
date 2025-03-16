@@ -16,6 +16,8 @@ class Command(BaseCommand):
                         # Convert opening & closing times
                         opening_time = datetime.strptime(row['opening_time'], '%H:%M').time()
                         closing_time = datetime.strptime(row['closing_time'], '%H:%M').time()
+                        
+                        location = row.get('location', 'Unknown Location').strip()
 
                         # Create or update restaurant
                         restaurant, created = Restaurant.objects.update_or_create(
@@ -25,6 +27,7 @@ class Command(BaseCommand):
                                 'resto_owner': row['resto_owner'],
                                 'opening_time': opening_time,
                                 'closing_time': closing_time,
+                                'location': location,
                             }
                         )
 

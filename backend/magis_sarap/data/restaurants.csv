@@ -1,11 +1,11 @@
-resto_id,resto_name,resto_owner,opening_time,closing_time,cuisine_type
-1,Olive Garden,John Doe,11:00,22:00,"1,5"
-2,Sushi Haven,Jane Smith,10:30,21:30,2
-3,Golden Dragon,Emily Chen,9:00,23:00,3
-4,Taco Fiesta,Carlos Mendoza,12:00,22:00,4
-5,Burger Town,James Carter,11:00,0:00,5
-6,Le Gourmet,Pierre Dupont,7:00,21:00,6
-7,K-BBQ House,Minji Park,17:00,2:00,7
-8,Thai Spice,Arun Patil,11:30,22:30,8
-9,Masala Magic,Raj Kapoor,10:00,22:00,9
-10,Acropolis Taverna,Nikos Papadopoulos,12:00,23:00,10
+resto_id,resto_name,resto_owner,opening_time,closing_time,cuisine_type,location
+1,Olive Garden,John Doe,11:00,22:00,"1,5",JSEC
+2,Sushi Haven,Jane Smith,10:30,21:30,2,LST
+3,Golden Dragon,Emily Chen,9:00,23:00,3,Gonzaga Cafeteria
+4,Taco Fiesta,Carlos Mendoza,12:00,22:00,4,JSEC
+5,Burger Town,James Carter,11:00,0:00,5,JSEC
+6,Le Gourmet,Pierre Dupont,7:00,21:00,6,Gonzaga Cafeteria
+7,K-BBQ House,Minji Park,17:00,2:00,7,JSEC
+8,Thai Spice,Arun Patil,11:30,22:30,8,JSEC
+9,Masala Magic,Raj Kapoor,10:00,22:00,9,LST
+10,Acropolis Taverna,Nikos Papadopoulos,12:00,23:00,10,LST
