@@ -1,59 +1,90 @@
 from django.core.management.base import BaseCommand
-from django.utils.timezone import make_aware
 import csv
+from django.utils import timezone
 from datetime import datetime
 from orders.models import Order
-from users.models import User
+from django.contrib.auth import get_user_model
 from restaurants.models import Restaurant
 
-class Command(BaseCommand):  # <- This is the missing class
-    help = 'Import orders from CSV file'
+User = get_user_model()
+
+class Command(BaseCommand):
+    help = 'Import orders from CSV'
 
     def handle(self, *args, **kwargs):
-        file_path = 'data/orders.csv'  # Update path if needed
-        
-        with open(file_path, newline='', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                try:
-                    customer_id = int(row['customer'])  # Ensure integer type
-                    print(f"Looking for user_id: {customer_id}")  # Debugging
-                    
-                    customer = User.objects.get(user_id=customer_id)
-                    if not customer:
-                        self.stderr.write(self.style.ERROR(f"Skipping row: User with user_id={customer_id} does not exist."))
-                        continue  # Skip row if user doesn't exist
+        try:
+            with open('data/orders.csv', newline='', encoding='utf-8') as csvfile:
+                reader = csv.DictReader(csvfile, skipinitialspace=True)
 
-                    restaurant_id = int(row['restaurant'])
-                    restaurant = Restaurant.objects.filter(resto_id=restaurant_id).first()
-                    if not restaurant:
-                        self.stderr.write(self.style.ERROR(f"Skipping row: Restaurant with resto_id={restaurant_id} does not exist."))
-                        continue  # Skip row if restaurant doesn't exist
+                for row in reader:
+                    try:
+                        # Fetch related customer and restaurant using correct field names
+                        customer_id = row['customer_id'].strip()
+                        restaurant_id = row['restaurant_id'].strip()
 
-                    date_created = make_aware(datetime.strptime(row['date_created'], "%Y-%m-%d %H:%M:%S"))
+                        customer = User.objects.filter(user_id=customer_id).first()
+                        if not customer:
+                            self.stdout.write(self.style.ERROR(f"Customer ID {customer_id} not found. Skipping order {row['order_id']}."))
+                            continue
 
-                    time_completed = None
-                    if row['time_completed']:
-                        time_completed = make_aware(datetime.strptime(row['time_completed'], "%Y-%m-%d %H:%M:%S"))
+                        restaurant = Restaurant.objects.filter(resto_id=restaurant_id).first()
+                        if not restaurant:
+                            self.stdout.write(self.style.ERROR(f"Restaurant ID {restaurant_id} not found. Skipping order {row['order_id']}."))
+                            continue
+                        
+                        # Convert total_price safely
+                        try:
+                            total_price = float(row['total_price'].strip())
+                        except ValueError:
+                            self.stdout.write(self.style.ERROR(f"Invalid total price for order {row['order_id']}. Skipping."))
+                            continue
 
-                    order, created = Order.objects.update_or_create(
-                        order_id=row['order_id'], 
-                        defaults={
-                            'customer': customer,
-                            'restaurant': restaurant,
-                            'status': row['status'],
-                            'date_created': date_created,
-                            'time_completed': time_completed,
-                            'voucher_code': row['voucher_code'] if row['voucher_code'] else None,
-                            'total_price': row['total_price'],
-                        }
-                    )
+                        # Convert date_created to timezone-aware datetime
+                        date_created = row.get('date_created', '').strip()
+                        if date_created:
+                            try:
+                                naive_datetime = datetime.strptime(date_created, "%Y-%m-%d %H:%M:%S")
+                                date_created = timezone.make_aware(naive_datetime, timezone.get_current_timezone())
+                            except ValueError:
+                                self.stdout.write(self.style.ERROR(f"Invalid date format for order {row['order_id']}. Skipping."))
+                                continue
+                        else:
+                            date_created = None
 
-                    if created:
-                        self.stdout.write(self.style.SUCCESS(f"Created order {order.order_id}"))
-                    else:
-                        self.stdout.write(self.style.WARNING(f"Updated order {order.order_id}"))
+                        # Convert time_completed to timezone-aware datetime
+                        time_completed = row.get('time_completed', '').strip()
+                        if time_completed:
+                            try:
+                                naive_datetime = datetime.strptime(time_completed, "%Y-%m-%d %H:%M:%S")
+                                time_completed = timezone.make_aware(naive_datetime, timezone.get_current_timezone())
+                            except ValueError:
+                                self.stdout.write(self.style.ERROR(f"Invalid time format for order {row['order_id']}. Skipping."))
+                                continue
+                        else:
+                            time_completed = None
 
-                except Exception as e:
-                    self.stderr.write(self.style.ERROR(f"Error processing row {row}: {e}"))
+                        # Create or update the order
+                        order, created = Order.objects.update_or_create(
+                            order_id=row['order_id'].strip(),
+                            defaults={
+                                'customer': customer,
+                                'restaurant': restaurant,
+                                'status': row.get('status', 'Order Placed').strip(),
+                                'date_created': date_created,
+                                'time_completed': time_completed,
+                                'voucher_code': row.get('voucher_code', '').strip() or None,
+                                'total_price': total_price,
+                                'notes': row.get('notes', '').strip(),
+                            }
+                        )
 
+                        if created:
+                            self.stdout.write(self.style.SUCCESS(f"Created order {order.order_id}"))
+                        else:
+                            self.stdout.write(self.style.SUCCESS(f"Updated order {order.order_id}"))
+
+                    except Exception as e:
+                        self.stdout.write(self.style.ERROR(f"Error processing order {row['order_id']}: {e}"))
+
+        except FileNotFoundError:
+            self.stdout.write(self.style.ERROR("File 'data/orders.csv' not found."))

@@ -1,6 +1,11 @@
-order_id,customer,restaurant,status,date_created,time_completed,voucher_code,total_price
-ORD-250309-A12,202301,1,Order Placed,2025-03-09 12:30:00,,DISCOUNT10,25.99
-ORD-250309-B34,202303,2,Preparing Order,2025-03-09 12:45:00,,WELCOME5,15.5
-ORD-250309-C56,202302,3,Completed,2025-03-09 11:00:00,2025-03-09 11:45:00,,32.75
-ORD-250309-D78,202303,4,Out for Delivery,2025-03-09 13:10:00,,,18.99
-ORD-250309-E90,202301,5,Order Cancelled,2025-03-09 14:00:00,,,12.5
+order_id,customer_id,restaurant_id,status,date_created,time_completed,voucher_code,total_price,notes
+ORD-250316-8A3,202301,1,Order Confirmed,2025-03-11 11:11:01,,FREESHIP,40.52,
+ORD-250316-9DB,227407,2,Order Cancelled,2025-02-25 11:11:01,,DISC10,80.28,No onions
+ORD-250316-BB5,202301,3,Order Cancelled,2025-03-09 11:11:01,,DISC10,86.57,
+ORD-250316-192,202302,4,Pending,2025-02-22 11:11:01,,DISC10,37.87,No onions
+ORD-250316-22F,202302,5,Preparing Order,2025-03-10 11:11:01,,WELCOME5,21.11,Extra spicy
+ORD-250316-C2E,202302,6,Completed,2025-03-08 11:11:01,2025-03-08 13:11:01,,250,Gluten-free
+ORD-250316-37F,202302,7,Preparing Order,2025-03-08 11:11:01,,DISC10,47.08,
+ORD-250316-4DF,227407,8,Pending,2025-02-22 11:11:01,,,200,
+ORD-250316-5DB,202303,9,Preparing Order,2025-02-22 11:11:01,,,240,Gluten-free
+ORD-250316-330,202303,10,Order Placed,2025-02-21 11:11:01,,FREESHIP,76.03,Extra spicy
