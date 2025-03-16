@@ -18,9 +18,10 @@ export const Login = () => {
       });
   
       const data = await response.json();
-      console.log(data); // Log the response data to see what it contains
+      console.log("Response status:", response.status);
+      console.log("Response data:", data);  // Log the response data to see what it contains
   
-      if (response.ok) {
+      if (response.ok && data.accessToken) {
         alert(`Login successful! Welcome, ${data.user_type}`);
         localStorage.setItem("accessToken", data.accessToken);
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;

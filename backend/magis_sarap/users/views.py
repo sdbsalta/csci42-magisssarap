@@ -20,22 +20,41 @@ from django.contrib.auth.hashers import check_password
 from .serializers import UserSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 @csrf_exempt
 def login_user(request):
     if request.method == "POST":
         try:
+            # Parse the incoming JSON data
             data = json.loads(request.body)
             user_id = data.get('user_id')  # Get user_id from request
             password = data.get('password')
 
             try:
-                user = User.objects.get(user_id=user_id)  # Lookup by user_id
-                if check_password(password, user.password):  
-                    return JsonResponse({"message": "Login successful", "user_type": user.user_type}, status=200)
+                # Find the user by user_id
+                user = User.objects.get(user_id=user_id)
+
+                # Debugging: Print out the user's password and check if it matches the hash
+                print("User found:", user.user_id)
+                print("Stored password hash:", user.password)
+
+                # Check if the password matches
+                if check_password(password, user.password):
+                    # Generate JWT access token using simplejwt
+                    refresh = RefreshToken.for_user(user)
+                    access_token = str(refresh.access_token)
+
+                    # Return the response with the access token and user type
+                    return JsonResponse({
+                        "accessToken": access_token,
+                        "message": "Login successful",
+                        "user_type": user.user_type
+                    }, status=200)
+
                 else:
                     return JsonResponse({"message": "Invalid password"}, status=401)
+
             except User.DoesNotExist:
                 return JsonResponse({"message": "User not found"}, status=404)
 

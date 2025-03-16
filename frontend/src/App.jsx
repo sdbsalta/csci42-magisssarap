@@ -29,6 +29,16 @@ function App() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
+    // Set the Authorization header globally
+    const accessToken = localStorage.getItem("accessToken");
+    console.log("Access Token in header localStorage:", accessToken);
+
+    if (accessToken) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    } else {
+        console.error("Access token is not available");
+    }
+
     axios
       .get("http://127.0.0.1:8000/") 
       .then((response) => {

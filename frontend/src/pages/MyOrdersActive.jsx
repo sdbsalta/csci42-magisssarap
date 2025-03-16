@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export const MyOrdersActive = () => {
     const [orders, setOrders] = useState([]);
@@ -9,11 +10,12 @@ export const MyOrdersActive = () => {
             try {
                 const response = await fetch("http://localhost:8000/orders/?status=active", {
                     headers: {
-                        "Authorization": `Bearer ${localStorage.getItem("access_token")}`
+                        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                     }
                 });
     
                 if (!response.ok) {
+                    console.error("Failed to fetch orders. Status code:", response.status);
                     throw new Error("Failed to fetch orders");
                 }
     

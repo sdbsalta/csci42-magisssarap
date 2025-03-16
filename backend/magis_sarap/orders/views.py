@@ -40,11 +40,11 @@ class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
             return Order.objects.get(order_id=order_id)  # Fetch using order_id
         except Order.DoesNotExist:
             raise Http404("Order not found")
-
+''''''
 class PendingOrderView(APIView): # checks if may order nako
     def get(self, request, *args, **kwargs):
         user = request.user
-        pending_order = Order.objects.filter(user=user, status="Pending").first()
+        pending_order = Order.objects.filter(user__user_id=user.user_id, status="Pending").first()
         
         if pending_order:
             serializer = OrderSerializer(pending_order)
