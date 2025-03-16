@@ -27,11 +27,11 @@ def login_user(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            email = data.get('email_address')
+            user_id = data.get('user_id')  # Get user_id from request
             password = data.get('password')
 
             try:
-                user = User.objects.get(email_address=email)
+                user = User.objects.get(user_id=user_id)  # Lookup by user_id
                 if check_password(password, user.password):  
                     return JsonResponse({"message": "Login successful", "user_type": user.user_type}, status=200)
                 else:

@@ -91,6 +91,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.user_id} - {self.name}"
+    
+    @property
+    def id(self):
+        return self.user_id
 
 class RestaurantOwner(User):
     resto_name = models.CharField(

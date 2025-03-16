@@ -6,20 +6,23 @@ from rest_framework.views import APIView
 from .models import Order
 from django.views import View
 from .serializers import OrderSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]  # 👈 Require authentication
 
     def get_queryset(self):
         queryset = Order.objects.all()
         status = self.request.query_params.get("status")  
 
         if status:
-            status = status.capitalize()
-            if status.lower() == "active":  # check if user is looking for active orders
-                queryset = queryset.exclude(status="Completed")  # dont include orders
+            status = status.capitalize()  
+            
+            if status.lower() == "active": 
+                queryset = queryset.exclude(status="Completed") 
             else:
-                queryset = queryset.filter(status=status)
+                queryset = queryset.filter(status=status)  
                 
         print(f"Filtered orders count: {queryset.count()}")
         return queryset
