@@ -1,7 +1,11 @@
+from django.shortcuts import get_object_or_404
+from django.http import Http404, JsonResponse
+from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.views import APIView
 from .models import Order
+from django.views import View
 from .serializers import OrderSerializer
-from django.http import Http404
 
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
@@ -33,3 +37,14 @@ class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
             return Order.objects.get(order_id=order_id)  # Fetch using order_id
         except Order.DoesNotExist:
             raise Http404("Order not found")
+
+class PendingOrderView(APIView): # checks if may order nako
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        pending_order = Order.objects.filter(user=user, status="Pending").first()
+        
+        if pending_order:
+            serializer = OrderSerializer(pending_order)
+            return Response(serializer.data)
+        else:
+            raise Http404("No pending orders found")

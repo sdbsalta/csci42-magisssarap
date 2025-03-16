@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MapPinIcon from "../icons/MapPin.svg";
 import BackIcon from "../icons/back.svg";
 import ClockIcon from "../icons/clock.svg";
@@ -12,17 +12,26 @@ import OrderItem from '../components/OrderItem';
 
 const Cart = () => {
   const [order, setOrder] = useState(null);
-  const orderId = "ORD-250315-F3F";  // change to make dynamic
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/orders/${orderId}/`)
-      .then(response => {
+    axios
+      .get("http://127.0.0.1:8000/orders/pending/", { withCredentials: true }) // may problem ulit sa auth side huhu - iya
+      .then((response) => {
         setOrder(response.data);
       })
-      .catch(error => console.error("Error fetching order:", error));
-  }, [orderId]);
+      .catch((error) => {
+        console.error("No pending order:", error);
+        alert("You have no pending orders. Please place an order first.");
+        navigate("/restaurants/");
+      })
+      .finally(() => setLoading(false));
+  }, [navigate]);  
 
-  if (!order) return <p>Loading order...</p>;
+  if (loading) return <p>Loading order...</p>;
+
+  if (!order) return null;
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-[#fefaf5] p-8 w-full">

@@ -7,6 +7,7 @@ User = get_user_model()
 
 class Order(models.Model):
     ORDER_STATUS_CHOICES = [
+        ('Pending', 'Pending'), # meaning di pako nagoorder - iya
         ('Order Placed', 'Order Placed'),
         ('Order Confirmed', 'Order Confirmed'),
         ('Order Cancelled', 'Order Cancelled'),
