@@ -36,6 +36,8 @@ class FoodItem(models.Model):
         null=False
     )
 
+    food_image = models.ImageField()
+
     class Meta:
         unique_together = ("restaurant", "item_no")
 
