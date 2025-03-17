@@ -4,9 +4,9 @@ from rest_framework import status
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from .models import Restaurant, CuisineType
-from .forms import CreateRestaurantForm
-from .serializers import RestaurantSerializer, CuisineTypeSerializer
+from .models import Restaurant
+from .serializers import RestaurantSerializer
+import json
 
 # Create your views here.
 class RestaurantDetailView(APIView):
@@ -26,7 +26,6 @@ class RestaurantDetailView(APIView):
 class CreateRestaurantView(CreateView):
     model = Restaurant
     template_name = 'create_restaurant.html'
-    form_class = CreateRestaurantForm
     success_url = reverse_lazy(''); # CHANGE THIS TO ACTUAL REDIRECT URL
 
     def form_valid(self, form):
@@ -40,9 +39,10 @@ class CreateRestaurantView(CreateView):
 
         response = super().form_valid(form)
 
+        # Get the cuisine choices and store them as JSON
         cuisine_choices = self.request.POST.getlist('cuisine_type')
-        cuisine_objects = CuisineType.objects.filter(type__in=cuisine_choices)
-        self.object.cuisine_type.set(cuisine_objects)
+        self.object.cuisines = json.dumps(cuisine_choices)
+        self.object.save()
 
         return response
     
@@ -52,9 +52,14 @@ class RestaurantDashboardView(APIView):
         restaurants = Restaurant.objects.all()
         restaurant_data = RestaurantSerializer(restaurants, many=True).data
 
-        # all cuisine categories
-        cuisines = CuisineType.objects.all()
-        cuisine_data = CuisineTypeSerializer(cuisines, many=True).data
+        # Get unique cuisines from all restaurants
+        all_cuisines = set()
+        for restaurant in restaurants:
+            cuisines = json.loads(restaurant.cuisines)
+            all_cuisines.update(cuisines)
+        
+        # Convert to list and sort
+        cuisine_data = [{"type": cuisine} for cuisine in sorted(all_cuisines)]
 
         # navigation links
         navigation_links = {

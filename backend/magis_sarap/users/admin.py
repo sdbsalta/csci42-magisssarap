@@ -14,3 +14,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('user_id', 'name', 'email_address', 'contact_no', 'user_type', 'password1', 'password2', 'is_active')}),
     )
 
+@admin.register(RestaurantOwner)
+class RestaurantOwnerAdmin(BaseUserAdmin): 
+    list_display = ('user_id', 'name', 'resto_name')
+    ordering = ('user_id',)

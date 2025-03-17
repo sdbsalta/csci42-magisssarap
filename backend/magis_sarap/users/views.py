@@ -21,6 +21,8 @@ from .serializers import UserSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.db import transaction
+from restaurants.models import Restaurant
 
 @csrf_exempt
 def login_user(request):
@@ -121,20 +123,34 @@ def register_restaurant_owner(request):
             email_address = data.get("email_address")
             password = data.get("password")
             resto_name = data.get("resto_name")
+            opening_time = data.get("opening_time")
+            closing_time = data.get("closing_time")
+            cuisines = data.get("cuisines", [])
 
             hashed_password = make_password(password)
 
-            owner = RestaurantOwner.objects.create(
-                user_id=user_id,
-                name=name,
-                contact_no=contact_no,
-                email_address=email_address,
-                password=hashed_password,
-                user_type="Restaurant Owner",
-                resto_name=resto_name
-            )
+            with transaction.atomic():
+                # Create the RestaurantOwner
+                owner = RestaurantOwner.objects.create(
+                    user_id=user_id,
+                    name=name,
+                    contact_no=contact_no,
+                    email_address=email_address,
+                    password=hashed_password,
+                    user_type="Restaurant Owner",
+                    resto_name=resto_name
+                )
 
-            return JsonResponse({"message": "Restaurant Owner registered successfully"}, status=201)
+                # Create the Restaurant
+                restaurant = Restaurant.objects.create(
+                    resto_name=resto_name,
+                    resto_owner=name,  # Using the owner's name as resto_owner
+                    opening_time=opening_time,
+                    closing_time=closing_time,
+                    cuisines=json.dumps(cuisines)  # Store cuisines as JSON string
+                )
+
+            return JsonResponse({"message": "Restaurant Owner and Restaurant registered successfully"}, status=201)
 
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=400)
@@ -164,31 +180,31 @@ def user_detail(request, user_id):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CreateCustomerView(CreateView):
-    model = User
-    template_name = 'customer_create.html'
-    form_class = CreateCustomerForm
-    success_url = reverse_lazy('users:customer-register')
+# class CreateCustomerView(CreateView):
+#     model = User
+#     template_name = 'customer_create.html'
+#     form_class = CreateCustomerForm
+#     success_url = reverse_lazy('users:customer-register')
 
-    def form_valid(self, form):
-        form.instance.user_type = "Customer"
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         form.instance.user_type = "Customer"
+#         return super().form_valid(form)
     
-class CreateRestaurantOwnerView(CreateView):
-    model = RestaurantOwner
-    template_name = 'restaurant_owner_create.html'
-    form_class = CreateRestaurantOwnerForm
+# class CreateRestaurantOwnerView(CreateView):
+#     model = RestaurantOwner
+#     template_name = 'restaurant_owner_create.html'
+#     form_class = CreateRestaurantOwnerForm
 
-    def form_valid(self, form):
-        form.instance.user_type = "Restaurant Owner"
-        response = super().form_valid(form)
+#     def form_valid(self, form):
+#         form.instance.user_type = "Restaurant Owner"
+#         response = super().form_valid(form)
 
-        self.request.session['resto_name'] = self.object.resto_name
-        self.request.session['resto_owner'] = self.object.name
+#         self.request.session['resto_name'] = self.object.resto_name
+#         self.request.session['resto_owner'] = self.object.name
 
-        return response
+#         return response
 
-    def get_success_url(self):
-        resto_owner = self.object.name
-        resto_name = self.object.resto_name
-        return reverse('restaurants:create-restaurant', kwargs={'resto_name': resto_name})
+#     def get_success_url(self):
+#         resto_owner = self.object.name
+#         resto_name = self.object.resto_name
+#         return reverse('restaurants:create-restaurant', kwargs={'resto_name': resto_name})
