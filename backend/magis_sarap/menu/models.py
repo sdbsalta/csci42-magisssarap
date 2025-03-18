@@ -13,7 +13,7 @@ class FoodItem(models.Model):
         on_delete=models.CASCADE, 
         related_name="food_items"
     )
-    name = models.CharField(max_length=100, default="Unknown Food Item") # added name field hahaha -iya
+    name = models.CharField(max_length=100) # added name field hahaha -iya
     description = models.TextField(
         max_length=100,
         blank=False,
@@ -35,6 +35,11 @@ class FoodItem(models.Model):
     price = models.IntegerField(
         blank=False,
         null=False
+    )
+    food_image = models.ImageField(
+        upload_to='food_images/', 
+        null=True, 
+        blank=True
     )
 
     class Meta:

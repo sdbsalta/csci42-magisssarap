@@ -23,28 +23,28 @@ class RestaurantDetailView(APIView):
         except Restaurant.DoesNotExist:
             return Response({"detail": "Restaurant not found."}, status=status.HTTP_404_NOT_FOUND)
 
-class CreateRestaurantView(CreateView):
-    model = Restaurant
-    template_name = 'create_restaurant.html'
-    success_url = reverse_lazy(''); # CHANGE THIS TO ACTUAL REDIRECT URL
+# class CreateRestaurantView(CreateView):
+#     model = Restaurant
+#     template_name = 'create_restaurant.html'
+#     success_url = reverse_lazy(''); # CHANGE THIS TO ACTUAL REDIRECT URL
 
-    def form_valid(self, form):
-        resto_owner = self.request.session.get('resto_owner')
-        resto_name = self.request.session.get('resto_name')
+#     def form_valid(self, form):
+#         resto_owner = self.request.session.get('resto_owner')
+#         resto_name = self.request.session.get('resto_name')
 
-        if resto_owner:
-            form.instance.resto_owner = resto_owner
-        if resto_name:
-            form.instance.resto_name = resto_name
+#         if resto_owner:
+#             form.instance.resto_owner = resto_owner
+#         if resto_name:
+#             form.instance.resto_name = resto_name
 
-        response = super().form_valid(form)
+#         response = super().form_valid(form)
 
-        # Get the cuisine choices and store them as JSON
-        cuisine_choices = self.request.POST.getlist('cuisine_type')
-        self.object.cuisines = json.dumps(cuisine_choices)
-        self.object.save()
+#         # Get the cuisine choices and store them as JSON
+#         cuisine_choices = self.request.POST.getlist('cuisine_type')
+#         self.object.cuisines = json.dumps(cuisine_choices)
+#         self.object.save()
 
-        return response
+#         return response
     
 class RestaurantDashboardView(APIView):
     def get(self, request, *args, **kwargs):
