@@ -26,7 +26,7 @@ export const Cart = () => {
 
       {/* Cart Items */}
       <div className="flex flex-col gap-4">
-        <OrderItem name="French Fries" price={150} image={Fries} updateTotal={updateTotal} />
+        <OrderItem name="French Fries" price={150} image={Fries} updateTotal={updateTotal}  />
         <OrderItem name="Salad" price={150} image={Salad} updateTotal={updateTotal} />
       </div>  
 
