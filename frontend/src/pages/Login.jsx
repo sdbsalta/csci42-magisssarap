@@ -73,7 +73,12 @@ export const Login = () => {
           <button onClick={handleLogin} className="btn bg-[#ffe084] text-black border-0 flex-1 hover:bg-[#fffcf9]">
             Continue
           </button>
-          <button className="btn bg-[#fffcf9] text-black border-0 flex-1 hover:bg-[#ffe084]">Sign Up</button>
+          <button 
+            className="btn bg-[#fffcf9] text-black border-0 flex-1 hover:bg-[#ffe084]" 
+            onClick={() => navigate("/signup")}
+          >
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
