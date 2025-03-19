@@ -125,6 +125,7 @@ class Delivery(models.Model):
         Order, on_delete=models.CASCADE, 
         related_name='delivery'
     )
+    # BUG
     delivery_person = models.ForeignKey(
         User, on_delete=models.SET_NULL, 
         null=True, blank=True, 
