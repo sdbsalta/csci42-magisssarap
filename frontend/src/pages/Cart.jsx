@@ -1,8 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-//import { FaTrash } from "react-icons/fa"; // Import trash icon
+import Fries from "../img/fries.png";
+import Salad from "../img/salad.png";
 
 const Cart = () => {
+  // State for cart items
+  const [cartItems, setCartItems] = useState([
+    { id: 1, name: "French Fries", price: 150, quantity: 1, image: Fries },
+    { id: 2, name: "Salad", price: 150, quantity: 1, image: Salad },
+  ]);
+
+  // Function to increase quantity
+  const increaseQuantity = (id) => {
+    setCartItems((prevItems) => {
+      const newItems = prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+      console.log("Updated cart:", newItems);
+      return newItems;
+    });
+  };
+  
+
+  // Function to decrease quantity
+  const decreaseQuantity = (id) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
+
+  // Calculate total price
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Main Content */}
@@ -18,36 +51,23 @@ const Cart = () => {
 
           {/* Order Items */}
           <div className="mt-4 space-y-4">
-            {/* Fries */}
-            <div className="bg-red-500 text-white p-4 rounded-lg flex items-start">
-              <img src="/images/fries.png" alt="Fries" className="w-12 h-12 rounded" />
-              <div className="flex flex-col ml-4">
-                <span className="font-bold">French Fries</span>
-              <div className="flex items-center gap-2 mt-2">
-                <button className="btn btn - square bg-white text-black">
-                   -
-                </button>
-               <span className="text-lg">1</span>
-               <button className="btn btn - square bg-white text-black">+</button>
-             </div>
-           </div>
-          </div>
-      
-      
-      {/* Salad */}      
-
-          <div className="bg-red-500 text-white p-4 rounded-lg flex items-start">
-              <img src="/images/fries.png" alt="Salad" className="w-12 h-12 rounded" />
-              <div className="flex flex-col ml-4">
-                <span className="font-bold">Salad</span>
-              <div className="flex items-center gap-2 mt-2">
-                <button className="btn - square bg-white text-black">
-                   -
-                </button>
-               <span className="text-lg">1</span>
-               <button className="btn - square bg-white text-black">+</button>
-             </div>
-           </div>
+            {cartItems.map((item) => (
+              <div key={item.id} className="bg-red-500 text-white p-4 rounded-lg flex items-start">
+                <img src={item.image} alt={item.name} className="w-12 h-12 rounded" />
+                <div className="flex flex-col ml-4">
+                  <span className="font-bold">{item.name}</span>
+                  <div className="flex items-center gap-2 mt-2">
+                    <button onClick={() => decreaseQuantity(item.id)} className="btn btn-square bg-white text-black">
+                      -
+                    </button>
+                    <span className="text-lg">{item.quantity}</span>
+                    <button onClick={() => increaseQuantity(item.id)} className="btn btn-square bg-white text-black">
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Order Details */}
@@ -63,13 +83,12 @@ const Cart = () => {
 
           {/* Total & Actions */}
           <div className="mt-6 flex justify-between items-center">
-            <p className="text-xl font-bold">Total: ₱300</p>
+            <p className="text-xl font-bold">Total: ₱{totalPrice}</p>
             <div className="flex gap-4">
               <Link to="/cart" className="btn btn-outline">⬅ Back</Link>
               <button className="btn btn-primary">Confirm Order</button>
             </div>
           </div>
-        </div>
         </div>
       </main>
     </div>
