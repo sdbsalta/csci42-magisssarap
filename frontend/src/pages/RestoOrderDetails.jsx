@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link } from "react-router-dom";
 import MapPinIcon from "../icons/MapPin.svg";
 import BackIcon from "../icons/back.svg";
@@ -11,6 +11,15 @@ import Salad from '../img/salad.png';
 import OrderItem from '../components/OrderItem';
 
 export const RestoOrderDetails = () => {
+  // Define order items
+  const orderItems = [
+    { id: 1, name: "French Fries", price: 150, image: Fries, quantity: 1 },
+    { id: 2, name: "Salad", price: 150, image: Salad, quantity: 1 }
+  ];
+
+  // Compute total price dynamically
+  const totalPrice = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
   return (
     <div className="flex flex-col items-center min-h-screen bg-[#fefaf5] p-8 w-full">
       {/* Order Header */}
@@ -25,29 +34,35 @@ export const RestoOrderDetails = () => {
 
       {/* Order Items */}
       <div className="flex flex-col gap-4 w-full mt-6">
-        <OrderItem name="French Fries" price="₱150" image={Fries} displayType="static"/>
-        <OrderItem name="Salad" price="₱150" image={Salad} displayType="static"/>
+        {orderItems.map(item => (
+          <OrderItem 
+            key={item.id} 
+            id={item.id}
+            name={item.name} 
+            price={item.price} 
+            image={item.image} 
+            quantity={item.quantity} 
+            isStatic={true} 
+          />
+        ))}
       </div>  
+
       {/* Order Details */}
       <div className="mt-1 w-full bg-[#fefaf5] space-y-4 p-4">
-        
         {/* Delivery Time & Location */}
         <div className="flex justify-between items-center">
-          {/* Estimated Delivery Time */}
           <div className="flex items-center gap-2">
             <img src={ClockIcon} alt="Clock" className="w-5 h-5" />
-            <p className="text-gray-800"><span className="font-semibold">Estimated delivery time: 2:00 PM</span> </p>
+            <p className="text-gray-800"><span className="font-semibold">Estimated delivery time: 2:00 PM</span></p>
             <Link to="/edittime">
                 <button className="bg-[#f2d5d5] text-gray-800 text-xs font-semibold px-4 py-3 rounded-full hover:bg-primary hover:text-white">
                     Edit
                 </button>
             </Link>
           </div>
-
-          {/* Location */}
           <div className="flex items-center gap-2">
             <img src={MapPinIcon} alt="Map Pin" className="w-5 h-5" />
-            <p className="text-gray-800"><span className="font-semibold">Location: CTC313</span> </p>
+            <p className="text-gray-800"><span className="font-semibold">Location: CTC313</span></p>
           </div>
         </div>
 
@@ -74,7 +89,7 @@ export const RestoOrderDetails = () => {
       <div className="w-full mt-6 mb-6 border-t border-b border-black pt-3 pb-3">
         <div className="flex justify-between items-center">
           <p className="text-xl font-bold p-4">Total</p>
-          <p className="text-xl font-bold">₱300</p>
+          <p className="text-xl font-bold">₱{totalPrice.toFixed(2)}</p>
         </div>
       </div>
 
@@ -94,7 +109,7 @@ export const RestoOrderDetails = () => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default RestoOrderDetails;

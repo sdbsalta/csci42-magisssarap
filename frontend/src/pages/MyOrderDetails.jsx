@@ -62,10 +62,10 @@ export const MyOrderDetails = () => {
         </span>
       </div>
 
-      {/* Order Items */}
+      {/* Order Items */}  {/* Halp me mother iya -Jervie */}
       <div className="flex flex-col gap-4 w-full mt-6">
-        <OrderItem name="French Fries" price="₱150" image={Fries} displayType="static"/>
-        <OrderItem name="Salad" price="₱150" image={Salad} displayType="static"/>
+        <OrderItem name="French Fries" price={150} image={Fries} quantity={1} isStatic={true} />
+        <OrderItem name="Salad" price={150} image={Salad} quantity={1} isStatic={true} />
       </div>  
       {/* Order Details */}
       <div className="mt-1 w-full bg-[#fefaf5] space-y-4 p-4">
