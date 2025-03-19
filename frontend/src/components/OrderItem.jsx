@@ -9,7 +9,7 @@ const OrderItem = ({
   quantity, 
   updateQuantity, 
   removeItem, 
-  isStatic = false // Determines mode
+  isStatic = false 
 }) => {
   const numericPrice = typeof price === 'number' ? price : parseFloat(price) || 0;
 
@@ -38,12 +38,9 @@ const OrderItem = ({
 
       {/* Conditional Rendering for Modes */}
       {isStatic ? (
-        // Static Mode: Show Quantity & "Add this" Button
-        <div className="flex flex-col items-center">
-          <p className="text-white text-sm">Quantity: {quantity}</p>
-          <button className="bg-white text-red-600 px-3 py-1 rounded-md font-semibold hover:bg-gray-200">
-            Add this
-          </button>
+        // Static Mode: Show Quantity
+        <div className="flex items-center gap-2 bg-white rounded-full p-2">
+          <h3 className="text-xs font-semibold text-black px-2">Quantity: {quantity}</h3>
         </div>
       ) : (
         // Editable Mode: Show Quantity Controls

@@ -92,7 +92,7 @@ const NavBar = () => {
 
             {/* Restaurant Owner: Only see Dashboard */}
             {(userType === "Restaurant Owner" || userType === "Admin") && (
-              <Link to="/dashboard" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
+              <Link to="/order/active" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
                 <img src={ClipboardIcon} alt="Dashboard Icon" className="w-5 h-5" />
                 <span>Dashboard</span>
               </Link>
