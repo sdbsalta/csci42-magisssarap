@@ -8,10 +8,13 @@ export const MyOrdersPast = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      const token = localStorage.getItem("accessToken");
+
       try {
-        const response = await fetch("http://localhost:8000/orders/?status=completed", {
+        const response = await fetch("http://127.0.0.1:8000/orders/?status=completed", {
           headers: {
-            "Authorization": `Bearer ${localStorage.getItem("access_token")}`
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
           }
         });
 
@@ -20,8 +23,10 @@ export const MyOrdersPast = () => {
         }
 
         const data = await response.json();
-        console.log("Fetched orders:", data); // ✅ Debugging log
-        setOrders(data.filter(order => order.status === "Completed")); // Ensure correct filtering
+        console.log("Fetched orders:", data);
+
+        setOrders(data.filter(order => order.status === "Completed"));
+        
       } catch (error) {
         console.error("Error fetching orders:", error);
         setError(error.message);

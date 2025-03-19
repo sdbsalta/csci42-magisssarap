@@ -10,7 +10,7 @@ export const MyOrdersActive = () => {
             const token = localStorage.getItem("accessToken");
             
             if (!token) {
-                console.error("ayaw gumana bakla");
+                console.error("omg it's working fr");
                 return;
             }
 
@@ -23,7 +23,7 @@ export const MyOrdersActive = () => {
                 });
     
                 const data = await response.json();
-                console.log("Fetched orders:", data);  // ✅ Debugging log
+                console.log("Fetched orders:", data); 
                 if (!Array.isArray(data)) {
                     console.error("Unexpected response format:", data);
                     return;
