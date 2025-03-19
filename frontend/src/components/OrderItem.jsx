@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
-import TrashIcon from "../icons/trash.svg";
+import TrashIcon from '../icons/trash.svg';
 
-const OrderItem = ({ name, price, image, updateTotal }) => {
-  const numericPrice = typeof price === "number" ? price : parseFloat(price) || 0;
-  const [quantity, setQuantity] = useState(1);
+const OrderItem = ({ id, name, price, image, quantity, updateQuantity, removeItem }) => {
+  const numericPrice = typeof price === 'number' ? price : parseFloat(price) || 0;
 
   const increaseQuantity = () => {
-    setQuantity(prevQty => {
-      const newQty = prevQty + 1;
-      updateTotal(numericPrice);
-      return newQty;
-    });
+    updateQuantity(id, quantity + 1);
   };
 
   const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prevQty => {
-        const newQty = prevQty - 1;
-        updateTotal(-numericPrice);
-        return newQty;
-      });
+    if (quantity === 1) {
+      removeItem(id); 
+    } else {
+      updateQuantity(id, quantity - 1);
     }
   };
 
@@ -31,7 +24,7 @@ const OrderItem = ({ name, price, image, updateTotal }) => {
       {/* Product Name & Price */}
       <div className="flex flex-col flex-1">
         <h3 className="text-lg font-semibold">{name}</h3>
-        <p>P{numericPrice.toFixed(2)}</p>
+        <p>₱{(numericPrice * quantity).toFixed(2)}</p>
       </div>
 
       {/* Quantity Controls */}
@@ -40,13 +33,15 @@ const OrderItem = ({ name, price, image, updateTotal }) => {
           onClick={decreaseQuantity} 
           className="w-6 h-6 text-black rounded-full flex items-center justify-center font-bold"
         >
-          {quantity === 1 ? <img src={TrashIcon} alt="Delete" className="w-4 h-4" /> : "-"}
+          {quantity === 1 ? <img src={TrashIcon} alt="Delete" className="w-4 h-4" /> : '-'}
         </button>
         <span className="text-lg font-semibold text-black">{quantity}</span>
         <button 
           onClick={increaseQuantity} 
           className="w-6 h-6 text-black rounded-full flex items-center justify-center font-bold"
-        >+</button>
+        >
+          +
+        </button>
       </div>
     </div>
   );

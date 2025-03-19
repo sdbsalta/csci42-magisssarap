@@ -11,20 +11,26 @@ import Salad from "../img/salad.png";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([
-    { id: 1, name: "French Fries", price: 150, image: Fries },
-    { id: 2, name: "Salad", price: 150, image: Salad },
+    { id: 1, name: "French Fries", price: 150, image: Fries, quantity: 1 },
+    { id: 2, name: "Salad", price: 150, image: Salad, quantity: 1 },
   ]);
 
-  const updateTotal = (id, newPrice) => {
+  // Update quantity & recalculate total
+  const updateQuantity = (id, newQuantity) => {
     setCartItems((prevItems) =>
       prevItems.map(item =>
-        item.id === id ? { ...item, price: newPrice } : item
+        item.id === id ? { ...item, quantity: newQuantity } : item
       )
     );
   };
-  
 
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+  // Remove item from cart
+  const removeItem = (id) => {
+    setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
+  };
+
+  // Calculate total dynamically
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-[#fefaf5] p-8 w-full">
@@ -41,7 +47,12 @@ const Cart = () => {
       {/* Order Items */}
       <div className="flex flex-col gap-4 w-full mt-6">
         {cartItems.map((item) => (
-          <OrderItem key={item.id} {...item} updateTotal={updateTotal} />
+          <OrderItem 
+            key={item.id} 
+            {...item} 
+            updateQuantity={updateQuantity} 
+            removeItem={removeItem} 
+          />
         ))}
       </div>
 
