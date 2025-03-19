@@ -15,9 +15,14 @@ const Cart = () => {
     { id: 2, name: "Salad", price: 150, image: Salad },
   ]);
 
-  const updateTotal = (amount) => {
-    setCartItems((prevItems) => prevItems.map(item => ({ ...item }))); 
+  const updateTotal = (id, newPrice) => {
+    setCartItems((prevItems) =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, price: newPrice } : item
+      )
+    );
   };
+  
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
 

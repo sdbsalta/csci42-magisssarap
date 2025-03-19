@@ -40,12 +40,12 @@ const OrderItem = ({ name, price, image, updateTotal }) => {
       <div className="flex items-center gap-2 bg-white rounded-full p-2">
         <button 
           onClick={decreaseQuantity} 
-          className="w-6 h-6 bg-gray-300 text-black rounded-full flex items-center justify-center font-bold"
+          className="w-6 h-6 text-black rounded-full flex items-center justify-center font-bold"
         >-</button>
         <span className="text-lg font-semibold text-black">{quantity}</span>
         <button 
           onClick={increaseQuantity} 
-          className="w-6 h-6 bg-gray-300 text-black rounded-full flex items-center justify-center font-bold"
+          className="w-6 h-6 text-black rounded-full flex items-center justify-center font-bold"
         >+</button>
       </div>
       <img src={TrashIcon} alt="Delete" className="w-5 h-5 cursor-pointer" />
