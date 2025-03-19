@@ -22,7 +22,7 @@ const FoodList = () => {
           key={food.id}
           FoodName={food.description}
           Price={`₱${food.price}`}
-          Location={food.restaurant}
+          Location={food.resto_name}
           Rating="4.5"
         />
       ))}
