@@ -6,7 +6,8 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse, reverse_lazy
 from .models import User, RestaurantOwner
 from .forms import CreateCustomerForm, CreateRestaurantOwnerForm
-
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -51,7 +52,12 @@ def login_user(request):
                     return JsonResponse({
                         "accessToken": access_token,
                         "message": "Login successful",
-                        "user_type": user.user_type
+                        "user": {   
+                            "id": user.id,
+                            "name": user.name,
+                            "email": user.email_address,
+                            "user_type": user.user_type
+                        }
                     }, status=200)
 
                 else:
@@ -159,13 +165,17 @@ def register_restaurant_owner(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def get_logged_in_user(request):
-    return Response({'id': request.user.id, 'username': request.user.username})
+    return Response({'id': request.user.id}) # removed 'username': request.user.username
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def user_detail(request, id):
     try:
         user = User.objects.get(id=id)
+        print(f"Received ID: {id}")
     except User.DoesNotExist:
         return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 

@@ -24,6 +24,8 @@ export const Login = () => {
       if (response.ok && data.accessToken) {
         alert(`Login successful! Welcome, ${data.user_type}`);
         localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("userId", data.user.id);
+        
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
         window.dispatchEvent(new Event("authChange"));
         navigate("/");

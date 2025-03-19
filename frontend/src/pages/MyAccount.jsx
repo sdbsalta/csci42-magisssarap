@@ -12,50 +12,81 @@ const MyAccount = () => {
     password: "",
   });
 
-  const userId = 227407; // Replace with actual logged-in user ID or get from authentication context
-
-  // Fetch user data from backend
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/user/${userId}/`)
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("accessToken");
+      const userId = localStorage.getItem("userId");
+      console.log("Retrieved userId from localStorage:", userId);
+
+      if (!token || !userId) {
+        console.error("Missing token / ID: User not authenticated");
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/user/${userId}/`, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          console.error("Failed to fetch user data");
+          return;
+        }
+
+        const data = await response.json();
+        console.log("Fetched User Data:", data); 
         setUser({
           name: data.name,
           email_address: data.email_address,
           id: data.id,
           contact_no: data.contact_no,
-          password: "",
+          password: "", // Keep password field empty for security
         });
-      })
-      .catch((error) => console.error("Error fetching user data:", error));
-  }, [userId]);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
-  // Handle form input changes
+    fetchUserData();
+  }, []);
+
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  // Handle save changes
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    fetch(`http://127.0.0.1:8000/api/user/${userId}/`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => {
-        if (response.ok) {
-          alert("Profile updated successfully!");
-          navigate("/account"); // Redirect to /account
-        } else {
-          return response.json().then((data) => {
-            alert("Failed to update profile: " + JSON.stringify(data));
-          });
-        }
-      })
-      .catch((error) => console.error("Error updating user:", error));
+    const token = localStorage.getItem("accessToken");
+    const userId = localStorage.getItem("userId");
+
+    if (!token || !userId) {
+      alert("User not authenticated");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/user/${userId}/`, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        alert("Profile updated successfully!");
+        navigate("/account");
+      } else {
+        const data = await response.json();
+        alert("Failed to update profile: " + JSON.stringify(data));
+      }
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
   };
 
   return (

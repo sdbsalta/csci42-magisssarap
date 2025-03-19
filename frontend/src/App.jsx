@@ -25,27 +25,40 @@ import NavBar from "./components/NavBar";
 import "./App.css";
 import "./index.css";
 
-function App() {
+
+function App({ userId }) {  
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    // Set the Authorization header globally
-    const accessToken = localStorage.getItem("accessToken");
-    console.log("Access Token in header localStorage:", accessToken);
-
-    if (accessToken) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-    } else {
-        console.error("Access token is not available");
+    if (!userId) {
+      console.error("User ID is not available, skipping API call.");
+      return;
     }
 
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      console.error("HELP Access token is missing.");
+      return;
+    }
+
+    console.log("Access Token in App js:", accessToken);
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
     axios
-      .get("http://127.0.0.1:8000/") 
+      .get(`http://127.0.0.1:8000/api/user/${userId}/`)
       .then((response) => {
         setMessage(response.data.message);
       })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        if (error.response?.status === 401) {
+          console.error("User not authenticated. Redirecting to login.");
+          // Handle redirect to login page
+        }
+      });
+}, [userId]);
 
   return (
     <Router>
