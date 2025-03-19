@@ -27,7 +27,8 @@ export const MyOrdersActive = () => {
                 if (!Array.isArray(data)) {
                     console.error("Unexpected response format:", data);
                     return;
-                }                
+                }        
+                        
                 setOrders(data.filter(order => order.status !== "Completed"));  // Ensure correct filtering
             } catch (error) {
                 console.error("Error fetching orders:", error);

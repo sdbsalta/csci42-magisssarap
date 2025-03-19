@@ -12,12 +12,13 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]  # 👈 Require authentication
+    permission_classes = [IsAuthenticated]  # Require authentication
 
     def get_queryset(self):
-        queryset = Order.objects.all()
-        status = self.request.query_params.get("status")  
+        user = self.request.user  # logged in
+        queryset = Order.objects.filter(customer=user)  # only my oreders
 
+        status = self.request.query_params.get("status")  
         if status:
             status = status.capitalize()  
             
@@ -26,7 +27,7 @@ class OrderListCreateView(generics.ListCreateAPIView):
             else:
                 queryset = queryset.filter(status=status)  
                 
-        print(f"Filtered orders count: {queryset.count()}")
+        print(f"Filtered orders count for user {user.id}: {queryset.count()}")
         return queryset
 
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
