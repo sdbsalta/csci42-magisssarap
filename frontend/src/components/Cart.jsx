@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-import React from 'react';
-import { Link } from "react-router-dom";
-import TrashIcon from "../icons/trash.svg";
-=======
 import React, { useState, useEffect } from 'react';
->>>>>>> frontend/rafa/cartLogic
 import Fries from '../img/fries.png';
 import Salad from '../img/salad.png';
 import OrderItem from '../components/OrderItem';
