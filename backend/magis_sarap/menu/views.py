@@ -7,6 +7,7 @@ from restaurants.models import Restaurant
 from django.utils import timezone
 
 class FoodItemListView(generics.ListAPIView):
+    permission_classes = [AllowAny]
     queryset = FoodItem.objects.all()
     serializer_class = FoodItemListSerializer
 
