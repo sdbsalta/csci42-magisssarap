@@ -25,6 +25,7 @@ export const Login = () => {
         alert(`Login successful! Welcome, ${data.user_type}`);
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("userId", data.user.id);
+        localStorage.setItem("userType", data.user.user_type);
         
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
         window.dispatchEvent(new Event("authChange"));
