@@ -5,7 +5,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        token["user_id"] = user.user_id  # Ensure correct user_id mapping
+        token["id"] = user.id  # Ensure correct id mapping
         return token
 
     def validate(self, attrs):

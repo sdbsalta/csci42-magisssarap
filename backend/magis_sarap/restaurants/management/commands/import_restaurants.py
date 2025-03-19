@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 import csv
-from restaurants.models import Restaurant, CuisineType
+from restaurants.models import Restaurant
 from django.utils.timezone import make_aware
 from datetime import datetime
 
@@ -32,9 +32,9 @@ class Command(BaseCommand):
                         )
 
                         # Handle ManyToMany cuisine type
-                        cuisine_ids = row['cuisine_type'].split(',')  # Split in case of multiple cuisines
-                        cuisines = CuisineType.objects.filter(id__in=cuisine_ids)
-                        restaurant.cuisine_type.set(cuisines)  # Use .set() to assign many-to-many relationships
+                        cuisine_names = row['cuisine_type'].split(',')  
+                        restaurant.set_cuisines(cuisine_names)  
+                        restaurant.save()
 
                         if created:
                             self.stdout.write(self.style.SUCCESS(f"Created restaurant {restaurant.resto_name}"))

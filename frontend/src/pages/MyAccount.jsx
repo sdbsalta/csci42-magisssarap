@@ -7,7 +7,7 @@ const MyAccount = () => {
   const [user, setUser] = useState({
     name: "",
     email_address: "",
-    user_id: "",
+    id: "",
     contact_no: "",
     password: "",
   });
@@ -22,7 +22,7 @@ const MyAccount = () => {
         setUser({
           name: data.name,
           email_address: data.email_address,
-          user_id: data.user_id,
+          id: data.id,
           contact_no: data.contact_no,
           password: "",
         });
@@ -100,7 +100,7 @@ const MyAccount = () => {
           <input
             type="text"
             placeholder="User ID"
-            value={user.user_id}
+            value={user.id}
             className="w-full p-3 border border-black rounded-md bg-gray-300 text-gray-700"
             disabled
           />

@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
                 ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('user_id', models.IntegerField(error_messages={'unique': 'This Ateneo Student ID has already been registered.'}, primary_key=True, serialize=False, unique=True, validators=[users.models.user_id_validate])),
+                ('id', models.IntegerField(error_messages={'unique': 'This Ateneo Student ID has already been registered.'}, primary_key=True, serialize=False, unique=True, validators=[users.models.id_validate])),
                 ('name', models.CharField(max_length=30)),
                 ('contact_no', models.CharField(error_messages={'unique': 'This phone number has already been registered.'}, max_length=11, unique=True, validators=[users.models.phone_validate])),
                 ('email_address', models.EmailField(error_messages={'invalid': 'Enter a valid Ateneo email.', 'unique': 'This Ateneo Student email has already been registered.'}, max_length=254, unique=True, validators=[users.models.email_validate])),

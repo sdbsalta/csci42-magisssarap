@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export const SignUp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    user_id: "",
+    id: "",
     name: "",
     contact_no: "",
     email_address: "",
@@ -80,7 +80,7 @@ export const SignUp = () => {
         <form onSubmit={handleSubmit} className="w-full space-y-3">
           <input
             type="text"
-            name="user_id"
+            name="id"
             placeholder="Ateneo Student ID"
             className="input input-bordered bg-white text-black w-full border-black"
             onChange={handleChange}

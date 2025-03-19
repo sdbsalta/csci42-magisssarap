@@ -13,20 +13,20 @@ def email_validate(value):
         return value
     raise ValidationError("Enter a valid Ateneo email.")
 
-def user_id_validate(value):
+def id_validate(value):
     if len(str(value)) == 6:
         return value
     raise ValidationError("Enter a valid Ateneo student ID number.")
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, user_id, name, contact_no, email_address, password=None, user_type='Customer'):
-        if not user_id:
+    def create_user(self, id, name, contact_no, email_address, password=None, user_type='Customer'):
+        if not id:
             raise ValueError("Users must have a valid user ID.")
         if not email_address:
             raise ValueError("Users must have an email address.")
 
         user = self.model(
-            user_id=user_id,
+            id=id,
             name=name,
             contact_no=contact_no,
             email_address=email_address,
@@ -36,17 +36,17 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, user_id, name, contact_no, email_address, password):
-        user = self.create_user(user_id, name, contact_no, email_address, password, user_type="Admin")
+    def create_superuser(self, id, name, contact_no, email_address, password):
+        user = self.create_user(id, name, contact_no, email_address, password, user_type="Admin")
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
-    user_id = models.IntegerField(
+    id = models.IntegerField(
         primary_key=True, 
-        validators=[user_id_validate],
+        validators=[id_validate],
         unique=True,
         error_messages={'unique': "This Ateneo Student ID has already been registered."}
     )
@@ -86,15 +86,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'user_id'  # Use user_id instead of username
+    USERNAME_FIELD = 'id'  # Use id instead of username
     REQUIRED_FIELDS = ['name', 'contact_no', 'email_address']
 
     def __str__(self):
-        return f"{self.user_id} - {self.name}"
-    
-    @property
-    def id(self):
-        return self.user_id
+        return f"{self.id} - {self.name}"
 
 class RestaurantOwner(User):
     resto_name = models.CharField(

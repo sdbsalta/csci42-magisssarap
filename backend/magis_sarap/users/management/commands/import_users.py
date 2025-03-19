@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
                 if row["user_type"] == "Restaurant Owner":
                     user = RestaurantOwner.objects.create(
-                        user_id=row["user_id"],
+                        id=row["id"],
                         name=row["name"],
                         contact_no=row["contact_no"],
                         email_address=row["email_address"],
@@ -29,7 +29,7 @@ class Command(BaseCommand):
                     )
                 else:
                     user = User.objects.create(
-                        user_id=row["user_id"],
+                        id=row["id"],
                         name=row["name"],
                         contact_no=row["contact_no"],
                         email_address=row["email_address"],

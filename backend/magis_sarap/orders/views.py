@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.http import Http404, JsonResponse
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics
 from rest_framework.views import APIView
 from .models import Order
@@ -10,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]  # 👈 Require authentication
 
     def get_queryset(self):
@@ -30,6 +32,8 @@ class OrderListCreateView(generics.ListCreateAPIView):
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
     lookup_field = "order_id"  # Lookup using order_id
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
         return Order.objects.all()
@@ -42,9 +46,12 @@ class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
             raise Http404("Order not found")
 ''''''
 class PendingOrderView(APIView): # checks if may order nako
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    
     def get(self, request, *args, **kwargs):
         user = request.user
-        pending_order = Order.objects.filter(user__user_id=user.user_id, status="Pending").first()
+        pending_order = Order.objects.filter(user__id=user.id, status="Pending").first()
         
         if pending_order:
             serializer = OrderSerializer(pending_order)

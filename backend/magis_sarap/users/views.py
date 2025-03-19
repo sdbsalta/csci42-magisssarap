@@ -30,15 +30,15 @@ def login_user(request):
         try:
             # Parse the incoming JSON data
             data = json.loads(request.body)
-            user_id = data.get('user_id')  # Get user_id from request
+            id = data.get('id')  # Get id from request
             password = data.get('password')
 
             try:
-                # Find the user by user_id
-                user = User.objects.get(user_id=user_id)
+                # Find the user by id
+                user = User.objects.get(id=id)
 
                 # Debugging: Print out the user's password and check if it matches the hash
-                print("User found:", user.user_id)
+                print("User found:", user.id)
                 print("Stored password hash:", user.password)
 
                 # Check if the password matches
@@ -85,7 +85,7 @@ def register_customer(request):
             data = json.loads(request.body)
 
             # Extracting fields
-            user_id = data.get("user_id")
+            id = data.get("id")
             name = data.get("name")
             contact_no = data.get("contact_no")
             email_address = data.get("email_address")
@@ -96,7 +96,7 @@ def register_customer(request):
 
             # Create new user
             user = User.objects.create(
-                user_id=user_id,
+                id=id,
                 name=name,
                 contact_no=contact_no,
                 email_address=email_address,
@@ -117,7 +117,7 @@ def register_restaurant_owner(request):
         try:
             data = json.loads(request.body)
 
-            user_id = data.get("user_id")
+            id = data.get("id")
             name = data.get("name")
             contact_no = data.get("contact_no")
             email_address = data.get("email_address")
@@ -132,7 +132,7 @@ def register_restaurant_owner(request):
             with transaction.atomic():
                 # Create the RestaurantOwner
                 owner = RestaurantOwner.objects.create(
-                    user_id=user_id,
+                    id=id,
                     name=name,
                     contact_no=contact_no,
                     email_address=email_address,
@@ -160,12 +160,12 @@ def register_restaurant_owner(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_logged_in_user(request):
-    return Response({'user_id': request.user.id, 'username': request.user.username})
+    return Response({'id': request.user.id, 'username': request.user.username})
 
 @api_view(['GET', 'PUT'])
-def user_detail(request, user_id):
+def user_detail(request, id):
     try:
-        user = User.objects.get(user_id=user_id)
+        user = User.objects.get(id=id)
     except User.DoesNotExist:
         return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 

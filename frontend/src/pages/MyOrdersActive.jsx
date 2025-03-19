@@ -7,20 +7,27 @@ export const MyOrdersActive = () => {
 
     useEffect(() => {
         const fetchOrders = async () => {
+            const token = localStorage.getItem("accessToken");
+            
+            if (!token) {
+                console.error("ayaw gumana bakla");
+                return;
+            }
+
             try {
-                const response = await fetch("http://localhost:8000/orders/?status=active", {
+                const response = await fetch("http://127.0.0.1:8000/orders/?status=active", {
                     headers: {
-                        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
                     }
                 });
     
-                if (!response.ok) {
-                    console.error("Failed to fetch orders. Status code:", response.status);
-                    throw new Error("Failed to fetch orders");
-                }
-    
                 const data = await response.json();
                 console.log("Fetched orders:", data);  // ✅ Debugging log
+                if (!Array.isArray(data)) {
+                    console.error("Unexpected response format:", data);
+                    return;
+                }                
                 setOrders(data.filter(order => order.status !== "Completed"));  // Ensure correct filtering
             } catch (error) {
                 console.error("Error fetching orders:", error);

@@ -22,7 +22,7 @@ class Command(BaseCommand):
                         customer_id = row['customer_id'].strip()
                         restaurant_id = row['restaurant_id'].strip()
 
-                        customer = User.objects.filter(user_id=customer_id).first()
+                        customer = User.objects.filter(id=customer_id).first()
                         if not customer:
                             self.stdout.write(self.style.ERROR(f"Customer ID {customer_id} not found. Skipping order {row['order_id']}."))
                             continue

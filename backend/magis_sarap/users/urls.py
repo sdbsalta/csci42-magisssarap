@@ -7,7 +7,7 @@ urlpatterns = [
     path('api/login/', login_user, name='login'),
     path('api/logout/', logout_user, name='logout'),
     path('api/user/', get_logged_in_user, name='get_logged_in_user'),
-    path('api/user/<int:user_id>/', user_detail, name='user-detail'),
+    path('api/user/<int:id>/', user_detail, name='user-detail'),
 ]
 
 app_name = "users"

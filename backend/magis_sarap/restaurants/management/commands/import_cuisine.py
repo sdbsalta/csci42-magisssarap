@@ -1,29 +1,27 @@
 from django.core.management.base import BaseCommand
 import csv
-from restaurants.models import CuisineType
+import json
+import os
 
 class Command(BaseCommand):
-    help = 'Import cuisine types from CSV'
+    help = 'Import cuisine types from CSV and save as JSON'
 
     def handle(self, *args, **kwargs):
         try:
+            cuisine_list = []
             with open('data/cuisine_types.csv', newline='', encoding='utf-8') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    try:
-                        # Create or update CuisineType
-                        cuisine, created = CuisineType.objects.update_or_create(
-                            id=row['id'],
-                            defaults={'type': row['type']}
-                        )
+                    cuisine_list.append(row['type'])  # Collect cuisine names
 
-                        if created:
-                            self.stdout.write(self.style.SUCCESS(f"Created cuisine type {cuisine.type}"))
-                        else:
-                            self.stdout.write(self.style.SUCCESS(f"Updated cuisine type {cuisine.type}"))
+            # Save to a JSON file
+            json_path = 'data/cuisine_types.json'
+            with open(json_path, 'w', encoding='utf-8') as jsonfile:
+                json.dump(cuisine_list, jsonfile, indent=4)
 
-                    except Exception as e:
-                        self.stdout.write(self.style.ERROR(f"Error processing row {row}: {e}"))
+            self.stdout.write(self.style.SUCCESS(f"Successfully saved cuisine types to {json_path}"))
 
         except FileNotFoundError:
             self.stdout.write(self.style.ERROR("File 'data/cuisine_types.csv' not found."))
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f"An error occurred: {e}"))
