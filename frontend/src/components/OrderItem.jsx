@@ -2,17 +2,13 @@ import React, { useState } from 'react';
 import TrashIcon from "../icons/trash.svg";
 
 const OrderItem = ({ name, price, image, updateTotal }) => {
-  // Ensure price is always a number
   const numericPrice = typeof price === "number" ? price : parseFloat(price) || 0;
-
   const [quantity, setQuantity] = useState(1);
-
-  console.log("Item Loaded:", { name, price, numericPrice, image }); // Debugging
 
   const increaseQuantity = () => {
     setQuantity(prevQty => {
       const newQty = prevQty + 1;
-      updateTotal(numericPrice); 
+      updateTotal(numericPrice);
       return newQty;
     });
   };
@@ -21,7 +17,7 @@ const OrderItem = ({ name, price, image, updateTotal }) => {
     if (quantity > 1) {
       setQuantity(prevQty => {
         const newQty = prevQty - 1;
-        updateTotal(-numericPrice); 
+        updateTotal(-numericPrice);
         return newQty;
       });
     }
@@ -37,18 +33,21 @@ const OrderItem = ({ name, price, image, updateTotal }) => {
         <h3 className="text-lg font-semibold">{name}</h3>
         <p>P{numericPrice.toFixed(2)}</p>
       </div>
+
+      {/* Quantity Controls */}
       <div className="flex items-center gap-2 bg-white rounded-full p-2">
         <button 
           onClick={decreaseQuantity} 
           className="w-6 h-6 text-black rounded-full flex items-center justify-center font-bold"
-        >-</button>
+        >
+          {quantity === 1 ? <img src={TrashIcon} alt="Delete" className="w-4 h-4" /> : "-"}
+        </button>
         <span className="text-lg font-semibold text-black">{quantity}</span>
         <button 
           onClick={increaseQuantity} 
           className="w-6 h-6 text-black rounded-full flex items-center justify-center font-bold"
         >+</button>
       </div>
-      <img src={TrashIcon} alt="Delete" className="w-5 h-5 cursor-pointer" />
     </div>
   );
 };
