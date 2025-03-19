@@ -23,3 +23,8 @@ class OrderSerializer(serializers.ModelSerializer):
             'order_id', 'customer', 'restaurant', 'restaurant_name', 'voucher_code',
             'status', 'total_price', 'date_created', 'time_completed', 'items', 'notes', 'delivery'
         ]
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['id', 'user', 'restaurant', 'rating', 'comment', 'created_at']
