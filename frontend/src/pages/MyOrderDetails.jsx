@@ -17,16 +17,30 @@ export const MyOrderDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/orders/${orderId}/`)
-      .then(response => {
-        console.log("Order data received:", response.data);
-        setOrder(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("Error fetching order:", error);
-        setLoading(false);
-      });
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      console.error("No access token found");
+      setLoading(false);
+      return;
+    }
+
+    axios.get(`http://localhost:8000/orders/${orderId}/`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then(response => {
+      console.log("Order data received:", response.data);
+      setOrder(response.data);
+    })
+    .catch(error => {
+      console.error("Error fetching order:", error);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
   }, [orderId]);
 
   if (loading) return <p>Loading...</p>;
