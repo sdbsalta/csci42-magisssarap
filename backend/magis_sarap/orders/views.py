@@ -4,10 +4,11 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics
 from rest_framework.views import APIView
-from .models import Order
+from .models import Order, CartItem, Voucher
 from django.views import View
-from .serializers import OrderSerializer
+from .serializers import OrderSerializer, CartItemSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from menu.models import FoodItem
 
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
@@ -59,3 +60,44 @@ class PendingOrderView(APIView): # checks if may order nako
             return Response(serializer.data)
         else:
             raise Http404("No pending orders found")
+
+class CartView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        cart_items = CartItem.objects.filter(customer=request.user)
+        return Response(CartItemSerializer(cart_items, many=True).data)
+
+    def post(self, request):
+        food_item = get_object_or_404(FoodItem, id=request.data.get("food_item_id"))
+        cart_item, created = CartItem.objects.get_or_create(
+            customer=request.user, food_item=food_item,
+            defaults={'quantity': 1}
+        )
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+        return Response({"message": "Added to cart"})
+
+    def delete(self, request):
+        food_item = get_object_or_404(FoodItem, id=request.data.get("food_item_id"))
+        cart_item = CartItem.objects.filter(customer=request.user, food_item=food_item).first()
+        if cart_item:
+            if cart_item.quantity > 1:
+                cart_item.quantity -= 1
+                cart_item.save()
+            else:
+                cart_item.delete()
+        return Response({"message": "Removed from cart"})
+    
+class ApplyVoucherView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        code = request.data.get("code")
+        voucher = Voucher.objects.filter(code=code).first()
+
+        if not voucher or not voucher.is_valid():
+            return Response({"error": "Invalid or expired voucher"}, status=400)
+
+        return Response({"message": "Voucher applied", "discount": voucher.discount_percentage})

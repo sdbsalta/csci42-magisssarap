@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Filtering Categories -->
+        <div class="col-md-3">
+            <h4>Filter by Category</h4>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{% url 'restaurants:restaurant-list' %}">All</a></li>
+                {% for category in categories %}
+                    <li class="list-group-item">
+                        <a href="{% url 'restaurants:restaurant-list' %}?category={{ category.type }}">{{ category.type }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <!-- Restaurant List -->
+        <div class="col-md-9">
+            <h2>Restaurants</h2>
+            <div class="row">
+                {% for restaurant in restaurants %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ restaurant.image.url }}" class="card-img-top" alt="{{ restaurant.resto_name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ restaurant.resto_name }}</h5>
+                            <p class="card-text">Location: {{ restaurant.location }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No restaurants available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+        <a href="{% url 'categories' %}" class="btn btn-secondary">Search Categories</a>
+        <a href="{% url 'orders' %}" class="btn btn-info">My Orders</a>
+        <a href="{% url 'cart' %}" class="btn btn-warning">Cart</a>
+        <a href="{% url 'account' %}" class="btn btn-success">My Account</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+{% endblock %}
