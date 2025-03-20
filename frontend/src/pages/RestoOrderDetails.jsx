@@ -6,8 +6,8 @@ import ClockIcon from "../icons/clock.svg";
 import NoteIcon from "../icons/Note.svg";
 import VoucherIcon from "../icons/Ticket.svg";
 import PhoneIcon from "../icons/phone.svg";
-import Fries from '../img/fries.png';
-import Salad from '../img/salad.png';
+// import Fries from '../img/fries.png';
+// import Salad from '../img/salad.png';
 import OrderItem from '../components/OrderItem';
 import axios from 'axios';
 
