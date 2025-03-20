@@ -1,9 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 import RestoLogo from "../img/baclogo.png";
 import FoodItem from "../components/FoodItem";
 
 export const RestoOrdersPast = () => {
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                console.log('Fetching orders from past-orders endpoint...');
+                const token = localStorage.getItem('accessToken');
+                if (!token) {
+                    console.error('No access token found in localStorage');
+                    setError('Not authenticated. Please log in.');
+                    setLoading(false);
+                    return;
+                }
+
+                console.log('Using token:', token);
+
+                const axiosInstance = axios.create({
+                    baseURL: 'http://127.0.0.1:8000',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const response = await axiosInstance.get('/orders/past-orders/');
+                console.log('Raw response:', response);
+                console.log('Response data:', response.data);
+                console.log('Orders array:', response.data.orders);
+                if (response.data.orders && response.data.orders.length > 0) {
+                    console.log('First order example:', response.data.orders[0]);
+                }
+                setOrders(response.data.orders || []);
+                setLoading(false);
+            } catch (err) {
+                console.error('Error fetching orders:', err);
+                console.error('Error response:', err.response);
+                console.error('Error request config:', err.config);
+                console.error('Error message:', err.message);
+                console.error('Error details:', err.response?.data);
+                if (err.response?.status === 401) {
+                    setError('Session expired. Please log in again.');
+                } else {
+                    setError('Failed to fetch orders: ' + (err.response?.data?.detail || err.response?.data?.error || err.message));
+                }
+                setLoading(false);
+            }
+        };
+
+        fetchOrders();
+    }, []);
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-accent-20 p-5 space-y-6">
         {/* Banner */}
@@ -53,28 +106,38 @@ export const RestoOrdersPast = () => {
             
             {/* Orders List */}
             <div className="flex flex-col gap-4 mt-6 w-full">
-                {[1, 2, 3].map((num) => (
-                    <div key={num} className="bg-white text-black py-4 rounded-lg border border-black w-full shadow-lg">
-                        <div className="flex items-center gap-2 px-4">
-                            <div className="badge badge-outline badge-neutral">Date</div>
-                        </div>
+                    {loading ? (
+                        <div className="text-center">Loading orders...</div>
+                    ) : error ? (
+                        <div className="text-center text-red-500">{error}</div>
+                    ) : orders.length === 0 ? (
+                        <div className="text-center">No past orders found</div>
+                    ) : (
+                        orders.map((order) => (
+                            <div key={order.order_id} className="bg-white text-black py-4 rounded-lg border border-black w-full shadow-lg">
+                                <div className="flex items-center gap-2 px-4">
+                                    <div className="badge badge-outline badge-neutral">{order.date}</div>
+                                </div>
 
-                        <div className="flex items-center justify-between mt-2 px-4">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 flex items-center justify-center bg-secondary text-white font-bold rounded-md">{num}</div>
-                                <span className="text-lg font-semibold">Order ID</span>
+                                <div className="flex items-center justify-between mt-2 px-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 flex items-center justify-center bg-secondary text-white font-bold rounded-md">
+                                            {order.status.charAt(0)}
+                                        </div>
+                                        <span className="text-lg font-semibold">{order.order_id}</span>
+                                    </div>
+                                    <Link to={`/order/details/${order.order_id}`}>
+                                        <button className="bg-secondary text-white px-4 py-2 rounded-md font-semibold hover:bg-secondary-60">
+                                            View Order
+                                        </button>
+                                    </Link>
+                                </div>
+                                
+                                <div className="text-sm mt-1 ml-14">Total: ₱{order.total}</div>
                             </div>
-                            <Link to="/order/details">
-                                <button className="bg-secondary text-white px-4 py-2 rounded-md font-semibold hover:bg-secondary-60">
-                                    View Order
-                                </button>
-                            </Link>
-                        </div>
-                        
-                        <div className="text-sm mt-1 ml-14">Total:</div>
-                    </div>
-                ))}
-            </div>
+                        ))
+                    )}
+                </div>
         </div>
 
         {/* Menu */}
