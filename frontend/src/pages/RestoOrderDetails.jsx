@@ -20,7 +20,6 @@ export const RestoOrderDetails = () => {
   useEffect(() => {
       const fetchOrder = async () => {
           try {
-              console.log('Fetching order');
               const token = localStorage.getItem('accessToken');
               if (!token) {
                   console.error('No access token found in localStorage');
@@ -29,7 +28,6 @@ export const RestoOrderDetails = () => {
                   return;
               }
 
-              console.log('Using token:', token);
               const axiosInstance = axios.create({
                   baseURL: 'http://127.0.0.1:8000',
                   headers: {
@@ -37,11 +35,11 @@ export const RestoOrderDetails = () => {
                       'Authorization': `Bearer ${token}`
                   }
               });
-              
-              const response = await axiosInstance.get(`/orders/order-detail/${order_id}/`);
-              console.log('Raw response:', response);
+
+              const response = await axiosInstance.get(`/order-detail/${order_id}/`);
               console.log('Response data:', response.data);
               setOrder(response.data.order);
+              console.log('Order state set:', response.data.order);
               setLoading(false);
           } catch (err) {
               console.error('Error fetching orders:', err);
@@ -77,6 +75,7 @@ export const RestoOrderDetails = () => {
         {order.items && order.items.length > 0 ? (
           order.items.map(item => (
             <OrderItem 
+              key={item.food_item_name} 
               name={item.food_item_name} 
               price={item.price} 
               image={item.image || 'default_image_url.png'}
