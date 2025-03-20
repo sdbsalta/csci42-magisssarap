@@ -169,4 +169,8 @@ class Voucher(models.Model):
     valid_until = models.DateField()
     
     def is_valid(self):
+<<<<<<< HEAD
         return self.valid_until >= timezone.now().date()
+=======
+        return self.valid_until >= timezone.now().date()
+>>>>>>> origin/backend/czyza/merge-current-edits

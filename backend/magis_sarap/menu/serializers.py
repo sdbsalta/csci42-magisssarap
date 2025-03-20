@@ -28,3 +28,8 @@ class FoodItemCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return FoodItem.objects.create(**validated_data)
+    
+class FoodItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoodItem
+        fields = '__all__' #ill fix this pa
