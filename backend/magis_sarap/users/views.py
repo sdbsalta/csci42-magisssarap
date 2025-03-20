@@ -1,3 +1,5 @@
+from rest_framework.parsers import JSONParser
+from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import make_password
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
@@ -18,7 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import User
 from django.contrib.auth.hashers import check_password
-from .serializers import UserSerializer
+from .serializers import RegisterUserSerializer, UserSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -88,31 +90,28 @@ def logout_user(request):
 def register_customer(request):
     if request.method == "POST":
         try:
-            data = json.loads(request.body)
-
-            # Extracting fields
-            id = data.get("id")
-            name = data.get("name")
-            contact_no = data.get("contact_no")
-            email_address = data.get("email_address")
-            password = data.get("password")
+            data = JSONParser().parse(request)  # Parse JSON request body
+            print("Received Data:", data)  # Debugging: Check request data
             
-            # Hash the password
-            hashed_password = make_password(password)
+            serializer = RegisterUserSerializer(data=data)
+            if serializer.is_valid():
+                user = serializer.save()
+                token, _ = Token.objects.get_or_create(user=user)
+                return JsonResponse(
+                    {
+                        "message": "Customer registered successfully",
+                        "accessToken": token.key,  # Changed from "token" to "accessToken"
+                        "user": {"id": user.id, "name": user.name}
+                    },
+                    status=201
+                )
 
-            # Create new user
-            user = User.objects.create(
-                id=id,
-                name=name,
-                contact_no=contact_no,
-                email_address=email_address,
-                password=hashed_password,
-                user_type="Customer"
-            )
-
-            return JsonResponse({"message": "Customer registered successfully"}, status=201)
+            print("Serializer Errors:", serializer.errors)  
+            return JsonResponse(serializer.errors, status=400)  # Return validation errors
 
         except Exception as e:
+            import traceback
+            print("ERROR:", traceback.format_exc())  
             return JsonResponse({"message": str(e)}, status=400)
 
     return JsonResponse({"message": "Method not allowed"}, status=405)

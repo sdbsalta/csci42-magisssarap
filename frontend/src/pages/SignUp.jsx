@@ -46,7 +46,7 @@ export const SignUp = () => {
 
     const endpoint =
       formData.user_type === "Customer"
-        ? "http://127.0.0.1:8000/signup/"
+        ? "http://127.0.0.1:8000/api/signup/"
         : "http://127.0.0.1:8000/api/register_restaurant_owner/";
 
     try {
@@ -61,7 +61,10 @@ export const SignUp = () => {
       const data = await response.json();
       if (response.ok) {
         setMessage(data.message);
-        // Redirect to login page after successful registration
+
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("userId", data.user?.id || "");
+        
         setTimeout(() => {
           navigate('/login');
         }, 1500); // Wait 1.5 seconds to show the success message

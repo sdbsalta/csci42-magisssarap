@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'orders',
     'rest_framework_simplejwt',
     'corsheaders',
+    'rest_framework.authtoken',
 ]
 
 # put on your settings.py file below INSTALLED_APPS

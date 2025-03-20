@@ -26,14 +26,17 @@ import "./App.css";
 import "./index.css";
 
 
-function App({ userId }) {  
+function App() {  
   const [message, setMessage] = useState("");
+  const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
 
   useEffect(() => {
-    if (!userId) {
+    const storedUserId = localStorage.getItem("userId");
+    if (!storedUserId) {
       console.error("User ID is not available, skipping API call.");
       return;
     }
+    setUserId(storedUserId);
 
     const accessToken = localStorage.getItem("accessToken");
 
@@ -58,7 +61,7 @@ function App({ userId }) {
           // Handle redirect to login page
         }
       });
-}, [userId]);
+}, []);
 
   return (
     <Router>
