@@ -83,7 +83,7 @@ function App({ userId }) {
             <Route path="/order/active" element={<RestoOrdersActive />} />
             <Route path="/order/past" element={<RestoOrdersPast />} />
             <Route path="/myorder/details/:orderId" element={<MyOrderDetails />} />
-            <Route path="/order/details" element={<RestoOrderDetails />} />
+            <Route path="/order/details/:order_id" element={<RestoOrderDetails />} />
             <Route path="/menu/edit" element={<EditMenu />} />
             <Route path="/productedit" element={<ProductEdit />} />
           </Routes>

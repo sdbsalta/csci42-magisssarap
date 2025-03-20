@@ -13,25 +13,20 @@ export const RestoOrdersActive = () => {
         const fetchOrders = async () => {
             try {
                 console.log('Fetching orders from active-orders endpoint...');
-                const token = localStorage.getItem('accessToken');
-                if (!token) {
-                    console.error('No access token found in localStorage');
-                    setError('Not authenticated. Please log in.');
-                    setLoading(false);
-                    return;
-                }
-
-                console.log('Using token:', token);
-
+                // Using axios.create to prevent URL transformation
                 const axiosInstance = axios.create({
                     baseURL: 'http://127.0.0.1:8000',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
+                        'Content-Type': 'application/json'
                     }
                 });
                 
-                const response = await axiosInstance.get('/orders/active-orders/');
+                const response = await axiosInstance.get('/orders/active-orders/', {
+                    transformRequest: [(data, headers) => {
+                        return data;
+                    }]
+                });
+                
                 console.log('Raw response:', response);
                 console.log('Response data:', response.data);
                 console.log('Orders array:', response.data.orders);
@@ -46,11 +41,7 @@ export const RestoOrdersActive = () => {
                 console.error('Error request config:', err.config);
                 console.error('Error message:', err.message);
                 console.error('Error details:', err.response?.data);
-                if (err.response?.status === 401) {
-                    setError('Session expired. Please log in again.');
-                } else {
-                    setError('Failed to fetch orders: ' + (err.response?.data?.detail || err.response?.data?.error || err.message));
-                }
+                setError('Failed to fetch orders: ' + (err.response?.data?.detail || err.message));
                 setLoading(false);
             }
         };
@@ -95,7 +86,7 @@ export const RestoOrdersActive = () => {
                 
                 {/* Buttons Section */}
                 <div className="flex flex-row gap-4 mt-6 w-full">
-                    <Link to="/order/past" className="w-1/2">
+                    <Link to="/orders/past-orders" className="w-1/2">
                         <button className="w-full bg-accent text-black border border-black px-6 py-3 rounded-md font-semibold hover:bg-secondary hover:text-white">
                             Past Orders
                         </button>

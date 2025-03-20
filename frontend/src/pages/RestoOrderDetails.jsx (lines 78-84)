@@ -1,0 +1,7 @@
+{order.items && order.items.length > 0 ? (
+  order.items.map(item => (
+    <OrderItem key={item.food_item} name={item.food_item} price={item.price} image={item.image} displayType="static"/>
+  ))
+) : (
+  <p>No items found for this order.</p>
+)} 
