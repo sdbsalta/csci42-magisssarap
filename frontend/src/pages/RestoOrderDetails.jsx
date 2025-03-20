@@ -79,7 +79,7 @@ export const RestoOrderDetails = () => {
               name={item.food_item_name} 
               price={item.price} 
               image={item.image || 'default_image_url.png'}
-              displayType="static"
+              isStatic = "false"
             />
           ))
         ) : (
