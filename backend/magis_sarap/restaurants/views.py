@@ -19,6 +19,8 @@ def get_restaurants(request):
     return Response(serializer.data)
 
 class RestaurantDetailView(APIView):
+    permission_classes = [AllowAny]
+    
     def get(self, request, resto_name, *args, **kwargs):
         # Replace hyphens with spaces to match the restaurant name
         resto_name = resto_name.replace('-', ' ')
