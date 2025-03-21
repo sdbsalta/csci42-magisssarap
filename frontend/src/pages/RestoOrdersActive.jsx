@@ -12,7 +12,6 @@ export const RestoOrdersActive = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                console.log('Fetching orders from active-orders endpoint...');
                 const token = localStorage.getItem('accessToken');
                 if (!token) {
                     console.error('No access token found in localStorage');
@@ -32,8 +31,6 @@ export const RestoOrdersActive = () => {
                 });
                 
                 const response = await axiosInstance.get('/orders/active-orders/');
-                console.log('Raw response:', response);
-                console.log('Response data:', response.data);
                 console.log('Orders array:', response.data.orders);
                 if (response.data.orders && response.data.orders.length > 0) {
                     console.log('First order example:', response.data.orders[0]);
