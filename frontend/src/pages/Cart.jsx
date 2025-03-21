@@ -15,6 +15,12 @@ const Cart = () => {
     { id: 2, name: "Salad", price: 150, image: Salad, quantity: 1 },
   ]);
 
+  const [totalPrice, setTotalPrice] = useState(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
+
+  // Location state
+  const [location, setLocation] = useState("CTC313");
+  const [isEditingLocation, setIsEditingLocation] = useState(false);
+
   // Update quantity & recalculate total
   const updateQuantity = (id, newQuantity) => {
     setCartItems((prevItems) =>
@@ -22,15 +28,21 @@ const Cart = () => {
         item.id === id ? { ...item, quantity: newQuantity } : item
       )
     );
+    setTotalPrice(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
   };
 
-  // Remove item from cart
   const removeItem = (id) => {
     setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
+    setTotalPrice(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
   };
 
-  // Calculate total dynamically
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // Handle location change
+  const handleLocationChange = (e) => setLocation(e.target.value);
+
+  // Toggle edit location mode
+  const toggleEditLocation = () => {
+    setIsEditingLocation((prev) => !prev);
+  };
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-[#fefaf5] p-8 w-full">
@@ -65,12 +77,23 @@ const Cart = () => {
           </div>
           <div className="flex items-center gap-2">
             <img src={MapPinIcon} alt="Map Pin" className="w-5 h-5" />
-            <p className="text-gray-800 font-semibold">Location: CTC313</p>
-            <Link to="/editlocation">
-              <button className="bg-[#f2d5d5] text-gray-800 text-xs font-semibold px-4 py-3 rounded-full hover:bg-primary hover:text-white">
-                Edit
-              </button>
-            </Link>
+            {/* Location section */}
+            {isEditingLocation ? (
+              <input
+                type="text"
+                value={location}
+                onChange={handleLocationChange}
+                className="p-2 rounded-md border border-gray-400"
+              />
+            ) : (
+              <p className="text-gray-800 font-semibold">{location}</p>
+            )}
+            <button
+              onClick={toggleEditLocation}
+              className="bg-[#f2d5d5] text-gray-800 text-xs font-semibold px-4 py-3 rounded-full hover:bg-primary hover:text-white"
+            >
+              {isEditingLocation ? "Save" : "Edit"}
+            </button>
           </div>
         </div>
         <div className="flex items-center gap-2">
