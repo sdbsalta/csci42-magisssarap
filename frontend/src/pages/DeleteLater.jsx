@@ -29,7 +29,7 @@ export const RestoOrdersActive = () => {
                 
                 console.log('Raw response:', response);
                 console.log('Response data:', response.data);
-                console.log('Orders array:', response.data.orders);
+                console.log('Fetch Orders~Orders array:', response.data.orders);
                 if (response.data.orders && response.data.orders.length > 0) {
                     console.log('First order example:', response.data.orders[0]);
                 }

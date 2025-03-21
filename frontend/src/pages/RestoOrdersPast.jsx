@@ -21,8 +21,6 @@ export const RestoOrdersPast = () => {
                     return;
                 }
 
-                console.log('Using token:', token);
-
                 const axiosInstance = axios.create({
                     baseURL: 'http://127.0.0.1:8000',
                     headers: {
@@ -34,7 +32,7 @@ export const RestoOrdersPast = () => {
                 const response = await axiosInstance.get('/orders/past-orders/');
                 console.log('Raw response:', response);
                 console.log('Response data:', response.data);
-                console.log('Orders array:', response.data.orders);
+                console.log('Resto Past Orders array:', response.data.orders);
                 if (response.data.orders && response.data.orders.length > 0) {
                     console.log('First order example:', response.data.orders[0]);
                 }
