@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 from .models import User
-from .models import Voucher
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -26,7 +25,4 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         validated_data['password'] = make_password(validated_data['password'])  # Hash password
         return User.objects.create(**validated_data)
     
-class VoucherSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Voucher
-        fields = '__all__'
+
