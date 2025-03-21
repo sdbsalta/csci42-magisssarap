@@ -13,21 +13,52 @@ import Bacsilog from "../img/bacsilog.png";
 export const RestoView = () => {
     const { resto_name } = useParams(); // Get resto_name from URL
     const [restaurant, setRestaurant] = useState(null);
+    const [foodItems, setFoodItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [searchQuery, setSearchQuery] = useState(""); 
+    const [filteredFoodItems, setFilteredFoodItems] = useState([]); 
+
     useEffect(() => {
+        // Fetch restaurant info
         axios.get(`http://localhost:8000/restaurants/${resto_name}/`)
             .then((response) => {
                 setRestaurant(response.data);
                 setLoading(false);
             })
             .catch((err) => {
-                console.error("Error fetching data:", err);
+                console.error("Error fetching restaurant data:", err);
                 setError("Restaurant not found.");
                 setLoading(false);
             });
     }, [resto_name]);
+
+    useEffect(() => {
+        // Fetch food items
+        axios.get('http://localhost:8000/api/food-items')
+            .then((response) => {
+                setFoodItems(response.data); // Assuming the food items have a `resto_name` or similar field
+            })
+            .catch((err) => {
+                console.error("Error fetching food items:", err);
+                setError("Food items not found.");
+            });
+    }, []);
+
+    useEffect(() => {
+        // Filter food items based on the restaurant's name or ID
+        if (restaurant && foodItems) {
+            const filteredItems = foodItems.filter((food) =>
+                food.resto_name === resto_name && food.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            setFilteredFoodItems(filteredItems);
+        }
+    }, [searchQuery, restaurant, foodItems, resto_name]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     if (loading) {
         return <div>Loading...</div>;
@@ -66,6 +97,8 @@ export const RestoView = () => {
                     <input 
                         type="text" 
                         placeholder="Search..." 
+                        value={searchQuery} 
+                        onChange={(e) => setSearchQuery(e.target.value)} // Update search query on change
                         className="input input-bordered bg-accent-20 text-black w-full border-black pl-10"
                     />
                 </div>
@@ -90,24 +123,19 @@ export const RestoView = () => {
 
                 {/* Menu */}
                 <div className="grid gap-3 gap-x-2 gap-y-2 w-full grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
-                    <FoodItem 
-                        FoodName="Bacsilog"
-                        Price="₱99"
-                        Location="Gonzaga Cafeteria"
-                        Rating="4.5"
-                    />
-                    <FoodItem 
-                        FoodName="Bacsilog"
-                        Price="₱99"
-                        Location="Gonzaga Cafeteria"
-                        Rating="4.5"
-                    />
-                    <FoodItem 
-                        FoodName="Bacsilog"
-                        Price="₱99"
-                        Location="Gonzaga Cafeteria"
-                        Rating="4.5"
-                    />
+                    {filteredFoodItems.length > 0 ? (
+                        filteredFoodItems.map((food, index) => (
+                            <FoodItem 
+                                key={index}
+                                FoodName={food.name}
+                                Price={food.price}
+                                Location={food.location}
+                                Rating={food.rating}
+                            />
+                        ))
+                    ) : (
+                        <div>No food items available</div>
+                    )}
                 </div>
 
                 {/* Reviews */}
