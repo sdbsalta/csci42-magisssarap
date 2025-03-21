@@ -32,4 +32,4 @@ class FoodItemCreateSerializer(serializers.ModelSerializer):
 class FoodItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodItem
-        fields = '__all__' #ill fix this pa
+        fields = ['id', 'item_no', 'restaurant', 'name', 'description', 'is_vegan', 'is_halal', 'calories', 'price', 'food_image']

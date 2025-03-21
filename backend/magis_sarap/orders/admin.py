@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, OrderItem, Review, Delivery
+from .models import Order, OrderItem, Review, Delivery, CartItem
 
 class OrderItemInline(admin.TabularInline):  
     model = OrderItem
@@ -29,3 +29,13 @@ class ReviewAdmin(admin.ModelAdmin):
    search_fields = ['customer__username', 'restaurant__name', 'comment']
 
 admin.site.register(Review, ReviewAdmin)
+
+class CartItemInline(admin.TabularInline):
+    model = CartItem
+    extra = 1  # Number of empty forms to display for adding new items
+    fields = ('food_item', 'quantity')  # Fields you want to display
+    can_delete = True  # Allows deletion of cart items
+    verbose_name = "Cart Item"
+    verbose_name_plural = "Cart Items"
+
+admin.site.register(CartItem)

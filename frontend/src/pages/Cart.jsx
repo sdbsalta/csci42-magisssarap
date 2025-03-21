@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import OrderItem from "../components/OrderItem"; 
 import MapPinIcon from "../icons/MapPin.svg";
 import BackIcon from "../icons/back.svg";
@@ -10,30 +11,74 @@ import Fries from "../img/fries.png";
 import Salad from "../img/salad.png";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "French Fries", price: 150, image: Fries, quantity: 1 },
-    { id: 2, name: "Salad", price: 150, image: Salad, quantity: 1 },
-  ]);
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const [totalPrice, setTotalPrice] = useState(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
-
-  // Location state
   const [location, setLocation] = useState("CTC313");
   const [isEditingLocation, setIsEditingLocation] = useState(false);
 
-  // Update quantity & recalculate total
-  const updateQuantity = (id, newQuantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-    setTotalPrice(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
+
+  const fetchCartItems = async () => {
+    try {
+      const token = localStorage.getItem("accessToken"); // Retrieve JWT from localStorage
+      const response = await axios.get("http://127.0.0.1:8000/orders/cart/", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Send the token in the Authorization header
+        },
+      });
+  
+      console.log(response.data); // Log the API response
+      if (Array.isArray(response.data)) {
+        setCartItems(response.data);
+        calculateTotal(response.data);
+      } else {
+        console.error("Expected an array but received:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
+  };  
+
+  const calculateTotal = (items) => {
+    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    setTotalPrice(total);
   };
 
-  const removeItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
-    setTotalPrice(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
+  // Update quantity & recalculate total
+  const updateQuantity = async (id, newQuantity) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        "http://127.0.0.1:8000/orders/cart/", 
+        { food_item_id: id }, 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      fetchCartItems(); // Re-fetch cart items after update
+    } catch (error) {
+      console.error("Error updating quantity:", error);
+    }
+  };
+
+  const removeItem = async (id) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      await axios.delete("http://127.0.0.1:8000/orders/cart/", {
+        data: { food_item_id: id },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      fetchCartItems(); // Re-fetch cart items after removal
+    } catch (error) {
+      console.error("Error removing item:", error);
+    }
   };
 
   // Handle location change
@@ -121,7 +166,7 @@ const Cart = () => {
 
       {/* Buttons */}
       <div className="w-full flex justify-between items-center mt-4">
-        <Link to="/restaurants/view">
+        <Link to="/restaurants/">
           <img 
             src={BackIcon} 
             alt="Back Icon" 
