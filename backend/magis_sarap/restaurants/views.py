@@ -15,7 +15,7 @@ import json
 @permission_classes([AllowAny])
 def get_restaurants(request):
     restaurants = Restaurant.objects.all()
-    serializer = RestaurantSerializer(restaurants, many=True)
+    serializer = RestaurantSerializer(restaurants, many=True, context={'request': request})  
     return Response(serializer.data)
 
 class RestaurantDetailView(APIView):

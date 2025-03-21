@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import DefaultImage from "../img/resto-default.png"; 
+import DefaultImage from "../img/default.png"; 
 import MapPin from "../icons/MapPin.svg";
 import RatingIcon from "../icons/Rating.svg";
 
