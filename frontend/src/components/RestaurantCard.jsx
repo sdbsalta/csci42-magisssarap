@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Bacsilog from "../img/bacsilog.png";
 import MapPin from "../icons/MapPin.svg";
 import RatingIcon from "../icons/Rating.svg";
+import DefaultImage from "../img/resto-default.png";
 
-const RestaurantCard = ({ Name, Location, Rating }) => {
+const RestaurantCard = ({ Name, Location, Rating, Image }) => {
   return (
     <Link
       to="/restaurants/view"
       className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-transform transform hover:scale-105"
     >
       {/* Restaurant Image */}
-      <img src={Bacsilog} alt={Name} className="w-full h-40 object-cover" />
+      <img src={Image || DefaultImage} alt={Name} className="w-full h-40 object-cover" />
 
       {/* Restaurant Details */}
       <div className="p-4 relative">
