@@ -4,11 +4,13 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics
 from rest_framework.views import APIView
-from .models import Order, OrderItem
+
+from .models import CartItem, Order, OrderItem, Voucher
 from users.models import RestaurantOwner  # Import from users app
 from restaurants.models import Restaurant  # Import Restaurant model
+from menu.models import FoodItem
 from django.views import View
-from .serializers import OrderSerializer, OrderItemSerializer, DeliverySerializer
+from .serializers import CartItemSerializer, OrderSerializer, OrderItemSerializer, DeliverySerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 #########################################################
@@ -68,6 +70,7 @@ class PendingOrderView(APIView): # checks if may order nako
 
 class CartView(APIView):
     permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
     def get(self, request):
         cart_items = CartItem.objects.filter(customer=request.user)

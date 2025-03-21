@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from .views import CartView, ApplyVoucherView
-
+# path("orders/", include("orders.urls")),
 urlpatterns = [
     # CUSTOMER
     path("", views.OrderListCreateView.as_view(), name="order-list"),
