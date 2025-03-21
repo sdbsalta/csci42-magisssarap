@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User, RestaurantOwner
-from .models import Voucher
 
 
 @admin.register(User)
@@ -20,9 +19,3 @@ class UserAdmin(BaseUserAdmin):
 class RestaurantOwnerAdmin(BaseUserAdmin): 
     list_display = ('id', 'name', 'resto_name')
     ordering = ('id',)
-
-@admin.register(Voucher)
-class VoucherAdmin(admin.ModelAdmin):
-    list_display = ('code', 'discount', 'is_active', 'expires_at')
-    search_fields = ('code',)
-    list_filter = ('is_active', 'expires_at')

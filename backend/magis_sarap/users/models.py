@@ -99,13 +99,3 @@ class RestaurantOwner(User):
         blank=False,
         null=False
     )
-
-class Voucher(models.Model):
-    code = models.CharField(max_length=20, unique=True)
-    discount = models.DecimalField(max_digits=5, decimal_places=2)  # Percentage discount (e.g., 10.00 for 10%)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="vouchers", null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-    expires_at = models.DateTimeField()
-
-    def __str__(self):
-        return f"{self.code} - {self.discount}%"
