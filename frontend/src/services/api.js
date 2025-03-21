@@ -31,4 +31,17 @@ export const orderApi = {
     getOrderDetails: (orderId) => api.get(`/orders/order-detail/${orderId}/`),
 };
 
+// Voucher-related API calls
+export const voucherApi = {
+    applyVoucher: (voucherCode) => {
+      return fetch("http://127.0.0.1:8000/orders/apply-voucher/", {  // ✅ Fixed URL
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ voucher_code: voucherCode }),
+      }).then(response => response.json());
+    }
+  };
+
 export default api; 

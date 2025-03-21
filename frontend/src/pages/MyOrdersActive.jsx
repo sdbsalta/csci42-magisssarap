@@ -79,7 +79,7 @@ export const MyOrdersActive = () => {
                         {/* Wrap resto name and total price in one div */}
                         <div className="flex flex-col">
                         <span className="text-lg font-semibold">{order.restaurant_name || "Unknown Restaurant"}</span>
-                        <span className="text-sm text-gray-400">Total: ${order.total_price}</span>
+                        <span className="text-sm text-gray-400">Total: P{order.total_price}</span>
                         </div>
                     </div>
                     <Link to={`/myorder/details/${order.order_id}`}>
