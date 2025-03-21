@@ -115,77 +115,28 @@ class ApplyVoucherView(APIView):
 # RESTAURANT VIEWS
 #########################################################
 
-class ActiveOrdersRestoView(APIView):
+class ActiveOrdersRestoView(generics.ListAPIView):
+    serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 
-    def get(self, request):
-        print("\n=== ActiveOrdersRestoView ===")
-        print("Request user:", request.user)
-        print("User type:", request.user.user_type)
-        print("User ID:", request.user.id)
-        
-        # Check if user is a restaurant owner
-        if request.user.user_type != 'Restaurant Owner':
-            return Response({
-                "error": "Access denied. User is not a restaurant owner.",
-                "user_type": request.user.user_type
-            }, status=403)
-        
-        # Get the restaurant owner details
+    def get_queryset(self):
+        if self.request.user.user_type != 'Restaurant Owner':
+            return Order.objects.none()
+
         try:
-            restaurant_owner = RestaurantOwner.objects.get(id=request.user.id)
-            print(f"Found restaurant owner: {restaurant_owner.name}")
-            
-            # Get the actual restaurant
+            restaurant_owner = RestaurantOwner.objects.get(id=self.request.user.id)
             restaurant = Restaurant.objects.get(resto_name=restaurant_owner.resto_name)
-            print(f"Found restaurant: {restaurant.resto_name} (ID: {restaurant.resto_id})")
-            
-            # Debug: Print all orders for this restaurant
-            all_orders = Order.objects.filter(restaurant=restaurant.resto_id)
-            print(f"\nAll orders for restaurant {restaurant.resto_name}:")
-            for order in all_orders:
-                print(f"Order {order.order_id}: Status = {order.status}")
-            
-            # Get active orders
-            orders = Order.objects.filter(
-                restaurant=restaurant.resto_id,  # Use the actual restaurant ID
-                status__in=['Order Placed',
-                            'Order Confirmed',
-                            'Preparing Order',
-                            'Ready for Pick Up',
-                            'Out for Delivery'
+            return Order.objects.filter(
+                restaurant=restaurant.resto_id,
+                status__in=[
+                    'Order Placed', 'Order Confirmed', 'Preparing Order',
+                    'Ready for Pick Up', 'Out for Delivery'
                 ]
             ).order_by('-date_created')
-            
-            print(f"\nActive orders found: {orders.count()}")
-            for order in orders:
-                print(f"Active Order {order.order_id}: {order.status}")
-            
-            serializer = OrderSerializer(orders, many=True)
-            response_data = {
-                'orders': [{
-                    'order_id': order['order_id'],
-                    'date': order['date_created'],
-                    'status': order['status'],
-                    'total': order['total_price']
-                } for order in serializer.data]
-            }
-            return Response(response_data)
-            
-        except RestaurantOwner.DoesNotExist:
-            print(f"No RestaurantOwner found for user ID: {request.user.id}")
-            return Response({
-                "error": "User is registered as a restaurant owner but no restaurant details found.",
-                "user_id": request.user.id
-            }, status=403)
-        except Restaurant.DoesNotExist:
-            print(f"No Restaurant found with name: {restaurant_owner.resto_name}")
-            return Response({
-                "error": f"No restaurant found with name: {restaurant_owner.resto_name}",
-                "user_id": request.user.id
-            }, status=403)
-    
+        except (RestaurantOwner.DoesNotExist, Restaurant.DoesNotExist):
+            return Order.objects.none()
+
 class PastOrdersRestoView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
