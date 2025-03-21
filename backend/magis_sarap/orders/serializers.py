@@ -1,6 +1,7 @@
 from .models import Order, OrderItem, Delivery, Review, CartItem
 from rest_framework import serializers
 from menu.serializers import FoodItemSerializer
+from menu.serializers import FoodItemSerializer
 
 class DeliverySerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,6 +28,28 @@ class OrderSerializer(serializers.ModelSerializer):
             'status', 'total_price', 'date_created', 'time_completed', 'items', 'notes', 'delivery'
         ]
 
+class ReviewSerializer(serializers.ModelSerializer):
+    from menu.serializers import FoodItemSerializer
+    food_item = FoodItemSerializer()
+    review_id = serializers.CharField(read_only=True)
+    customer_name = serializers.CharField(source='customer.username', read_only=True)
+    restaurant_name = serializers.CharField(source='restaurant.resto_name', read_only=True)
+
+    class Meta:
+        model = Review
+        fields = ['review_id', 'customer', 'customer_name', 'restaurant', 'restaurant_name', 'rating', 'comment', 'date_created']
+        
+class CartItemSerializer(serializers.ModelSerializer):
+    food_item = FoodItemSerializer(read_only=True)
+    subtotal = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = CartItem
+        fields = ['id', 'customer', 'food_item', 'quantity', 'subtotal']
+        read_only_fields = ['subtotal']
+    
+    def get_subtotal(self, obj):
+        return obj.subtotal()
 class DeliverySerializer(serializers.ModelSerializer):
     class Meta:
         model = Delivery
