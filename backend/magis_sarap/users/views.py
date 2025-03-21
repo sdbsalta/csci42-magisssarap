@@ -26,6 +26,16 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db import transaction
 from restaurants.models import Restaurant
+from .models import Voucher
+from .serializers import VoucherSerializer
+from django.utils.timezone import now
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+
+
 
 @csrf_exempt
 def login_user(request):
@@ -188,6 +198,29 @@ def user_detail(request, id):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class VoucherViewSet(viewsets.ModelViewSet):
+    queryset = Voucher.objects.all()
+    serializer_class = VoucherSerializer
+    permission_classes = [IsAuthenticated]  # Ensure only logged-in users can access
+
+    def get_queryset(self):
+        # Filter vouchers only for the authenticated user
+        return Voucher.objects.filter(user=self.request.user)
+
+    @action(detail=True, methods=["post"])
+    def redeem(self, request, pk=None):
+        try:
+            voucher = self.get_object()
+            if not voucher.is_active or voucher.expires_at < now():
+                return Response({"message": "Voucher is expired or inactive"}, status=400)
+
+            voucher.is_active = False  # Mark as used
+            voucher.save()
+            return Response({"message": "Voucher redeemed successfully!"})
+
+        except Voucher.DoesNotExist:
+            return Response({"message": "Voucher not found"}, status=404)
 
 # class CreateCustomerView(CreateView):
 #     model = User

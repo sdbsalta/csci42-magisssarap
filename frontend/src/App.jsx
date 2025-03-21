@@ -22,6 +22,7 @@ import RestoOrderDetails from "./pages/RestoOrderDetails";
 import EditMenu from "./pages/EditMenu";
 import ProductEdit from "./pages/ProductEdit";
 import NavBar from "./components/NavBar";
+import Ratings from "./pages/Ratings"
 import "./App.css";
 import "./index.css";
 
@@ -89,6 +90,7 @@ function App() {
             <Route path="/order/details/:order_id" element={<RestoOrderDetails />} />
             <Route path="/menu/edit" element={<EditMenu />} />
             <Route path="/productedit" element={<ProductEdit />} />
+            <Route path="/rate" element={<Ratings/>} />
           </Routes>
         </div>
       </div>

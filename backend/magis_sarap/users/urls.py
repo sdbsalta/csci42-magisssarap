@@ -1,6 +1,10 @@
 from django.urls import path
-from .views import register_customer, register_restaurant_owner, login_user, logout_user, get_logged_in_user, user_detail
+from .views import register_customer, register_restaurant_owner, login_user, logout_user, get_logged_in_user, user_detail, VoucherViewSet
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register(r'api/vouchers', VoucherViewSet, basename='voucher')
 urlpatterns = [
     path("api/signup/", register_customer, name="register_customer"),
     path("api/register_restaurant_owner/", register_restaurant_owner, name="register_restaurant_owner"),
