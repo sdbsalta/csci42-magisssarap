@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from 'axios';
 
 import Cart from "../components/Cart";
-import FoodItem from "../components/FoodItem";
+import MenuFoodItem from "../components/MenuFoodItem";
 import BackIcon from "../icons/back.svg";
 import SearchIcon from "../icons/search.svg";
 import MapPinIcon from "../icons/MapPin.svg";
@@ -22,7 +22,7 @@ export const RestoView = () => {
 
     useEffect(() => {
         // Fetch restaurant info
-        axios.get(`http://localhost:8000/restaurants/${resto_name}/`)
+        axios.get(`http://127.0.0.1:8000/restaurants/${resto_name}/`)
             .then((response) => {
                 setRestaurant(response.data);
                 setLoading(false);
@@ -36,8 +36,9 @@ export const RestoView = () => {
 
     useEffect(() => {
         // Fetch food items
-        axios.get('http://localhost:8000/api/food-items')
+        axios.get(`http://127.0.0.1:8000/api/${resto_name}/menu/`)
             .then((response) => {
+                console.log("Fetched Food Items:", response.data); 
                 setFoodItems(response.data); // Assuming the food items have a `resto_name` or similar field
             })
             .catch((err) => {
@@ -47,14 +48,24 @@ export const RestoView = () => {
     }, []);
 
     useEffect(() => {
-        // Filter food items based on the restaurant's name or ID
-        if (restaurant && foodItems) {
-            const filteredItems = foodItems.filter((food) =>
-                food.resto_name === resto_name && food.name.toLowerCase().includes(searchQuery.toLowerCase())
-            );
+        console.log("Filtering for resto_name:", resto_name);
+        console.log("Available Food Items:", foodItems);
+    
+        if (resto_name && foodItems.length > 0) {
+            const formattedRestoName = resto_name.replace(/-/g, " ").toLowerCase(); // Convert kebab-case to lowercase spaced format
+            const filteredItems = foodItems.filter((food) => {
+                if (!food.resto_name) {
+                    console.warn("Warning: food.resto_name is undefined!", food);
+                    return false; // Skip this item to prevent errors
+                }
+                console.log(`Checking ${food.resto_name.toLowerCase()} === ${formattedRestoName}`);
+                return food.resto_name.toLowerCase() === formattedRestoName;
+            });
+        
+            console.log("Filtered Food Items:", filteredItems);
             setFilteredFoodItems(filteredItems);
-        }
-    }, [searchQuery, restaurant, foodItems, resto_name]);
+        }        
+    }, [resto_name, foodItems]); 
 
     if (loading) {
         return <div>Loading...</div>;
@@ -125,12 +136,12 @@ export const RestoView = () => {
                 <div className="grid gap-3 gap-x-2 gap-y-2 w-full grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
                     {filteredFoodItems.length > 0 ? (
                         filteredFoodItems.map((food, index) => (
-                            <FoodItem 
+                            <MenuFoodItem 
                                 key={index}
                                 FoodName={food.name}
                                 Price={food.price}
                                 Location={food.location}
-                                Rating={food.rating}
+                                Rating="5"
                             />
                         ))
                     ) : (
