@@ -42,7 +42,7 @@ export const RestoOrdersActive = () => {
                     <img src={RestoLogo} alt="Logo" className="w-124 h-124 md:w-85 md:h-85 rounded-xl object-cover" />
                 </div>
                 <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                    <h1 className="text-dark font-semibold text-4xl md:text-5xl">Welcome back!</h1>
+                    <h1 className="text-dark font-semibold text-4xl md:text-5xl">{orders.length > 0 ? orders[0].restaurant_name : "Welcome back!"}!</h1>
 
                     {/* Buttons */}
                     <div className="flex flex-row gap-3 mt-3">

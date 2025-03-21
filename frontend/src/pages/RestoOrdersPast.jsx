@@ -53,7 +53,7 @@ export const RestoOrdersPast = () => {
             </div>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
                 <h1 className="text-black font-semibold text-4xl md:text-5xl">
-                    Welcome back!
+                    {orders.length > 0 ? orders[0].restaurant_name : "Welcome back!"}
                 </h1>
 
                 {/* Buttons */}
