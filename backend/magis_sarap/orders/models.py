@@ -3,7 +3,6 @@ from django.db import models
 from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 from menu.models import FoodItem
-from menu.models import FoodItem
 import uuid
 
 User = get_user_model()  

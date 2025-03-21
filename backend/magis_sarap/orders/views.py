@@ -5,7 +5,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics
 from rest_framework.views import APIView
 
-from .models import CartItem, Order, Order, CartItem, VoucherItem, Voucher
+from .models import CartItem, Order, Order, CartItem, Voucher
 from users.models import RestaurantOwner  # Import from users app
 from restaurants.models import Restaurant  # Import Restaurant model
 from menu.models import FoodItem
