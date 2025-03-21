@@ -172,22 +172,3 @@ class Voucher(models.Model):
     
     def is_valid(self):
         return self.valid_until >= timezone.now().date()
-
-class CartItem(models.Model):
-    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart')
-    food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-
-    class Meta:
-        unique_together = ('customer', 'food_item')
-    
-    def subtotal(self):
-        return self.food_item.price * self.quantity
-
-class Voucher(models.Model):
-    code = models.CharField(max_length=20, unique=True)
-    discount_percentage = models.FloatField(default=0.0)
-    valid_until = models.DateField()
-    
-    def is_valid(self):
-        return self.valid_until >= timezone.now().date()
