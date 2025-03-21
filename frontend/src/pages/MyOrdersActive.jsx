@@ -68,7 +68,7 @@ export const MyOrdersActive = () => {
                         month: "long",
                         day: "numeric"
                     })}
-                    </div>
+                </div>
                 </div>
     
                 <div className="flex items-center justify-between mt-2 px-4">

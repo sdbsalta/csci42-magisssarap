@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from .models import FoodItem
-from .serializers import FoodItemListSerializer, FoodItemCreateSerializer
+from .serializers import FoodItemListSerializer, FoodItemCreateSerializer, MenuItemSerializer
 from restaurants.models import Restaurant
 from orders.models import Review
 from orders.serializers import ReviewSerializer
@@ -50,3 +50,23 @@ class RestaurantMenuView(generics.RetrieveAPIView):
             "food_items": food_items_data,
             "reviews": reviews_data
         })
+        
+class MenuItemsByRestaurantView(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = MenuItemSerializer
+
+    def get_queryset(self):
+        resto_name = self.kwargs.get("resto_name")  # Get the restaurant name from the URL
+        resto_name_cleaned = resto_name.replace("-", " ")
+        print(f"Converted to: {resto_name_cleaned}")  # Debug processed name
+
+        restaurant = Restaurant.objects.filter(resto_name__iexact=resto_name_cleaned).first()
+
+        if restaurant:
+            print(f"Found restaurant: {restaurant.resto_name}")
+        else:
+            print("No restaurant found!")
+
+
+        return FoodItem.objects.filter(restaurant=restaurant)
+

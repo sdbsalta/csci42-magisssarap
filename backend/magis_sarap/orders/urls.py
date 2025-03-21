@@ -17,8 +17,6 @@ urlpatterns = [
     # WHAT IS THIS FOR? -czy
     path("<str:order_id>/", views.OrderDetailView.as_view(), name="order-detail"),
     path("pending/", views.PendingOrderView.as_view(), name="order-pending"),
-    path("cart/", CartView.as_view(), name="cart"),
-    path("apply-voucher/", ApplyVoucherView.as_view(), name="apply-voucher"),
 ]
 
 

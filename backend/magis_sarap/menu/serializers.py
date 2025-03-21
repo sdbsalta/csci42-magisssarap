@@ -33,8 +33,12 @@ class FoodItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodItem
         fields = ['id', 'item_no', 'restaurant', 'name', 'description', 'is_vegan', 'is_halal', 'calories', 'price', 'food_image']
-    
-class FoodItemSerializer(serializers.ModelSerializer):
+
+# iya: for menu's 
+class MenuItemSerializer(serializers.ModelSerializer):
+    resto_name = serializers.CharField(source='restaurant.resto_name', read_only=True)  
+
     class Meta:
         model = FoodItem
-        fields = '__all__' #ill fix this pa
+        fields = ['id', 'name', 'price', 'resto_name']  # Ensure resto_name is included
+
