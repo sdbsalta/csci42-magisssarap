@@ -102,6 +102,7 @@ const Cart = () => {
       </div>
 
       {/* Order Items */}
+      {/* there's a bug pa, there's diff model for cartitems items tas orderitem??*/}
       <div className="flex flex-col gap-4 w-full mt-6">
         {cartItems.map((item) => (
           <OrderItem 

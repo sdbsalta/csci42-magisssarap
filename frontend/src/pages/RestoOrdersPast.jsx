@@ -70,7 +70,7 @@ export const RestoOrdersPast = () => {
             </div>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
                 <h1 className="text-black font-semibold text-4xl md:text-5xl">
-                    Welcome back, Name!
+                    Welcome back!
                 </h1>
 
                 {/* Buttons */}
