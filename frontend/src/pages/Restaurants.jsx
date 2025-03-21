@@ -8,13 +8,17 @@ export const Restaurants = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [restaurants, setRestaurants] = useState([]);
 
-  // Fetch restaurants from Django backend
+  // get restaurants from django backend
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/restaurants/")
+    fetch("http://127.0.0.1:8000/restaurants/", {
+      headers: {
+        "Accept": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => setRestaurants(data))
       .catch((error) => console.error("Error fetching restaurants:", error));
-  }, []);
+  }, []);  
 
   // Filter for search
   const filteredRestaurants = restaurants.filter((restaurant) =>
@@ -56,6 +60,7 @@ export const Restaurants = () => {
               Name={restaurant.resto_name}
               Location={restaurant.location}
               Rating={restaurant.rating || "N/A"}
+              Image={restaurant.image}
             />
           ))
         )}
