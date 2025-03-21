@@ -6,7 +6,7 @@ import Voucher2 from "../img/voucher2.png";
 export const MyAccountVouchers = () => {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-[#fdf9f2] p-8 space-y-6">
-        <h1 className="text-3xl font-bold text-black">My Account</h1>
+        <h1 className="text-center text-dark text-3xl md:text-3xl">My Account👤</h1>
 
         {/* Tab Buttons */}
         <div className="flex w-full max-w-lg gap-x-4">

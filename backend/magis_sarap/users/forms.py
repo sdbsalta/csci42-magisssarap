@@ -2,7 +2,7 @@ from django import forms
 from .models import User, RestaurantOwner
 
 class CreateCustomerForm(forms.ModelForm):
-     user_id = forms.IntegerField(
+     id = forms.IntegerField(
           label="Student ID",
           widget=forms.NumberInput(
                attrs={'placeholder': 'Enter Ateneo Student ID', 'class': 'form-control'}
@@ -39,11 +39,11 @@ class CreateCustomerForm(forms.ModelForm):
      
      class Meta:
       model = User
-      fields = ['user_id', 'name', 'contact_no', 'email_address', 'password']
+      fields = ['id', 'name', 'contact_no', 'email_address', 'password']
 
 
 class CreateRestaurantOwnerForm(forms.ModelForm):
-     user_id = forms.IntegerField(
+     id = forms.IntegerField(
           label="Student ID",
           widget=forms.NumberInput(
                attrs={'placeholder': 'Enter Ateneo Student ID', 'class': 'form-control'}
@@ -87,4 +87,4 @@ class CreateRestaurantOwnerForm(forms.ModelForm):
      
      class Meta:
       model = RestaurantOwner
-      fields = ['user_id', 'name', 'contact_no', 'resto_name', 'email_address', 'password']
+      fields = ['id', 'name', 'contact_no', 'resto_name', 'email_address', 'password']

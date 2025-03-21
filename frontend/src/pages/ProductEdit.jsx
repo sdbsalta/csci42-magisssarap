@@ -1,80 +1,63 @@
 import React from "react";
-import NavBar from "../components/NavBar";
+import { Link } from "react-router-dom";
+import BackIcon from "../icons/back.svg";
+import PicPreview from "../img/picpreview.png";
 
 const ProductEdit = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-base-200">
-      {/* Main Content */}
-      <div className="w-full max-w-3xl p-8 text-center">
-        {/* Centered Heading */}
-        <h2 className="text-3xl font-bold bg-yellow-200 inline-block px-4 py-2 rounded-lg">
-          French Fries
-        </h2>
-
-        {/* Product Card */}
-        <div className="flex flex-col items-center mt-4 p-6 bg-white rounded-lg shadow-md w-fit mx-auto">
-          <div className="relative">
-            <img
-              src="/path/to/french-fries.png"
-              alt="French Fries"
-              className="w-40"
-            />
-            <div className="absolute top-2 left-2 bg-yellow-400 text-white px-2 py-1 rounded-full">
-              ⭐ 5.0
-            </div>
-            <button className="absolute top-2 right-2 text-lg">❤️</button>
-          </div>
-          <p className="font-bold">French Fries</p>
-          <p className="text-gray-500">Price: P100</p>
-          <button className="btn btn-error btn-sm mt-2">Edit</button>
-        </div>
-
-        <button className="btn btn-outline mt-4">Upload Display Image</button>
-
-        {/* Form */}
-        <div className="mt-6 max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
-          <label className="form-control w-full">
-            <span className="label-text font-bold">Name:</span>
-            <input type="text" className="input input-bordered w-full" defaultValue="French Fries" />
-          </label>
-
-          <label className="form-control w-full mt-3">
-            <span className="label-text font-bold">Category:</span>
-            <select className="select select-bordered w-full">
-              <option>Fast Food</option>
-            </select>
-          </label>
-
-          <label className="form-control w-full mt-3">
-            <span className="label-text font-bold">Price:</span>
-            <input type="text" className="input input-bordered w-full" defaultValue="P100" />
-          </label>
-
-          <label className="form-control w-full mt-3">
-            <span className="label-text font-bold">Available:</span>
-            <select className="select select-bordered w-full">
-              <option>Yes</option>
-              <option>No</option>
-            </select>
-          </label>
-
-          <div className="flex justify-between mt-6">
-            <button className="btn btn-outline">⬅ Back</button>
-            <div className="space-x-2">
-              <button className="btn btn-outline">Cancel</button>
-              <button className="btn btn-success">Save</button>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <p className="text-center text-gray-500 mt-8">
-          © 2025 - MagissSarap! All rights reserved.
-        </p>
-        <p className="text-center text-sm text-gray-400">
-          Home | Explore Restaurants | About Us | FAQs & Contact Us | Sign Up as a Merchant
-        </p>
+    <div className="flex flex-col items-center min-h-screen bg-[#fdf8f4] p-8 w-full relative">
+      <h1 className="text-dark text-3xl md:text-3xl font-semibold bg-secondary-20 px-5 py-2 rounded-xl">
+        French Fries
+      </h1>
+      <img
+        src={PicPreview}
+        alt="French Fries Preview"
+        className="w-64 h-64 object-contain mt-4"
+      />
+      <button className="bg-red-200 text-gray-800 px-4 py-2 mt-4 rounded-full font-semibold hover:bg-primary transition hover:text-white">
+        Upload Display Image
+      </button>
+      <div className="mt-6 w-[320px] space-y-4">
+        <input
+          type="text"
+          placeholder="Name: French Fries"
+          className="w-full p-3 input input-bordered bg-white text-black border-black rounded-lg"
+        />
+        <select className="input-bordered bg-white text-black border-black px-3 py-2 rounded-lg w-full border text-gray-500">
+          <option disabled selected>Category: Fast Food</option>
+          <option className="text-black">Fast Food</option>
+          <option className="text-black">Snacks</option>
+          <option className="text-black">Meals</option>
+          <option className="text-black">Beverages</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Price: P100"
+          className="w-full p-3 input input-bordered bg-white text-black border-black rounded-lg"
+        />
+        <select className="input-bordered bg-white text-black border-black px-3 py-2 rounded-lg w-full border text-gray-500">
+          <option disabled selected>Available: Yes</option>
+          <option className="text-black">Yes</option>
+          <option className="text-black">No</option>
+        </select>
       </div>
+      <div className="flex gap-4 mt-6 mb-12">
+        <Link to="/menu/edit">
+          <button className="border border-black px-6 py-2 rounded-full font-semibold hover:bg-primary hover:text-white transition">
+            Cancel
+          </button>
+        </Link>
+        <button className="bg-green-500 text-white px-6 py-2 rounded-full font-semibold hover:border hover:border-black hover:bg-green-600 transition">
+          Save
+        </button>
+      </div>
+      <Link to="/menu/edit" className="absolute left-6 bottom-4">
+        <img
+          src={BackIcon}
+          alt="Back"
+          className="w-12 h-12 hover:scale-110 transition-transform"
+        />
+      </Link>
     </div>
   );
 };

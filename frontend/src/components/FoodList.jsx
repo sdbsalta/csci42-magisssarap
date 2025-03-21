@@ -6,7 +6,7 @@ const FoodList = () => {
   const [foodItems, setFoodItems] = useState([]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/fooditems/")
+    axios.get("http://127.0.0.1:8000/api/food-items/")
       .then(response => {
         console.log("Fetched data:", response.data); // ✅ Check if data is retrieved
         setFoodItems(response.data);
@@ -16,13 +16,13 @@ const FoodList = () => {
 
   return (
     <div className="flex flex-wrap gap-4">
-      {foodItems.length === 0 && <p>No food items found.</p>}  {/* ✅ Check if array is empty */}
+      {foodItems.length === 0 && <p>No food items found.</p>}  
       {foodItems.map(food => (
         <FoodItem 
           key={food.id}
           FoodName={food.description}
           Price={`₱${food.price}`}
-          Location={food.restaurant}
+          Location={food.resto_name}
           Rating="4.5"
         />
       ))}

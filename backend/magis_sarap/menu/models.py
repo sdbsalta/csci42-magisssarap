@@ -13,6 +13,7 @@ class FoodItem(models.Model):
         on_delete=models.CASCADE, 
         related_name="food_items"
     )
+    name = models.CharField(max_length=100) # added name field hahaha -iya
     description = models.TextField(
         max_length=100,
         blank=False,
@@ -35,6 +36,11 @@ class FoodItem(models.Model):
         blank=False,
         null=False
     )
+    food_image = models.ImageField(
+        upload_to='food_images/', 
+        null=True, 
+        blank=True
+    )
 
     class Meta:
         unique_together = ("restaurant", "item_no")
@@ -44,3 +50,6 @@ class FoodItem(models.Model):
             last_item = FoodItem.objects.filter(restaurant=self.restaurant).aggregate(models.Max("item_no"))
             self.item_no = (last_item["item_no__max"] or 0) + 1  # Increment last item_id
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name

@@ -16,7 +16,7 @@ export const EditMenu = () => {
                 />
             </div>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <h1 className="text-black font-bold text-4xl md:text-5xl">
+                <h1 className="text-black font-semibold text-4xl md:text-5xl">
                     Welcome back, Name!
                 </h1>
 
@@ -34,12 +34,15 @@ export const EditMenu = () => {
             </div>
         </div>
         {/* Menu */}
-        <div className="bg-primary p-8 px-6 rounded-md flex flex-col items-center shadow-md">
-            <h1 className="text-3xl font-bold text-white mb-4">Menu</h1>
+        <div className="bg-primary p-8 px-6 rounded-md flex flex-col items-center shadow-lg">
+            <h1 className="text-center text-3xl md:text-3xl text-white mb-3">Menu</h1>
             <h2 className="text-l text-white mb-4">Click on a food item to edit its contents</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
                 {[...Array(6)].map((_, index) => (
-                    <Link to="/productedit" key={index} className="w-full">
+                    <Link 
+                        to="/productedit" 
+                        key={index} 
+                        className="w-full transform transition-transform hover:scale-105 hover:shadow-lg">
                         <FoodItem 
                             FoodName="Bacsilog"
                             Price="₱99"

@@ -6,7 +6,7 @@ const Logout = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/logout/", {
+      const response = await fetch("http://127.0.0.1:8000/api/logout/", {
         method: "POST",
         credentials: "include",  // cookies
         headers: {
@@ -35,10 +35,16 @@ const Logout = () => {
         </div>
         <div className="border-t border-white w-full"></div>
         <div className="flex w-full">
-          <button className="w-1/2 py-4 text-white font-semibold border-r border-white" onClick={() => navigate("/")}>
+          <button 
+            className="w-1/2 py-4 text-white font-semibold border-r border-white transition duration-200 hover:text-black" 
+            onClick={() => navigate("/")}
+          >
             No
           </button>
-          <button className="w-1/2 py-4 text-white font-semibold" onClick={handleLogout}>
+          <button 
+            className="w-1/2 py-4 text-white font-semibold transition duration-200 hover:text-black" 
+            onClick={handleLogout}
+          >
             Log Out
           </button>
         </div>

@@ -11,12 +11,14 @@ import ClipboardIcon from "../icons/clipboard.svg";
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
+  const [userType, setUserType] = useState(localStorage.getItem("userType") || "");
   const navigate = useNavigate();
 
   // Listen for custom events to detect login/logout
   useEffect(() => {
     const handleAuthChange = () => {
       setIsLoggedIn(!!localStorage.getItem("accessToken"));
+      setUserType(localStorage.getItem("userType") || "");
     };
 
     window.addEventListener("authChange", handleAuthChange);
@@ -40,9 +42,10 @@ const NavBar = () => {
 
       if (response.ok) {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("userType");
         setIsLoggedIn(false);
-        window.dispatchEvent(new Event("authChange")); // Notify all components
-        alert("You have successfully logged out!");
+        //window.dispatchEvent(new Event("authChange")); 
+        //alert("You have successfully logged out!");
         navigate("/login");
       } else {
         console.error("Logout failed", await response.json());
@@ -54,7 +57,7 @@ const NavBar = () => {
 
   return (
     <div className="h-screen w-48 bg-white text-black flex flex-col py-2 fixed">
-      <img src={Logo} alt="Home" className="w-52" />
+      <img src={Logo} alt="Home" className="w-52 py-2" />
       <nav className="flex flex-col space-y-4">
         <Link to="/" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
           <img src={HomeIcon} alt="Home" className="w-5 h-5" />
@@ -70,20 +73,30 @@ const NavBar = () => {
         </Link>
 
         {/* Show these links only if the user is logged in */}
+        {/* Authenticated User Links */}
         {isLoggedIn && (
           <>
-            <Link to="/orders/active" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
-              <img src={ShoppingBagIcon} alt="Shopping Bag" className="w-5 h-5" />
-              <span>My Orders</span>
-            </Link>
-            <Link to="/cart" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
-              <img src={CartIcon} alt="Cart" className="w-5 h-5" />
-              <span>Cart</span>
-            </Link>
-            <Link to="/order/active" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
-              <img src={ClipboardIcon} alt="Clipboard Icon" className="w-5 h-5" />
-              <span>Dashboard</span>
-            </Link>
+            {/* Customer: Only see Orders & Cart */}
+            {(userType === "Customer" || userType === "Admin") && (
+              <>
+                <Link to="/orders/active" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
+                  <img src={ShoppingBagIcon} alt="Shopping Bag" className="w-5 h-5" />
+                  <span>My Orders</span>
+                </Link>
+                <Link to="/cart" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
+                  <img src={CartIcon} alt="Cart" className="w-5 h-5" />
+                  <span>Cart</span>
+                </Link>
+              </>
+            )}
+
+            {/* Restaurant Owner: Only see Dashboard */}
+            {(userType === "Restaurant Owner" || userType === "Admin") && (
+              <Link to="/order/active" className="hover:bg-secondary-10 p-2 rounded-md flex items-center space-x-2">
+                <img src={ClipboardIcon} alt="Dashboard Icon" className="w-5 h-5" />
+                <span>Dashboard</span>
+              </Link>
+            )}
           </>
         )}
 

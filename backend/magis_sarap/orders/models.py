@@ -1,12 +1,15 @@
+from datetime import timezone
 from django.db import models
 from django.utils.timezone import now
 from django.contrib.auth import get_user_model
+from menu.models import FoodItem
 import uuid
 
 User = get_user_model()  
 
 class Order(models.Model):
     ORDER_STATUS_CHOICES = [
+        ('Pending', 'Pending'), # meaning di pako nagoorder - iya
         ('Order Placed', 'Order Placed'),
         ('Order Confirmed', 'Order Confirmed'),
         ('Order Cancelled', 'Order Cancelled'),
@@ -52,6 +55,12 @@ class Order(models.Model):
         max_digits=10,
         decimal_places=2
     )
+    notes = models.TextField(  # added new field for customer reqs - iya
+        blank=True,
+        null=True,
+        help_text="Special instructions or requests from the customer."
+    )
+
 
     def save(self, *args, **kwargs):
         if not self.order_id:
@@ -131,8 +140,34 @@ class Delivery(models.Model):
         ('Delivered', 'Delivered'),
         ]
     )
+    delivery_location = models.CharField(  # added field for delivery location - iya
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="Please follow proper naming conventions (e.g., CTC313, etc.) for the delivery address."
+    )
+
     estimated_time = models.DateTimeField(null=True, blank=True)
     delivered_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"Delivery for {self.order} - {self.status}"
+
+class CartItem(models.Model):
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart')
+    food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        unique_together = ('customer', 'food_item')
+    
+    def subtotal(self):
+        return self.food_item.price * self.quantity
+
+class Voucher(models.Model):
+    code = models.CharField(max_length=20, unique=True)
+    discount_percentage = models.FloatField(default=0.0)
+    valid_until = models.DateField()
+    
+    def is_valid(self):
+        return self.valid_until >= timezone.now().date()
