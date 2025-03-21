@@ -5,9 +5,12 @@ import MapPin from "../icons/MapPin.svg";
 import RatingIcon from "../icons/Rating.svg";
 
 const RestaurantCard = ({ Name, Location, Rating, Image }) => {
+  const formattedName = Name.toLowerCase().replace(/\s+/g, "-"); // for URL formatting
+
+
   return (
     <Link
-      to="/restaurants/view"
+      to={`/restaurants/${formattedName}`} 
       className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-transform transform hover:scale-105"
     >
       {/* Restaurant Image */}
