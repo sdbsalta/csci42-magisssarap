@@ -102,7 +102,7 @@ export const RestoOrdersActive = () => {
                                         </div>
                                         <span className="text-lg font-semibold">{order.order_id}</span>
                                     </div>
-                                    <Link to={`/order/details/${order.id}`}>
+                                    <Link to={`/order/details/${order.order_id}`}>
                                         <button className="bg-secondary text-white px-4 py-2 rounded-md font-semibold hover:bg-secondary-60">
                                             View Order
                                         </button>

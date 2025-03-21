@@ -5,7 +5,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics
 from rest_framework.views import APIView
 
-from .models import CartItem, Order, Order, CartItem, Voucher
+from .models import CartItem, Order, Order, CartItem, OrderItem, Voucher
 from users.models import RestaurantOwner  # Import from users app
 from restaurants.models import Restaurant  # Import Restaurant model
 from menu.models import FoodItem
@@ -17,7 +17,6 @@ from menu.models import FoodItem
 #########################################################
 # CUSTOMER VIEWS
 #########################################################
-
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     authentication_classes = [JWTAuthentication]
@@ -54,7 +53,7 @@ class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
             return Order.objects.get(order_id=order_id)  # Fetch using order_id
         except Order.DoesNotExist:
             raise Http404("Order not found")
-''''''
+
 class PendingOrderView(APIView): # checks if may order nako
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
@@ -114,7 +113,6 @@ class ApplyVoucherView(APIView):
 #########################################################
 # RESTAURANT VIEWS
 #########################################################
-
 class ActiveOrdersRestoView(generics.ListAPIView):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
