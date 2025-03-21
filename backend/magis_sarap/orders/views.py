@@ -257,7 +257,6 @@ class PastOrdersRestoView(APIView):
 class OrderDetailRestoView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
-    print("IM HEREE")
 
     def get(self, request, order_id):  # Accept order_id as a parameter
         print("\n=== OrderDetailRestoView ===")
