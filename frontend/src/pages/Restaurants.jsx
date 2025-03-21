@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SearchIcon from "../icons/search.svg";
 import RestaurantCard from "../components/RestaurantCard";
@@ -6,18 +6,19 @@ import ExploreCategories from "../components/ExploreCategories";
 
 export const Restaurants = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [restaurants, setRestaurants] = useState([]);
 
-  // iniba ok ung resot para matest ung filter
-  const allRestaurants = [
-    { name: "Ate Rica’s Bacsilog", location: "Gonzaga Cafeteria", rating: 5.0 },
-    { name: "Jollibee", location: "Katipunan Avenue", rating: 4.5 },
-    { name: "McDonald's", location: "UP Town Center", rating: 4.2 },
-    { name: "Mang Inasal", location: "Esteban Abada St.", rating: 4.8 },
-  ];
+  // Fetch restaurants from Django backend
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/restaurants/")
+      .then((response) => response.json())
+      .then((data) => setRestaurants(data))
+      .catch((error) => console.error("Error fetching restaurants:", error));
+  }, []);
 
-  // filter for search
-  const filteredRestaurants = allRestaurants.filter((restaurant) =>
-    restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  // Filter for search
+  const filteredRestaurants = restaurants.filter((restaurant) =>
+    restaurant.resto_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     restaurant.location.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -34,7 +35,7 @@ export const Restaurants = () => {
           type="text"
           placeholder="Search..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="input input-bordered bg-accent-20 text-black w-full border-black pl-10"
         />
       </div>
@@ -49,12 +50,12 @@ export const Restaurants = () => {
         {filteredRestaurants.length === 0 ? (
           <p className="text-center text-gray-600">No restaurants found.</p>
         ) : (
-          filteredRestaurants.map((restaurant, index) => (
+          filteredRestaurants.map((restaurant) => (
             <RestaurantCard
-              key={index}
-              Name={restaurant.name}
+              key={restaurant.resto_id}
+              Name={restaurant.resto_name}
               Location={restaurant.location}
-              Rating={restaurant.rating}
+              Rating={restaurant.rating || "N/A"}
             />
           ))
         )}
